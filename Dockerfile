@@ -26,3 +26,8 @@ COPY install_conda_package.sh /root/install_conda_package.sh
 RUN chmod 755 /root/install_conda_package.sh
 RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && /root/install_conda_package.sh
 
+
+COPY install_others.sh /root/install_others.sh
+RUN chmod 755 /root/install_others.sh
+RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && /root/install_others.sh
+
