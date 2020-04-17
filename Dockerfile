@@ -30,7 +30,7 @@ RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && /root/instal
 
 COPY install_others.sh /root/install_others.sh
 RUN chmod 755 /root/install_others.sh
-#RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && /root/install_others.sh
+RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && /root/install_others.sh
 
 
 # new item here
