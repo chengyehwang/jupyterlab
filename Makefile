@@ -1,7 +1,8 @@
+IP=$(shell hostname -I | awk '{print $$1}')
 docker_build:
 	docker build -t jupyterlab:latest .
 docker_run:
-	docker run -p 8888:8888 -t jupyterlab /root/start_jupyterlab.sh
+	docker run -p 8888:8888 -t jupyterlab /root/start_jupyterlab.sh $(IP)
 	#docker run -p 8888:8888 -i -t jupyterlab
 docker_image:
 	docker image ls -a
@@ -10,8 +11,8 @@ docker_save:
 docker_test:
 	docker import jupyterlab.tgz jupyterlab:test
 docker_clean:
-	-docker stop $(docker ps -a -q)
-	-docker rm $(docker ps -a -q)
+	-docker stop $(shell docker ps -a -q)
+	-docker rm $(shell docker ps -a -q)
 docker_all_clean:
 	docker system prune
 docker_push:
