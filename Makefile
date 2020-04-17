@@ -22,3 +22,4 @@ docker_push:
 	docker push chengyehwang/jupyterlab
 docker_pull:
 	docker pull chengyehwang/jupyterlab
+	docker tag chengyehwang/jupyterlab jupyterlab
