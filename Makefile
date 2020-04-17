@@ -1,7 +1,7 @@
 docker_build:
 	docker build -t jupyterlab:latest .
 docker_run:
-	docker run -i -t jupyterlab
+	docker run -p 8888:8888 -i -t jupyterlab
 docker_image:
 	docker image ls -a
 docker_save:
