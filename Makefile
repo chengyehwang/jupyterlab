@@ -1,9 +1,10 @@
 IP=$(shell hostname -I | awk '{print $$1}')
 docker_build:
 	docker build -t jupyterlab:latest .
-docker_run:
-	docker run -p 8888:8888 -t jupyterlab /root/start_jupyterlab.sh $(IP)
-	#docker run -p 8888:8888 -i -t jupyterlab
+docker_server:
+	docker run -p 8888:8888 -w /root -t jupyterlab /root/start_jupyterlab.sh $(IP)
+docker_shell:
+	docker run -p 8888:8888 -i -t jupyterlab
 docker_image:
 	docker image ls -a
 docker_save:
