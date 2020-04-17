@@ -11,3 +11,9 @@ docker_test:
 docker_clean:
 	docker system prune
 	docker container rm jupyterlab
+docker_push:
+	docker login
+	docker tag jupyterlab chengyehwang/jupyterlab
+	docker push chengyehwang/jupyterlab
+docker_pull:
+	docker pull chengyehwang/jupyterlab
