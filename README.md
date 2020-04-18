@@ -23,6 +23,10 @@ Key features:
     * data processing (table process, show chart)
 4. cython is ready for speed
     * speedup by C level integration
-5. demo.py is provided to demo: jupytext, pandas table, plotly chart
+5. demo.py is provided to demo:
+    * jupytext to handle .py
+    * pandas to handle table
+    * plotly to show chart
+    * jupyterlab-toc to show [table of contents](http://github.com/jupyterlab/jupyterlab-toc)
 
 ![image](https://github.com/chengyehwang/jupyterlab/blob/master/jupyter_demo.png)
