@@ -21,26 +21,25 @@ RUN echo "conda activate" >> ~/.bashrc
 
 SHELL ["/bin/bash", "-c", "-l"]
 
-# jupyterlab
+# conda major packages, including jupyterlab
 COPY install_conda_package.sh /root/install_conda_package.sh
 RUN chmod 755 /root/install_conda_package.sh
 RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && /root/install_conda_package.sh
 
-#
-
+# pip, jupyterlab extension or others
 COPY install_others.sh /root/install_others.sh
 RUN chmod 755 /root/install_others.sh
 RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && /root/install_others.sh
 
-
 # new item here
 RUN apt install net-tools
 
-# start jupyterlab
+# script to enable jupyterlab
 COPY start_jupyterlab.sh /root/start_jupyterlab.sh
 RUN chmod 755 /root/start_jupyterlab.sh
 
 # clean to reduce image size
 RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && conda clean -afy
 
+# basic tool
 RUN apt-get install vim git make -y

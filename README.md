@@ -23,6 +23,14 @@ Key features:
     * data processing (table process, show chart)
 4. cython is ready for speed
     * speedup by C level integration
+5. Reduce image size
+    * Based on Docker [Ubuntu](https://hub.docker.com/_/ubuntu)
+    * Based on [Miniconda](https://docs.conda.io/en/latest/miniconda.html)
+    * Add extra Ubuntu packages and Conda packages by Docker command
+    * You could customize what you need
+    ** Create a new docker
+    ** Run time
+
 5. demo.py is provided to demo:
     * jupytext to handle .py
     * pandas to handle table
