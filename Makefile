@@ -12,7 +12,7 @@ stop:
 build:
 	docker build -t jupyterlab:latest .
 shell:
-	docker run -i -t jupyterlab
+	docker run -i --mount src=`pwd`,target=/jupyterlab,type=bind -w /jupyterlab -t jupyterlab
 push:
 	docker login
 	docker tag jupyterlab chengyehwang/jupyterlab

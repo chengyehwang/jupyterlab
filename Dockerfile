@@ -43,4 +43,4 @@ RUN chmod 755 /root/start_jupyterlab.sh
 # clean to reduce image size
 RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && conda clean -afy
 
-RUN apt-get install vim git -y
+RUN apt-get install vim git make -y
