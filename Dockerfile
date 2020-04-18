@@ -38,8 +38,10 @@ RUN apt install net-tools
 COPY start_jupyterlab.sh /root/start_jupyterlab.sh
 RUN chmod 755 /root/start_jupyterlab.sh
 
-# clean to reduce image size
-RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && conda clean -afy
-
 # basic tool
 RUN apt-get install vim git make -y
+
+# clean to reduce image size
+RUN apt clean
+RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && conda clean -afy
+
