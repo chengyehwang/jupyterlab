@@ -28,8 +28,13 @@ Key features:
     * Based on [Miniconda](https://docs.conda.io/en/latest/miniconda.html)
     * Add extra Ubuntu packages and Conda packages by Docker command
     * You could customize what you need
-    ** Create a new docker
-    ** Run time
+        * Create a new docker
+            * Fork git (https://github.com/chengyehwang/jupyterlab)
+            * Refine Dockerfile and shell scripts *.sh
+            * "make build" to build new image
+        * Run time
+            * wget / vim / git / make is ready to install
+            * "make shell" to enter container
 
 5. demo.py is provided to demo:
     * jupytext to handle .py
