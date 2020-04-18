@@ -16,8 +16,13 @@ Steps to create jupyterlab server:
 
 Key features:
 1. working directory shared between docker and host
+-- install your tools in host and process by yourself
 2. jupyterlab server is running on docker and extensions are enabled
+-- jupytext for git diff, show table of content, show variables for debug
 3. python3 packages: pandas, plotly are ready
+-- data processing (table process, show chart)
 4. cython is ready for speed
+-- speedup by C level integration
 5. demo.py is provided to demo: jupytext, pandas table, plotly chart
-![image](https://github.com/chengyehwang/jupyterlab/blob/master/jupyterlab_demo.png)
+
+![image](https://github.com/chengyehwang/jupyterlab/blob/master/jupyter_demo.png)
