@@ -1,6 +1,6 @@
 # Python + JupyterLab + Conda + Docker
 
-Keyword:
+Key components:
 1. Programming lanurage: [Python3](http://python.org)
 1. Interactive computing: [Jupyter](http://jupyter.org)
 2. Package management: [Conda](http://anaconda.com)
@@ -20,3 +20,4 @@ Key features:
 3. python3 packages: pandas, plotly are ready
 4. cython is ready for speed
 5. demo.py is provided to demo: jupytext, pandas table, plotly chart
+![image](https://github.com/chengyehwang/jupyterlab/blob/master/jupyterlab_demo.png)
