@@ -8,11 +8,11 @@ Key components:
 
 
 Steps to create jupyterlab server:
-1. git clone https://github.com/chengyehwang/jupyterlab
+1. download git by git clone https://github.com/chengyehwang/jupyterlab
 2. cd jupyterlab
-3. make pull
-4. make run
-5. open the link (url) by browser
+3. download docker image: make pull
+4. run jupyterlab: make run
+5. copy the link http://xxxx:8888#?token=yyyy and open by browser
 
 Key features:
 1. working directory shared between docker and host
