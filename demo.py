@@ -49,18 +49,24 @@ print(a)
 # # SQL access
 
 # %%
-# %load_ext sql
+import sqlite3
 
 # %%
-# %sql sqlite://
-
-# %% language="sql"
-# CREATE TABLE EMPLOYEE(firstname varchar(50),lastname varchar(50));  
-# INSERT INTO EMPLOYEE VALUES('Tom','Mitchell');  
-# INSERT INTO EMPLOYEE VALUES('Jack','Ryan');
+# !rm test.db
 
 # %%
-out = %sql select * from employee
+cur = sqlite3.connect('test.db').cursor()
+
+# %%
+cur.executescript('''
+CREATE TABLE EMPLOYEE(firstname varchar(50),lastname varchar(50));
+INSERT INTO EMPLOYEE VALUES('Tom','Mitchell');
+INSERT INTO EMPLOYEE VALUES('Jack','Ryan');
+''');
+
+# %%
+cur.execute("SELECT * FROM EMPLOYEE")
+out = cur.fetchall()
 out
 
 # %%

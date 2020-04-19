@@ -37,6 +37,11 @@ RUN apt install net-tools
 # basic tool
 RUN apt-get install vim git make gcc -y
 
+# quickly build and test
+COPY install_try.sh /root/install_try.sh
+RUN chmod 755 /root/install_try.sh
+RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && /root/install_try.sh
+
 # clean to reduce image size
 RUN apt clean
 RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && conda clean -afy
