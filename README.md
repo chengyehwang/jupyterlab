@@ -23,20 +23,26 @@ Key features:
     * data processing (table process, show chart)
 4. cython is ready for speed
     * speedup by C level integration
-5. reduce image size
+5. switch between interactive and command line
+    * jupyterlab for interactive "make run"
+    * ipython for command line "make cmd"
+6. Debugging by [jupyterlab-debugger](https://github.com/jupyterlab/debugger)
+    * normal mode by kernel "Python 3"
+    * debugging mode by kernel "xpython"
+7. reduce image size
     * Based on Docker [Ubuntu](https://hub.docker.com/_/ubuntu)
     * Based on [Miniconda](https://docs.conda.io/en/latest/miniconda.html)
     * Add extra Ubuntu packages and Conda packages by Docker command
-6. easy to customize your packages
-    * Create a new docker
+8. easy to customize your packages
+    * Create a customized docker
         * Fork git (https://github.com/chengyehwang/jupyterlab)
         * Refine Dockerfile and shell scripts *.sh
         * "make build" to build new image
     * Run time
-        * wget / vim / git / make is ready
+        * wget / vim / git / make is installed
         * "make shell" to enter container
 
-7. demo.py is provided to demo:
+9. demo.py is provided to demo:
     * jupytext to save as .py for diff
     * pandas to handle table and show
     * plotly to show chart
