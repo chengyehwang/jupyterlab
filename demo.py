@@ -20,7 +20,7 @@ import pandas as pd
 
 # %%
 data = pd.DataFrame({'a':[1,2,3],'b':[3,4,5]})
-data
+display(data)
 
 # %% [markdown]
 # # Chart by Plotly
@@ -31,28 +31,16 @@ import plotly.express as px
 # %%
 px.scatter(data, x='a', y='b')
 
-# %% [markdown]
-# # Cython
-
-# %%
-# %load_ext Cython
-
-# %%
-# %%cython
-
-cdef int a = 0
-for i in range(10):
-    a += i
-print(a)
 
 # %% [markdown]
 # # SQL access
 
 # %%
 import sqlite3
+import os
 
 # %%
-# !rm test.db
+os.remove('test.db')
 
 # %%
 cur = sqlite3.connect('test.db').cursor()
@@ -67,6 +55,6 @@ INSERT INTO EMPLOYEE VALUES('Jack','Ryan');
 # %%
 cur.execute("SELECT * FROM EMPLOYEE")
 out = cur.fetchall()
-out
+display(out)
 
 # %%
