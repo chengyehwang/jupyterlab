@@ -35,7 +35,7 @@ RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && /root/instal
 RUN apt install net-tools
 
 # basic tool
-RUN apt-get install vim git make -y
+RUN apt-get install vim git make gcc -y
 
 # clean to reduce image size
 RUN apt clean
