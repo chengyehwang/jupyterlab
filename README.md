@@ -29,6 +29,11 @@ Key features:
 6. Debugging by [jupyterlab-debugger](https://github.com/jupyterlab/debugger)
     * normal mode by kernel "Python 3"
     * debugging mode by kernel "xpython"
+7. Use Jupytext in Jupyterlab
+    * new notebook "Python 3" -> file Untitled.ipynb
+    * File/Save Notebook As -> your-file-name.py
+    * or Rename Notebook... -> your-file-name.py
+    * Access (open / save) your-file-name.py by Notebook
 7. reduce image size
     * Based on Docker [Ubuntu](https://hub.docker.com/_/ubuntu)
     * Based on [Miniconda](https://docs.conda.io/en/latest/miniconda.html)
