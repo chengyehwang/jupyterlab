@@ -56,5 +56,5 @@ COPY demo_module.py /root/demo_module.py
 COPY demo_cython.pyx /root/demo_cython.pyx
 
 # expose jupyterlab server
-EXPOSE 8888
+EXPOSE 8000-9000
 

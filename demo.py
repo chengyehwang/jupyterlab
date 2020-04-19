@@ -12,6 +12,9 @@
 #     name: python3
 # ---
 
+# %%
+# %load_ext snakeviz
+
 # %% [markdown]
 # # Pandas Table
 
@@ -70,5 +73,12 @@ import demo_cython
 # %%
 out = demo_cython.func(1,2)
 display(out)
+
+# %% [markdown]
+# # Speed Profling
+
+# %%
+# %%snakeviz
+data['a']=12
 
 # %%
