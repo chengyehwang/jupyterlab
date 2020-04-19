@@ -22,7 +22,7 @@ push:
 	docker tag jupyterlab chengyehwang/jupyterlab
 	docker push chengyehwang/jupyterlab
 clean:
-	docker system prune
+	docker system prune -a
 image:
 	docker image ls -a
 
