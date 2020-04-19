@@ -41,3 +41,9 @@ RUN apt-get install vim git make -y
 RUN apt clean
 RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && conda clean -afy
 
+# Data sync for users get image only
+COPY Dockerfile /root/Dockerfile
+COPY start_jupyterlab.sh /root/start_jupyterlab.sh
+COPY README.md /root/README.md
+COPY Makefile /root/Makefile
+COPY demo.py /root/demo.py
