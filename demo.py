@@ -16,7 +16,7 @@
 # %load_ext snakeviz
 
 # %% [markdown]
-# # Pandas Table
+# # Pandas table
 
 # %%
 import pandas as pd
@@ -75,7 +75,7 @@ out = demo_cython.func(1,2)
 display(out)
 
 # %% [markdown]
-# # Speed Profling
+# # Speed profiling
 
 # %%
 # %%snakeviz
