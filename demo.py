@@ -57,4 +57,18 @@ cur.execute("SELECT * FROM EMPLOYEE")
 out = cur.fetchall()
 display(out)
 
+# %% [markdown]
+# # Cython integration
+
+# %%
+import pyximport
+pyximport.install(pyimport=True, language_level=3)
+
+# %%
+import demo_cython
+
+# %%
+out = demo_cython.func(1,2)
+display(out)
+
 # %%
