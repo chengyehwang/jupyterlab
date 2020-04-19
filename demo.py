@@ -35,6 +35,15 @@ import plotly.express as px
 px.scatter(data, x='a', y='b')
 
 
+# %%
+import plotly.graph_objects as go
+fig = go.Figure()
+fig.add_trace(go.Scatter(
+    x=data['a'],
+    y=data['b']
+))
+fig.show()
+
 # %% [markdown]
 # # SQL access
 
@@ -79,6 +88,7 @@ display(out)
 
 # %%
 # %%snakeviz
-data['a']=12
+data['t']=12
 
 # %%
+# 
