@@ -45,4 +45,22 @@ for i in range(10):
     a += i
 print(a)
 
+# %% [markdown]
+# # SQL access
+
+# %%
+# %load_ext sql
+
+# %%
+# %sql sqlite://
+
+# %% language="sql"
+# CREATE TABLE EMPLOYEE(firstname varchar(50),lastname varchar(50));  
+# INSERT INTO EMPLOYEE VALUES('Tom','Mitchell');  
+# INSERT INTO EMPLOYEE VALUES('Jack','Ryan');
+
+# %%
+out = %sql select * from employee
+out
+
 # %%
