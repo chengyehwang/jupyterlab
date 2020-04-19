@@ -52,3 +52,4 @@ COPY start_jupyterlab.sh /root/start_jupyterlab.sh
 COPY README.md /root/README.md
 COPY Makefile /root/Makefile
 COPY demo.py /root/demo.py
+COPY demo_cython.pyx /root/demo_cython.pyx

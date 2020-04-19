@@ -22,7 +22,8 @@ Key features:
 3. python3 packages: pandas, plotly are ready
     * data processing (table process, show chart)
 4. cython is ready for speed
-    * speedup by C level integration
+    * speedup kernel function by C level
+    * compile and load module when needed
 5. switch between interactive and command line
     * jupyterlab for interactive "make run"
     * ipython for command line "make cmd"
@@ -46,7 +47,18 @@ Key features:
     * Run time
         * wget / vim / git / make is installed
         * "make shell" to enter container
-
+9. use Makefile to maintain commands
+    * run process:
+        * make pull: get image from docker hub
+        * make run: run jupyterlab server in container
+        * make cmd: run ipython demo.py in container
+        * make stop: stop and kill all docker jobs
+    * develop process:
+        * make build: build docker image
+        * make shell: run shell in container
+        * make push: push image to docker hub
+        * make clean: remove images
+        * make image: list images
 9. demo.py is provided to demo:
     * jupytext to save as .py for diff
     * pandas to handle table and show
