@@ -4,7 +4,7 @@ pull:
 	docker pull chengyehwang/jupyterlab
 	docker tag chengyehwang/jupyterlab jupyterlab
 run:
-	docker run -p 8888:8888 --mount src=`pwd`,target=/jupyterlab,type=bind -w /jupyterlab -t jupyterlab /root/start_jupyterlab.sh $(IP)
+	docker run -p 8888:8888 --mount src=`pwd`,target=/jupyterlab,type=bind -w /jupyterlab -t jupyterlab /jupyterlab/start_jupyterlab.sh $(IP)
 stop:
 	-docker stop $(shell docker ps -a -q)
 	-docker rm $(shell docker ps -a -q)
@@ -21,3 +21,4 @@ clean:
 	docker system prune
 image:
 	docker image ls -a
+

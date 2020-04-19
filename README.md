@@ -37,8 +37,8 @@ Key features:
         * "make shell" to enter container
 
 7. demo.py is provided to demo:
-    * jupytext to handle .py
-    * pandas to handle table
+    * jupytext to save as .py for diff
+    * pandas to handle table and show
     * plotly to show chart
     * jupyterlab-toc to show [table of contents](http://github.com/jupyterlab/jupyterlab-toc)
 
