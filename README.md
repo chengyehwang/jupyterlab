@@ -2,9 +2,9 @@
 
 Key components:
 1. Programming lanurage: [Python3](http://python.org)
-1. Interactive computing: [Jupyter](http://jupyter.org)
-2. Package management: [Conda](http://anaconda.com)
-3. Deploy the environment: [Docker](http://www.docker.com)
+2. Interactive computing: [Jupyter](http://jupyter.org)
+3. Package management: [Conda](http://anaconda.com)
+4. Deploy the environment: [Docker](http://www.docker.com)
 
 
 Steps to create jupyterlab server:
@@ -65,4 +65,4 @@ Key features:
     * plotly to show chart
     * jupyterlab-toc to show [table of contents](http://github.com/jupyterlab/jupyterlab-toc)
 
-![image](https://github.com/chengyehwang/jupyterlab/blob/master/jupyter_demo.png)
+[image](https://github.com/chengyehwang/jupyterlab/blob/master/jupyter_demo.png)
