@@ -35,11 +35,23 @@ Key features:
     * File/Save Notebook As -> your-file-name.py
     * or Rename Notebook... -> your-file-name.py
     * Access (open / save) your-file-name.py by Notebook
-8. reduce image size
+8. Electron
+    * Plotly to image [Orca](https://github.com/plotly/orca)
+9. Design Pattern
+    * Data source
+        * Database
+        * [SSHFS](https://github.com/libfuse/sshfs)
+    * Process - interactive
+        * Pandas DataFrame
+        * Plotly Chart
+    * Report
+        * Excel: [openpyxl](https://openpyxl.readthedocs.io/en/stable/)
+        * PPT: [python-pptx](https://python-pptx.readthedocs.io/en/latest/)
+10. reduce image size
     * Based on Docker [Ubuntu](https://hub.docker.com/_/ubuntu)
     * Based on [Miniconda](https://docs.conda.io/en/latest/miniconda.html)
     * Add extra Ubuntu packages and Conda packages by Docker command
-9. easy to customize your packages
+11. easy to customize your packages
     * Create a customized docker
         * Fork git (https://github.com/chengyehwang/jupyterlab)
         * Refine Dockerfile and shell scripts *.sh
@@ -47,7 +59,9 @@ Key features:
     * Run time
         * wget / vim / git / make is installed
         * "make shell" to enter container
-10. use Makefile to maintain commands
+    * trade-off between package coverage and image size
+        * database: sqlite, postgresql, or mongo
+12. use Makefile to maintain commands
     * run process:
         * make pull: get image from docker hub
         * make run: run jupyterlab server in container
@@ -59,7 +73,7 @@ Key features:
         * make push: push image to docker hub
         * make clean: remove images
         * make image: list images
-11. demo.py is provided to demo:
+13. demo.py is provided to demo:
     * jupytext to save as .py for diff
     * pandas to handle table and show
     * plotly to show chart

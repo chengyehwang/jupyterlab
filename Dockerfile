@@ -42,6 +42,16 @@ COPY install_try.sh /root/install_try.sh
 RUN chmod 755 /root/install_try.sh
 RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && /root/install_try.sh
 
+RUN export DEBIAN_FRONTEND=noninteractive && apt-get install -y libgtk2.0-0 && \
+    apt-get install -y libnotify-dev && \
+    apt-get install -y libgconf-2-4 && \
+    apt-get install -y libnss3
+
+# for customization
+COPY install_custom.sh /root/install_custom.sh
+RUN chmod 755 /root/install_custom.sh
+RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && /root/install_custom.sh
+
 # clean to reduce image size
 RUN apt clean
 RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && conda clean -afy
