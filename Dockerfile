@@ -1,4 +1,4 @@
-FROM ubuntu:19.10
+FROM ubuntu:20.04
 MAINTAINER ChengYehWang
 
 # env for installation
@@ -68,3 +68,9 @@ COPY demo_cython.pyx /root/demo_cython.pyx
 # expose jupyterlab server
 EXPOSE 8000-9000
 
+RUN apt-get install -y x11-apps
+
+#RUN adduser jupyter
+
+#USER jupyter
+#workdir /home/jupyter
