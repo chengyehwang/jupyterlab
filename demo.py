@@ -62,7 +62,8 @@ import sqlite3
 import os
 
 # %%
-os.remove('test.db')
+if os.path.exists('test.db'):
+    os.remove('test.db')
 
 # %%
 cur = sqlite3.connect('test.db').cursor()
