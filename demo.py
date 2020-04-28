@@ -14,6 +14,7 @@
 
 # %%
 # %load_ext snakeviz
+import requests
 
 # %% [markdown]
 # # Pandas table
@@ -43,6 +44,15 @@ fig.add_trace(go.Scatter(
     y=data['b']
 ))
 fig.show()
+
+# %% [markdown]
+# # Show image
+
+# %%
+import plotly.io as pio
+from IPython.display import SVG, display
+img_bytes = pio.to_image(fig, format="svg")
+display(SVG(img_bytes))
 
 # %% [markdown]
 # # SQL access
@@ -89,6 +99,3 @@ display(out)
 # %%
 # %%snakeviz
 data['t']=12
-
-# %%
-# 
