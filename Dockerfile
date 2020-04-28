@@ -52,6 +52,9 @@ COPY install_custom.sh /root/install_custom.sh
 RUN chmod 755 /root/install_custom.sh
 RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && /root/install_custom.sh
 
+COPY install_novnc.sh /root/install_novnc.sh
+RUN chmod 755 /root/install_novnc.sh
+RUN  source ~/miniconda3/etc/profile.d/conda.sh && conda activate && /root/install_novnc.sh
 # clean to reduce image size
 RUN apt clean
 RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && conda clean -afy
@@ -69,6 +72,7 @@ COPY demo_cython.pyx /root/demo_cython.pyx
 EXPOSE 8000-9000
 
 RUN apt-get install -y x11-apps
+
 
 #RUN adduser jupyter
 
