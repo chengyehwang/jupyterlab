@@ -6,6 +6,7 @@ apt-get install -y tightvncserver
 
 mkdir -p /root/.vnc
 echo "123456" | tightvncpasswd -f >  /root/.vnc/passwd
+chmod 700 /root/.vnc/passwd
 export USER=root
 vncserver &
 echo "xhost +" >> /root/.vnc/xstartup
