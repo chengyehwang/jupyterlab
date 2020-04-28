@@ -12,5 +12,7 @@ export DISPLAY=:1
 x11vnc -forever -ncache 10 -display ${DISPLAY} -xkb -nopw -N >& vnc.log &
 /opt/novnc/utils/launch.sh --vnc ${host_ext}:5901 --listen 8880 >& novnc.log &
 
+echo "novnc access http://${host_ext}:8880/vnc.html"
+
 jupyter-lab --ip=$host --allow-root --no-browser 2>&1 | (trap '' INT ; exec sed -u "s@\(\s*\)http://$host:8888\(.*\)@\1http://$host_ext:8888\2\n\1or http://$host:8888\2\n@g")
 
