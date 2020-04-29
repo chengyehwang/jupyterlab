@@ -28,6 +28,6 @@ image:
 	docker image ls -a
 SHELL := /bin/bash
 test:
-	cd a ; time ../show.py > log &
-	cd c ; time ../show.py > log &
+	cd a ; time ../show.py >& log &
+	cd c ; time ../show.py >& log &
 
