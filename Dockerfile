@@ -71,7 +71,7 @@ COPY demo_cython.pyx /root/demo_cython.pyx
 # expose jupyterlab server
 EXPOSE 8000-9000
 
-RUN apt-get install -y x11-apps
+RUN apt-get install -y x11-app psmisc
 
 
 #RUN adduser jupyter
