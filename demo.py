@@ -50,9 +50,14 @@ fig.show()
 
 # %%
 import plotly.io as pio
-from IPython.display import SVG, display
+from IPython.display import SVG, display, Image
 img_bytes = pio.to_image(fig, format="svg")
 display(SVG(img_bytes))
+
+# %%
+from export_image import fig_to_png
+fig_to_png(fig,'out.png')
+Image(filename='out.png')
 
 # %% [markdown]
 # # SQL access
