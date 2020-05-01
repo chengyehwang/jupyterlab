@@ -15,12 +15,12 @@ def fig_to_png(fig, out_file):
     os.remove(temp_name)
 
 if __name__ == '__main__':
-    len = 5000
+    len = 500000
     x = [i for i in range(len)]
     y = [len-i for i in range(len)]
     size = [10 for i in range(len)]
 
-    fig = go.Figure(data=[go.Scatter(
+    fig = go.Figure(data=[go.Scattergl(
         x=x, y=y,
         mode='markers',
         marker_size=size)

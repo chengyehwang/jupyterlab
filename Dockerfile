@@ -3,7 +3,7 @@ MAINTAINER ChengYehWang
 
 # env for installation
 RUN apt update 
-RUN apt install wget python -y
+RUN apt install wget python net-tools vim git make gcc -y
 RUN cd /root
 
 # install trace_processor
@@ -32,10 +32,6 @@ RUN chmod 755 /root/install_others.sh
 RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && /root/install_others.sh
 
 # new item here
-RUN apt install net-tools
-
-# basic tool
-RUN apt-get install vim git make gcc -y
 
 # quickly build and test
 COPY install_try.sh /root/install_try.sh

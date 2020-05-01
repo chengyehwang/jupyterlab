@@ -63,6 +63,9 @@ Image(filename='out.png')
 # # SQL access
 
 # %%
+# python database api specification v2.0
+
+# %%
 import sqlite3
 import os
 
@@ -105,3 +108,5 @@ display(out)
 # %%
 # %%snakeviz
 data['t']=12
+
+# %%
