@@ -54,6 +54,7 @@ RUN  source ~/miniconda3/etc/profile.d/conda.sh && conda activate && /root/insta
 # clean to reduce image size
 RUN apt clean
 RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && conda clean -afy
+COPY plugin.jupyterlab-settings /root/.jupyter/lab/user-settings/@renku/jupyterlab-vnc/plugin.jupyterlab-settings
 
 # Data sync for users get image only
 COPY Dockerfile /root/Dockerfile
