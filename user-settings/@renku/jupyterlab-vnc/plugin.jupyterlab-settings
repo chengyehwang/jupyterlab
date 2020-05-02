@@ -1,0 +1,5 @@
+{
+    "virtualDesktopConfig": {
+        "url": "http://192.168.0.189:6080/vnc_lite.html"
+    }
+}
