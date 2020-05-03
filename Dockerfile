@@ -56,6 +56,12 @@ RUN apt clean
 RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && conda clean -afy
 COPY plugin.jupyterlab-settings /root/.jupyter/lab/user-settings/@renku/jupyterlab-vnc/plugin.jupyterlab-settings
 
+
+#RUN cp renku-jupyterlab-vnc/docker/desktop.conf /etc/supervisor/conf.d/
+#RUN mkdir -p /usr/local/bin/start-notebook.d
+#RUN cp renku-jupyterlab-vnc/docker/start-supervisord.sh /usr/local/bin/start-notebook.d/start-supervisord.sh
+
+
 # Data sync for users get image only
 COPY Dockerfile /root/Dockerfile
 COPY start_jupyterlab.sh /root/start_jupyterlab.sh
@@ -68,7 +74,8 @@ COPY demo_cython.pyx /root/demo_cython.pyx
 # expose jupyterlab server
 EXPOSE 8000-9000
 
-RUN apt-get install -y x11-apps psmisc
+RUN apt-get upgrade -y
+RUN apt-get install -y x11-apps psmisc sudo
 
 
 #RUN adduser jupyter
