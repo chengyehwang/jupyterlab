@@ -1,4 +1,5 @@
 conda install -y jupyter-server-proxy
+jupyter serverextension enable --sys-prefix jupyter_server_proxy
 jupyter labextension install @jupyterlab/server-proxy
 jupyter labextension uninstall nbdime-jupyterlab
 
