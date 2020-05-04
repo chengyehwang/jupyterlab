@@ -5,7 +5,7 @@ Key components:
 2. Interactive computing: [Jupyter](http://jupyter.org)
 3. Package management: [Conda](http://anaconda.com)
 4. Deploy the environment: [Docker](http://www.docker.com)
-
+5. VNC server: [noVNC](https://github.com/novnc/noVNC)
 
 Steps to create jupyterlab server:
 1. download git by git clone https://github.com/chengyehwang/jupyterlab
