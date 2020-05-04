@@ -1,4 +1,4 @@
-conda install ptvsd openssl=1.1.1g xeus-python notebook jupyterlab-git -y
+conda install ptvsd openssl=1.1.1g xeus-python=0.6.7 notebook>=6 jupyterlab-git -y
 
 pip install aiohttp_swagger aiopg cufflinks simpy graphviz Dumper
 
