@@ -109,4 +109,19 @@ display(out)
 # %%snakeviz
 data['t']=12
 
+# %% [markdown] Collapsed="false"
+# # Widget
+
+# %% Collapsed="false"
+import ipywidgets as widgets
+
+# %% Collapsed="false"
+slider = widgets.IntSlider()
+output = widgets.Output()
+display(slider,output)
+def on_value_change(change):
+    with output:
+        print(change['new'])
+slider.observe(on_value_change, names='value')
+
 # %% Collapsed="false"
