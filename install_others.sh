@@ -1,4 +1,4 @@
-conda install -y ptvsd openssl=1.1.1g xeus-python notebook jupyterlab_code_formatter
+conda install -y ptvsd openssl=1.1.1g xeus-python notebook jupyterlab_code_formatter black isort
 pip install --upgrade pip
 pip install aiohttp_swagger aiopg cufflinks simpy graphviz Dumper jupyterlab-git
 

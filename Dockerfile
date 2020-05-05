@@ -1,9 +1,10 @@
 FROM ubuntu:20.04
 MAINTAINER ChengYehWang
 
-# env for installation
+# basic apt installation
 RUN apt update 
-RUN apt install wget python net-tools vim git make gcc -y
+RUN apt-get upgrade -y
+RUN export DEBIAN_FRONTEND=noninteractive && apt-get install -y x11-apps psmisc sudo sshfs wget python net-tools vim git make gcc
 RUN cd /root
 
 # install trace_processor
@@ -31,6 +32,13 @@ COPY install_others.sh /root/install_others.sh
 RUN chmod 755 /root/install_others.sh
 RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && /root/install_others.sh
 
+# novnc
+COPY install_novnc.sh /root/install_novnc.sh
+RUN chmod 755 /root/install_novnc.sh
+RUN  source ~/miniconda3/etc/profile.d/conda.sh && conda activate && /root/install_novnc.sh
+
+
+
 # new item here
 
 # quickly build and test
@@ -38,25 +46,21 @@ COPY install_try.sh /root/install_try.sh
 RUN chmod 755 /root/install_try.sh
 RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && /root/install_try.sh
 
-RUN export DEBIAN_FRONTEND=noninteractive && apt-get install -y libgtk2.0-0 && \
-    apt-get install -y libnotify-dev && \
-    apt-get install -y libgconf-2-4 && \
-    apt-get install -y libnss3
+#RUN export DEBIAN_FRONTEND=noninteractive && apt-get install -y libgtk2.0-0 && \
+#    apt-get install -y libnotify-dev && \
+#    apt-get install -y libgconf-2-4 && \
+#    apt-get install -y libnss3
 
 # for customization
 COPY install_custom.sh /root/install_custom.sh
 RUN chmod 755 /root/install_custom.sh
 RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && /root/install_custom.sh
 
-COPY install_novnc.sh /root/install_novnc.sh
-RUN chmod 755 /root/install_novnc.sh
-RUN  source ~/miniconda3/etc/profile.d/conda.sh && conda activate && /root/install_novnc.sh
 # clean to reduce image size
 RUN apt clean
 RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && conda clean -afy
 
-
-# Data sync for users get image only
+# Data sync for users who get image only
 COPY Dockerfile /root/Dockerfile
 COPY start_jupyterlab.sh /root/start_jupyterlab.sh
 COPY README.md /root/README.md
@@ -67,9 +71,6 @@ COPY demo_cython.pyx /root/demo_cython.pyx
 
 # expose jupyterlab server
 EXPOSE 8000-9000
-
-RUN apt-get upgrade -y
-RUN apt-get install -y x11-apps psmisc sudo sshfs
 
 
 #RUN adduser jupyter
