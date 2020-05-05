@@ -23,7 +23,7 @@ import requests
 import pandas as pd
 
 # %%
-data = pd.DataFrame({'a':[1,2,3],'b':[3,4,5]})
+data = pd.DataFrame({'a': [1, 2, 3], 'b': [3, 4, 5]})
 display(data)
 
 # %% [markdown]
@@ -56,7 +56,7 @@ display(SVG(img_bytes))
 
 # %%
 from export_image import fig_to_png
-fig_to_png(fig,'out.png')
+fig_to_png(fig, 'out.png')
 Image(filename='out.png')
 
 # %% [markdown]
@@ -81,7 +81,8 @@ cur.executescript('''
 CREATE TABLE EMPLOYEE(firstname varchar(50),lastname varchar(50));
 INSERT INTO EMPLOYEE VALUES('Tom','Mitchell');
 INSERT INTO EMPLOYEE VALUES('Jack','Ryan');
-''');
+''')
+;
 
 # %%
 cur.execute("SELECT * FROM EMPLOYEE")
@@ -99,7 +100,7 @@ pyximport.install(pyimport=True, language_level=3)
 import demo_cython
 
 # %%
-out = demo_cython.func(1,2)
+out = demo_cython.func(1, 2)
 display(out)
 
 # %% [markdown]
@@ -107,7 +108,7 @@ display(out)
 
 # %%
 # %%snakeviz
-data['t']=12
+data['t'] = 12
 
 # %% [markdown]
 # # Widget
@@ -118,8 +119,12 @@ import ipywidgets as widgets
 # %%
 slider = widgets.IntSlider()
 output = widgets.Output()
-display(slider,output)
+display(slider, output)
+
+
 def on_value_change(change):
     with output:
         print(change['new'])
+
+
 slider.observe(on_value_change, names='value')
