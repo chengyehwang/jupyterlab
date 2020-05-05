@@ -28,9 +28,9 @@ RUN chmod 755 /root/install_conda_package.sh
 RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && /root/install_conda_package.sh
 
 # pip, jupyterlab extension or others
-COPY install_others.sh /root/install_others.sh
-RUN chmod 755 /root/install_others.sh
-RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && /root/install_others.sh
+COPY install_ext.sh /root/install_ext.sh
+RUN chmod 755 /root/install_ext.sh
+RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && /root/install_ext.sh
 
 # novnc
 COPY install_novnc.sh /root/install_novnc.sh
