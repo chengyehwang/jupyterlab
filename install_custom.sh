@@ -1,12 +1,12 @@
 # select what you want or add what you want
-if '' = ''
+if [ "1" = "1" ]
 then
 npm config set user 0
 npm config set unsafe-perm true
 npm install electron@7.2.2 -g
 fi
 
-if '' = ''
+if [ "0" = "1" ]
 then
 apt install -y gdebi-core
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb

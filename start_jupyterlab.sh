@@ -12,7 +12,6 @@ export DISPLAY=:${port}
 sleep 1
 /usr/bin/openbox >& openbox.log &
 x11vnc -forever -ncache 10 -listen localhost -display ${DISPLAY} -xkb -nopw -N >& vnc.log &
-xhost +
 cp /jupyterlab/jupyter_notebook_config.py /root/miniconda3/etc/jupyter/
 cp /jupyterlab/vnc_index.html /opt/novnc/index.html
 mkdir -p /root/.jupyter/lab
