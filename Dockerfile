@@ -37,16 +37,15 @@ COPY install_novnc.sh /root/install_novnc.sh
 RUN chmod 755 /root/install_novnc.sh
 RUN  source ~/miniconda3/etc/profile.d/conda.sh && conda activate && /root/install_novnc.sh
 
+# for customization
+COPY install_custom.sh /root/install_custom.sh
+RUN chmod 755 /root/install_custom.sh
+RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && /root/install_custom.sh
 
 # quickly build and test
 COPY install_try.sh /root/install_try.sh
 RUN chmod 755 /root/install_try.sh
 RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && /root/install_try.sh
-
-# for customization
-COPY install_custom.sh /root/install_custom.sh
-RUN chmod 755 /root/install_custom.sh
-RUN source ~/miniconda3/etc/profile.d/conda.sh && conda activate && /root/install_custom.sh
 
 # clean to reduce image size
 RUN apt clean
