@@ -60,7 +60,14 @@ COPY demo.py /root/demo.py
 COPY demo_module.py /root/demo_module.py
 COPY demo_cython.pyx /root/demo_cython.pyx
 
-#RUN adduser jupyter
+# User
 
-#USER jupyter
+ARG USER_ID=1001
+ARG GROUP_ID=1001
+
+RUN groupadd -g ${GROUP_ID} jupyter && \
+    useradd -l -u ${USER_ID} -g jupyter jupyter && \
+    install -d -m 0755 -o jupyter -g jupyter /home/jupyter
+
+USER jupyter
 #workdir /home/jupyter
