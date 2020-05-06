@@ -58,6 +58,9 @@ COPY demo.py /opt/demo.py
 COPY demo_module.py /opt/demo_module.py
 COPY demo_cython.pyx /opt/demo_cython.pyx
 
+COPY jupyter_notebook_config.py /opt/miniconda3/etc/jupyter/jupyter_notebook_config.py
+COPY vnc_index.html /opt/novnc/vnc_index.html
+
 # User
 
 ARG USER_ID=1001
