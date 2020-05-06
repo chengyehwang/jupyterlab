@@ -59,7 +59,7 @@ COPY demo_module.py /opt/demo_module.py
 COPY demo_cython.pyx /opt/demo_cython.pyx
 
 COPY jupyter_notebook_config.py /opt/miniconda3/etc/jupyter/jupyter_notebook_config.py
-COPY vnc_index.html /opt/novnc/vnc_index.html
+COPY vnc_index.html /opt/novnc/index.html
 
 # User
 
