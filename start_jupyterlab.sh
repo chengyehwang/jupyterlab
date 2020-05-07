@@ -6,6 +6,7 @@ host=`ifconfig | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | grep 172.17.0`
 #export USER=root
 port=1
 export DISPLAY=:${port}
+export SHELL=/bin/bash
 
 # novnc server
 /usr/bin/Xvfb ${DISPLAY} -screen 0 1920x1080x24 -noreset >& xvfb.log &

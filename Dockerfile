@@ -67,7 +67,7 @@ ARG USER_ID=1001
 ARG GROUP_ID=1001
 
 RUN groupadd -g ${GROUP_ID} jupyter && \
-    useradd -l -u ${USER_ID} -g jupyter -G sudo -s /bin/bash jupyter && \
+    useradd -l -m -u ${USER_ID} -g jupyter -G sudo -s /bin/bash jupyter && \
     install -d -m 0755 -o jupyter -g jupyter /home/jupyter
 
 USER jupyter
