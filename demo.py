@@ -94,7 +94,7 @@ display(out)
 
 # %%
 import pyximport
-pyximport.install(pyimport=True, language_level=3)
+pyximport.install(reload_support=True, language_level=3)
 
 # %%
 import demo_cython
