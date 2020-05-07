@@ -60,6 +60,12 @@ fig_to_png(fig, 'out.png')
 Image(filename='out.png')
 
 # %% [markdown]
+# # Export json for Plotly viewer
+
+# %%
+pio.write_json(fig,'demo_plotly.json')
+
+# %% [markdown]
 # # SQL access
 
 # %%
