@@ -70,5 +70,8 @@ RUN groupadd -g ${GROUP_ID} jupyter && \
     useradd -l -m -u ${USER_ID} -g jupyter -G sudo -s /bin/bash jupyter && \
     install -d -m 0755 -o jupyter -g jupyter /home/jupyter
 
+RUN echo "source /opt/miniconda3/etc/profile.d/conda.sh" >> /home/jupyter/.bashrc
+RUN echo "conda activate" >> /home/jupyter/.bashrc
+
 USER jupyter
 #workdir /home/jupyter
