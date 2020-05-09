@@ -62,7 +62,8 @@ COPY jupyter_notebook_config.py /opt/miniconda3/etc/jupyter/jupyter_notebook_con
 COPY vnc_index.html /opt/novnc/index.html
 COPY start_airflow.sh /opt/start_airflow.sh
 
-# User
+
+# User jupyter & home init
 
 ARG USER_ID=1001
 ARG GROUP_ID=1001
@@ -73,6 +74,10 @@ RUN groupadd -g ${GROUP_ID} jupyter && \
 
 RUN echo "source /opt/miniconda3/etc/profile.d/conda.sh" >> /home/jupyter/.bashrc
 RUN echo "conda activate" >> /home/jupyter/.bashrc
+
+RUN source /opt/miniconda3/etc/profile.d/conda.sh && conda activate && export AIRFLOW_HOME=/home/jupyter/airflow && airflow initdb
+RUN chown -R jupyter:jupyter /home/jupyter
+
 
 USER jupyter
 #workdir /home/jupyter
