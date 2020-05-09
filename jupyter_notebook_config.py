@@ -4,3 +4,8 @@ c.ServerProxy.servers = {
             'port': 6080
             }
         }
+        'prefect' : {
+                'command': ['prefect', 'server', 'start', '>&', '/tmp/prefect.log', '&'],
+            'port': 8080
+            }
+        }
