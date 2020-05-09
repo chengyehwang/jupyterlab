@@ -60,6 +60,7 @@ COPY demo_cython.pyx /opt/demo_cython.pyx
 
 COPY jupyter_notebook_config.py /opt/miniconda3/etc/jupyter/jupyter_notebook_config.py
 COPY vnc_index.html /opt/novnc/index.html
+COPY start_airflow.sh /opt/start_airflow.sh
 
 # User
 

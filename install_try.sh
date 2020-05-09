@@ -1,4 +1,6 @@
 # for conda try and then merge
-conda install -y autopep8 prefect
+conda install -y autopep8
 
-prefect backend server
+pip install apache-airflow
+apt install -y iproute2
+

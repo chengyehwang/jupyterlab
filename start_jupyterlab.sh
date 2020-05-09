@@ -13,10 +13,15 @@ export SHELL=/bin/bash
 sleep 1
 /usr/bin/openbox >& openbox.log &
 x11vnc -forever -ncache 10 -listen localhost -display ${DISPLAY} -xkb -nopw -N >& vnc.log &
+
+# jupyterlab user setting
 mkdir -p ~/.jupyter/lab
 cp -rf /jupyterlab/user-settings ~/.jupyter/lab/
 
 jupyter serverextension enable --py jupyterlab_code_formatter
+
+# airflow
+export AIRFLOW_HOME=~/airflow
 
 jupyter-lab --ip=$host --allow-root --no-browser 2>&1 | (trap '' INT ; exec sed -u "s@\(\s*\)http://$host:8888\(.*\)@\1http://$host_ext:8888\2\n\1or http://$host:8888\2\n@g")
 
