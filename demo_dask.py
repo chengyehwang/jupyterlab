@@ -14,6 +14,7 @@
 
 import dask.bag as db
 import dask
+import time
 
 # # map
 
@@ -37,9 +38,11 @@ c.compute();
 
 @dask.delayed
 def inc(i):
+    time.sleep(10)
     return i + 1
 @dask.delayed
 def add(a, b):
+    time.sleep(10)
     return a + b
 
 
@@ -51,6 +54,6 @@ x5 = add(x3,x4)
 
 x5.visualize()
 
-x5.compute()
+# %time x5.compute()
 
 
