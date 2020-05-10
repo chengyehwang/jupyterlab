@@ -61,14 +61,14 @@ COPY demo_cython.pyx /opt/demo_cython.pyx
 COPY jupyter_notebook_config.py /opt/miniconda3/etc/jupyter/jupyter_notebook_config.py
 COPY vnc_index.html /opt/novnc/index.html
 
-
 # User jupyter & home init
 
 ARG USER_ID=1001
 ARG GROUP_ID=1001
 
-RUN groupadd -g ${GROUP_ID} jupyter && \
-    useradd -l -m -u ${USER_ID} -g jupyter -G sudo -s /bin/bash jupyter && \
+RUN export PASSWD=`openssl passwd jupyter` && \
+    groupadd -g ${GROUP_ID} jupyter && \
+    useradd -l -m -u ${USER_ID} -g jupyter -G sudo -p $PASSWD -s /bin/bash jupyter && \
     install -d -m 0755 -o jupyter -g jupyter /home/jupyter
 
 RUN echo "source /opt/miniconda3/etc/profile.d/conda.sh" >> /home/jupyter/.bashrc

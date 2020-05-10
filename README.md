@@ -39,12 +39,15 @@ Key features:
 8. Electron
     * Plotly to image [Orca](https://github.com/plotly/orca)
 9. Design Pattern
+    * input / output by json
     * Data source
         * Database
-        * [SSHFS](https://github.com/libfuse/sshfs)
+        * Remote files [SSHFS](https://github.com/libfuse/sshfs)
+        * S3 server [minio](http://min.io)
     * Process - interactive
         * Pandas DataFrame
         * Plotly Chart
+        * show table [QGrid](http://github.com/quantopian/qgrid)
     * Report
         * Excel: [openpyxl](https://openpyxl.readthedocs.io/en/stable/)
         * PPT: [python-pptx](https://python-pptx.readthedocs.io/en/latest/)
