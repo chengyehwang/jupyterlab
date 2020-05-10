@@ -5,7 +5,7 @@ c.ServerProxy.servers = {
             },
         'airflow' : {
             'timeout': 20,
-            'command': ['/opt/start_airflow.sh'],
+            'command': ['/opt/start_airflow.sh','{port}'],
             'port': 8080
             }
         }

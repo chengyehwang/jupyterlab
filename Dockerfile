@@ -78,6 +78,8 @@ RUN echo "conda activate" >> /home/jupyter/.bashrc
 RUN source /opt/miniconda3/etc/profile.d/conda.sh && conda activate && export AIRFLOW_HOME=/home/jupyter/airflow && airflow initdb
 RUN chown -R jupyter:jupyter /home/jupyter
 
+RUN mkdir -p /opt/airflow
+COPY airflow_index.html /opt/airflow/index.html
 
 USER jupyter
 #workdir /home/jupyter

@@ -14,6 +14,7 @@ if [ $STATE -eq "0" ]
 then
 	echo "server is alive, port $PID"
 else
-	airflow webserver -p 8080 > /tmp/airflow_webserver.log &
+    echo "enable port $1"
+	airflow webserver -p $1 > /tmp/airflow_webserver.log &
 	airflow scheduler > /tmp/airflow_scheduler.log &
 fi
