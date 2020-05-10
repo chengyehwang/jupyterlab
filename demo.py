@@ -26,6 +26,11 @@ import pandas as pd
 data = pd.DataFrame({'a': [1, 2, 3], 'b': [3, 4, 5]})
 display(data)
 
+# %%
+import qgrid
+widget = qgrid.show_grid(data,show_toolbar=True)
+widget
+
 # %% [markdown]
 # # Chart by Plotly
 
