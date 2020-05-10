@@ -5,6 +5,7 @@ conda activate
 export AIRFLOW_HOME=$PWD/airflow
 if [ ! -d $AIRFLOW_HOME ]; then
     airflow initdb
+    sed -i 's/load_examples = True/load_examples = False/' $AIRFLOW_HOME/airflow.cfg
     mkdir -p $AIRFLOW_HOME/dags
     echo "create airflow directory $AIRFLOW_HOME"
 fi
