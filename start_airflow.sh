@@ -5,7 +5,15 @@ conda activate
 export AIRFLOW_HOME=$PWD/airflow
 if [ ! -d $AIRFLOW_HOME ]; then
     airflow initdb
+    mkdir -p $AIRFLOW_HOME/dags
+    echo "create airflow directory $AIRFLOW_HOME"
 fi
+
+if [ ! -f $AIRFLOW_HOME/dags/demo_airflow.py ]; then
+    echo "copy demo_ariflow.py into $AIRFLOW_HOME/dags"
+    cp ./demo_airflow.py $AIRFLOW_HOME/dags/demo_airflow.py
+fi
+
 STATE=1
 if [ -f $AIRFLOW_HOME/airflow-webserver.pid ]; then
     PID=`cat $AIRFLOW_HOME/airflow-webserver.pid`
