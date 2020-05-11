@@ -65,19 +65,20 @@ COPY vnc_index.html /opt/novnc/index.html
 
 ARG USER_ID=1001
 ARG GROUP_ID=1001
+ARG USER=jupyterlab
 
-RUN export PASSWD=`openssl passwd jupyter` && \
-    groupadd -g ${GROUP_ID} jupyter && \
-    useradd -l -m -u ${USER_ID} -g jupyter -G sudo -p $PASSWD -s /bin/bash jupyter && \
-    install -d -m 0755 -o jupyter -g jupyter /home/jupyter
+RUN export PASSWD=`openssl passwd ${USER}` && \
+    groupadd -g ${GROUP_ID} ${USER} && \
+    useradd -l -m -u ${USER_ID} -g ${USER} -G sudo -p $PASSWD -s /bin/bash ${USER} && \
+    install -d -m 0755 -o ${USER} -g ${USER} /home/${USER}
 
-RUN echo "source /opt/miniconda3/etc/profile.d/conda.sh" >> /home/jupyter/.bashrc
-RUN echo "conda activate" >> /home/jupyter/.bashrc
-RUN echo "export AIRFLOW_HOME=/jupyterlab/airflow" >> /home/jupyter/.bashrc
+RUN echo "source /opt/miniconda3/etc/profile.d/conda.sh" >> /home/${USER}/.bashrc
+RUN echo "conda activate" >> /home/${USER}/.bashrc
+RUN echo "export AIRFLOW_HOME=/jupyterlab/airflow" >> /home/${USER}/.bashrc
 
-RUN chown -R jupyter:jupyter /home/jupyter
+RUN chown -R ${USER}:${USER} /home/${USER}
 RUN mkdir /tmp/.X11-unix
 RUN chmod 1777 /tmp/.X11-unix
 
-USER jupyter
+USER ${USER}
 #workdir /home/jupyter
