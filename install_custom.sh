@@ -4,7 +4,6 @@ then
 npm config set user 0
 npm config set unsafe-perm true
 npm install electron@7.2.2 -g
-apt install -y libnss3
 fi
 
 if [ "0" = "1" ]
