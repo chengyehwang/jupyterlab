@@ -5,7 +5,7 @@ pull:
 	docker pull chengyehwang/jupyterlab
 	docker tag chengyehwang/jupyterlab jupyterlab
 run:
-	docker run -i $(ARGS)  -p 8080:8080 -p 8888:8888 -p 6080:6080 -p 6090:6090 -t jupyterlab /jupyterlab/start_jupyterlab.sh $(IP)
+	docker run -i $(ARGS)  -p 8080:8080 -p 8888:8888 -p8880:8880 -p 6080:6080 -t jupyterlab /jupyterlab/start_jupyterlab.sh $(IP)
 cmd:
 	docker run -i $(ARGS) -t jupyterlab /root/miniconda3/bin/ipython demo.py
 ut:
