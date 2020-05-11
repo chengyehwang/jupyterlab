@@ -23,5 +23,8 @@ jupyter serverextension enable --py jupyterlab_code_formatter
 # airflow
 ./start_airflow.sh
 
+# minio
+./start_minio.sh
+
 jupyter-lab --ip=$host --allow-root --no-browser 2>&1 | (trap '' INT ; exec sed -u "s@\(\s*\)http://$host:8888\(.*\)@\1http://$host_ext:8888\2\n\1or http://$host:8888\2\n@g")
 

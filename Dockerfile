@@ -77,7 +77,7 @@ RUN echo "export AIRFLOW_HOME=/jupyterlab/airflow" >> /home/jupyter/.bashrc
 
 RUN chown -R jupyter:jupyter /home/jupyter
 RUN mkdir /tmp/.X11-unix
-RUN chmod 777 /tmp/.X11-unix
+RUN chmod 1777 /tmp/.X11-unix
 
 USER jupyter
 #workdir /home/jupyter

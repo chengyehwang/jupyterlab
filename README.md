@@ -84,9 +84,9 @@ Key features:
     * jupyterlab-toc to show [table of contents](http://github.com/jupyterlab/jupyterlab-toc)
 
 14. ports & service
-    * 8888: jupyterlab
-    * 8080: snakeviz
-    * 6080: novnc
-    * 8880: airflow
-
+    * 8888: jupyterlab - computing
+    * 8080: snakeviz - debug
+    * 6080: novnc - X11 server
+    * 8880: airflow - flow auto
+    * 9000: minio - storage
 [image](https://github.com/chengyehwang/jupyterlab/blob/master/jupyter_demo.png)
