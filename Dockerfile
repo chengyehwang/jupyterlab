@@ -75,6 +75,8 @@ RUN echo "source /opt/miniconda3/etc/profile.d/conda.sh" >> /home/jupyter/.bashr
 RUN echo "conda activate" >> /home/jupyter/.bashrc
 
 RUN chown -R jupyter:jupyter /home/jupyter
+RUN mkdir /tmp/.X11-unix
+RUN chmod 777 /tmp/.X11-unix
 
 USER jupyter
 #workdir /home/jupyter
