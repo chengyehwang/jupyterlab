@@ -20,9 +20,6 @@ cp -rf /jupyterlab/user-settings ~/.jupyter/lab/
 
 jupyter serverextension enable --py jupyterlab_code_formatter
 
-# airflow
-./start_airflow.sh
-
 # minio
 ./start_minio.sh
 
