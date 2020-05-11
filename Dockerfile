@@ -4,7 +4,7 @@ MAINTAINER ChengYehWang
 # basic apt installation
 RUN apt update 
 RUN apt-get upgrade -y
-RUN export DEBIAN_FRONTEND=noninteractive && apt-get install -y x11-apps psmisc sudo sshfs wget python net-tools vim git make gcc apt-utils lbnss3 iproute2
+RUN export DEBIAN_FRONTEND=noninteractive && apt-get install -y x11-apps psmisc sudo sshfs wget python net-tools vim git make gcc apt-utils libnss3 iproute2
 RUN mkdir -p /opt
 RUN cd /opt
 
