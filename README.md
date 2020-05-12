@@ -1,9 +1,9 @@
-# Ubuntu 20.04 + Python 3.7.X + JupyterLab 2.0.X + AirFlow + Conda + Docker
+# Ubuntu 20.04 + Python 3.7.X + JupyterLab 2.0.X + Snakemake + Conda + Docker
 
 Key components:
 1. Programming lanurage: [Python3](http://python.org)
 2. Interactive computing: [Jupyter](http://jupyter.org)
-3. Task Dependency and run: [AirFlow](http://airflow.apache.org)
+3. Task Dependency and run: [Snakemake](https://snakemake.readthedocs.io/)
 3. Package management: [Conda](http://anaconda.com)
 4. Deploy the environment: [Docker](http://www.docker.com)
 5. VNC server: [noVNC](https://github.com/novnc/noVNC)
@@ -87,6 +87,5 @@ Key features:
     * 8888: jupyterlab - computing
     * 8080: snakeviz - debug
     * 6080: novnc - X11 server
-    * 8880: airflow - flow auto
     * 9000: minio - storage
 [image](https://github.com/chengyehwang/jupyterlab/blob/master/jupyter_demo.png)
