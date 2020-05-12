@@ -13,6 +13,8 @@ export SHELL=/bin/bash
 sleep 1
 /usr/bin/openbox >& openbox.log &
 x11vnc -forever -ncache 10 -listen localhost -display ${DISPLAY} -xkb -nopw -N >& vnc.log &
+/opt/novnc/utils/launch.sh --vnc localhost:5901 --listen 6080 >& novnc.log &
+
 
 # jupyterlab user setting
 mkdir -p ~/.jupyter/lab
