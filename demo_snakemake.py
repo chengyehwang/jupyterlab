@@ -16,9 +16,9 @@
 
 # !snakemake --jobs 1
 
-# !snakemake --report snake_report.html
+# !snakemake --report report_snake.html
 
-# # open snake_report.html
+# # open report_snake.html
 
 # ## click the file in workspace
 
