@@ -74,7 +74,6 @@ RUN export PASSWD=`openssl passwd ${USER}` && \
 
 RUN echo "source /opt/miniconda3/etc/profile.d/conda.sh" >> /home/${USER}/.bashrc
 RUN echo "conda activate" >> /home/${USER}/.bashrc
-RUN echo "export AIRFLOW_HOME=/jupyterlab/airflow" >> /home/${USER}/.bashrc
 
 RUN chown -R ${USER}:${USER} /home/${USER}
 RUN mkdir /tmp/.X11-unix

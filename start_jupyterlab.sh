@@ -18,8 +18,6 @@ x11vnc -forever -ncache 10 -listen localhost -display ${DISPLAY} -xkb -nopw -N >
 mkdir -p ~/.jupyter/lab
 cp -rf /jupyterlab/user-settings ~/.jupyter/lab/
 
-jupyter serverextension enable --py jupyterlab_code_formatter
-
 # minio
 ./start_minio.sh
 
