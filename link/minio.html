@@ -3,7 +3,11 @@
 </head>
 <body>
 <script>
-    window.location.replace("http://192.168.0.189:9000/");
+    url = window.location.href;
+    urlParts = /^(.*)\:8888.*$/.exec(url);
+    hostname = urlParts[1];
+    new_url = hostname + ":9000/";
+    window.location.replace(new_url);
 </script>
 </body>
 </html>
