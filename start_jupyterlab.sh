@@ -4,7 +4,7 @@ conda activate
 host_ext=$1
 host=`ifconfig | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | grep 172.17.0`
 port=1
-export SEHLL=/bin/bash
+export SHELL=/bin/bash
 export DISPLAY=:${port}
 
 # framebuffer only
