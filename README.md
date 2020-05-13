@@ -6,7 +6,7 @@ Key components:
 3. Task Dependency and run: [Snakemake](https://snakemake.readthedocs.io/)
 3. Package management: [Conda](http://anaconda.com)
 4. Deploy the environment: [Docker](http://www.docker.com)
-5. VNC server: [noVNC](https://github.com/novnc/noVNC)
+5. VNC server (default off): [noVNC](https://github.com/novnc/noVNC)
 
 Steps to create jupyterlab server:
 1. download git by git clone https://github.com/chengyehwang/jupyterlab
@@ -86,6 +86,6 @@ Key features:
 14. ports & service
     * 8888: jupyterlab - computing
     * 8080: snakeviz - debug
-    * 6080: novnc - X11 server
+    * 6080: novnc - X11 server (default off)
     * 9000: minio - storage
 [image](https://github.com/chengyehwang/jupyterlab/blob/master/jupyter_demo.png)
