@@ -10,7 +10,7 @@ c.ServerProxy.servers = {
             'new_browser_tab': True
             },
         'link' : {
-            'command': ['python', '-m', 'http.server', '--directory /jupyterlab/link', '{port}'],
+            'command': ['python', '-m', 'http.server', '--directory', '/jupyterlab/link', '{port}'],
             'port': 9100,
             'new_browser_tab': True
             }
