@@ -3,14 +3,15 @@ source /opt/miniconda3/etc/profile.d/conda.sh
 conda activate
 host_ext=$1
 host=`ifconfig | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | grep 172.17.0`
-port=1
+port=99
 export SHELL=/bin/bash
 export DISPLAY=:${port}
 
 # framebuffer only
 #/usr/bin/Xvfb ${DISPLAY} -screen 0 1920x1080x24 -noreset >& xvfb.log &
 # start xpra
-xpra start :${port} &
+Xorg -noreset +extension GLX +extension RANDR +extension RENDER -logfile ./X.log -config ./xorg.conf :${port}
+#xpra listen :${port} --bind-tcp=0.0.0.0:6080 --html=on --tcp-auth=file,filename=./password.txt
 
 
 # jupyterlab user setting
