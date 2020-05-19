@@ -45,6 +45,11 @@ COPY install_try.sh /root/install_try.sh
 RUN chmod 755 /root/install_try.sh
 RUN source /opt/miniconda3/etc/profile.d/conda.sh && conda activate && /root/install_try.sh
 
+# new
+COPY install_new.sh /root/install_new.sh
+RUN chmod 755 /root/install_new.sh
+RUN source /opt/miniconda3/etc/profile.d/conda.sh && conda activate && /root/install_new.sh
+
 # clean to reduce image size
 RUN apt clean
 RUN source /opt/miniconda3/etc/profile.d/conda.sh && conda activate && conda clean -afy

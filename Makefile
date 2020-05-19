@@ -1,5 +1,5 @@
 IP=$(shell hostname -I | awk '{print $$1}')
-ARGS=-e DISPLAY -u $(shell id -u):$(shell id -g) --mount src=`pwd`,target=/jupyterlab,type=bind -w /jupyterlab
+ARGS=-e DISPLAY -u $(shell id -u):$(shell id -g) --mount src=`pwd`,target=/jupyterlab,type=bind -w /jupyterlab --privileged
 # run process
 pull:
 	docker pull chengyehwang/jupyterlab
