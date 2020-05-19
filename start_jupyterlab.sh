@@ -10,8 +10,8 @@ export DISPLAY=:${port}
 # framebuffer only
 #/usr/bin/Xvfb ${DISPLAY} -screen 0 1920x1080x24 -noreset >& xvfb.log &
 # start xpra
-Xorg -noreset +extension GLX +extension RANDR +extension RENDER -logfile ./X.log -config ./xorg.conf :${port}
-#xpra listen :${port} --bind-tcp=0.0.0.0:6080 --html=on --tcp-auth=file,filename=./password.txt
+Xorg -noreset +extension GLX +extension RANDR +extension RENDER -logfile ./X.log -config ./xorg.conf :${port} &
+xpra proxy :${port} --bind-tcp=0.0.0.0:6080 --tcp-auth=allow
 
 
 # jupyterlab user setting
