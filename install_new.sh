@@ -1,3 +1,4 @@
+apt-get install -y gnupg
 wget -q http://xpra.org/gpg.asc -O- | sudo apt-key add -
 add-apt-repository "deb https://xpra.org/ xenial main"
 apt-get update

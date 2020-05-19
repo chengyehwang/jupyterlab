@@ -11,7 +11,7 @@ export DISPLAY=:${port}
 #/usr/bin/Xvfb ${DISPLAY} -screen 0 1920x1080x24 -noreset >& xvfb.log &
 # start xpra
 Xorg -noreset +extension GLX +extension RANDR +extension RENDER -logfile ./X.log -config ./xorg.conf :${port} &
-xpra proxy :${port} --bind-tcp=0.0.0.0:6080 --tcp-auth=allow
+xpra proxy :${port} --bind-tcp=0.0.0.0:6080 --tcp-auth=sys --html=on
 
 
 # jupyterlab user setting
