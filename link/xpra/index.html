@@ -1,0 +1,13 @@
+<html>
+<head>
+</head>
+<body>
+<script>
+    url = window.location.href;
+    urlParts = /^(.*)\:8888.*$/.exec(url);
+    hostname = urlParts[1];
+    new_url = hostname + ":6080/";
+    window.location.replace(new_url);
+</script>
+</body>
+</html>
