@@ -30,11 +30,6 @@ COPY install_ext.sh /root/install_ext.sh
 RUN chmod 755 /root/install_ext.sh
 RUN source /opt/miniconda3/etc/profile.d/conda.sh && conda activate && /root/install_ext.sh
 
-# novnc
-COPY install_novnc.sh /root/install_novnc.sh
-RUN chmod 755 /root/install_novnc.sh
-RUN  source /opt/miniconda3/etc/profile.d/conda.sh && conda activate && /root/install_novnc.sh
-
 # for customization
 COPY install_custom.sh /root/install_custom.sh
 RUN chmod 755 /root/install_custom.sh
@@ -67,7 +62,6 @@ COPY demo_module.py /opt/demo_module.py
 COPY demo_cython.pyx /opt/demo_cython.pyx
 
 COPY jupyter_notebook_config.py /opt/miniconda3/etc/jupyter/jupyter_notebook_config.py
-COPY vnc_index.html /opt/novnc/index.html
 
 # User jupyter & home init
 
