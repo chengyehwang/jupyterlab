@@ -45,7 +45,7 @@ COPY install_new.sh /root/install_new.sh
 RUN chmod 755 /root/install_new.sh
 RUN source /opt/miniconda3/etc/profile.d/conda.sh && conda activate && /root/install_new.sh
 
-RUN apt-get install -y python3-pip
+RUN apt-get install -y python3-pip vim-gtk3
 RUN pip3 install websockify
 
 # clean to reduce image size
