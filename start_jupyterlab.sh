@@ -8,8 +8,11 @@ export SHELL=/bin/bash
 export DISPLAY=:${port}
 
 # X window
-xpra start :${port} --bind-tcp=0.0.0.0:6080 --tcp-auth=sys --html=on
+xpra start :${port} --bind-tcp=0.0.0.0:6080 --tcp-auth=sys
 
+echo "*******************************************"
+echo "xpra tcp://jupyterlab:jupyterlab@$host:6080"
+echo "*******************************************"
 
 # jupyterlab user setting
 mkdir -p ~/.jupyter/lab
