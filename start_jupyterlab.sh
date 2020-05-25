@@ -8,7 +8,7 @@ export SHELL=/bin/bash
 export DISPLAY=:${port}
 
 # X window
-xpra start :${port} --bind-tcp=0.0.0.0:6080 --tcp-auth=sys
+xpra start :${port} --bind-tcp=0.0.0.0:6080
 
 echo "*******************************************"
 echo "xpra tcp://jupyterlab:jupyterlab@$host_ext:6080"
