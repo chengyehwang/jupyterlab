@@ -11,7 +11,7 @@ export DISPLAY=:${port}
 xpra start :${port} --bind-tcp=0.0.0.0:6080 --tcp-auth=sys
 
 echo "*******************************************"
-echo "xpra tcp://jupyterlab:jupyterlab@$host:6080"
+echo "xpra tcp://jupyterlab:jupyterlab@$host_ext:6080"
 echo "*******************************************"
 
 # jupyterlab user setting
