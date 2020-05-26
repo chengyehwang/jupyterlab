@@ -4,9 +4,9 @@ Key components:
 1. Programming lanurage: [Python3](http://python.org)
 2. Interactive computing: [Jupyter](http://jupyter.org)
 3. Task Dependency and run: [Snakemake](https://snakemake.readthedocs.io/)
-3. Package management: [Conda](http://anaconda.com)
-4. Deploy the environment: [Docker](http://www.docker.com)
-5. web based X server: [Xpra](http://xpra.org)
+4. Package management: [Conda](http://anaconda.com)
+5. Deploy the environment: [Docker](http://www.docker.com)
+6. web based X server: [Xpra](http://xpra.org)
 
 Steps to create jupyterlab server:
 1. download git by git clone https://github.com/chengyehwang/jupyterlab
