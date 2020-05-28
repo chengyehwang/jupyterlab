@@ -1,3 +1,5 @@
 airflow
 __pycache__
 .ipynb_checkpoints
+.minio*
+.snakemake*
