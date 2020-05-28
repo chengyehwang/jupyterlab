@@ -5,5 +5,6 @@ apt-get update
 apt-get install -y xpra xserver-xorg-video-dummy
 sed -i 's/console/anybody/g' /etc/X11/Xwrapper.config
 wget https://xpra.org/xorg.conf
-pip install Appium-Python-Client imageio_ffmpeg
+## android test auto
+pip install Appium-Python-Client imageio_ffmpeg imageio
 
