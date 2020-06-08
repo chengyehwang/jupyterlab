@@ -1,5 +1,5 @@
 export NODE_OPTIONS=--max-old-space-size=4096
-conda install -y ptvsd openssl=1.1.1g xeus-python notebook jupyterlab_code_formatter black isort jupyter-server-proxy python-language-server
+conda install -y ptvsd openssl=1.1.1g xeus-python notebook jupyterlab_code_formatter black isort jupyter-server-proxy python-language-server ipympl
 
 
 pip install aiohttp_swagger aiopg cufflinks simpy graphviz Dumper jupyterlab-git jupyter-lsp
