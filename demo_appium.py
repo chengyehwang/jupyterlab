@@ -54,7 +54,7 @@ def list_element():
 
 
 def press_key(value):
-    driver.press_keycode(value)
+    driver.long_press_keycode(value)
 
 keyboard = True
 def key_a():
@@ -63,17 +63,17 @@ def key_a():
 
 def forward():
     if keyboard:
-        press_key(38)
+        press_key(19)
     else:
         move({'x':251, 'y':600},{'x':251, 'y':400})
 def left():
     if keyboard:
-        press_key(37)
+        press_key(21)
     else:
         move({'x':551, 'y':600},{'x':251, 'y':100})
 def right():
     if keyboard:
-        press_key(39)
+        press_key(22)
     else:
         move({'x':551, 'y':600},{'x':851, 'y':400})
 def image(i):
@@ -104,17 +104,19 @@ def control_loop():
 def test():
     connect()
     #list_element()
-    key_a()
-    return
     print('forward')
-    forward()
+    for i in range(100):
+        forward()
     print('left')
-    left()
+    #left()
     print('right')
+    right()
+    right()
+    right()
     right()
 test()
 
-# # 
+#     # 
 
 
 
