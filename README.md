@@ -1,4 +1,4 @@
-# Ubuntu 18.04 + Python 3.7.X + JupyterLab 2.0.X + Snakemake + Conda + Docker
+# Ubuntu 20.04 + Python 3.7.X + JupyterLab 2.0.X + Snakemake + Conda + Docker
 
 Key components:
 1. Programming lanurage: [Python3](http://python.org)
