@@ -12,6 +12,12 @@
 #     name: python3
 # ---
 
+# +
+# 1. windows <-> usb <-> android phone
+# 2. install appium server on windows https://github.com/appium/appium-desktop/releases/tag/v1.17.1-1
+# specify the window port in the following
+# -
+
 from IPython.display import clear_output
 from appium import webdriver
 from appium.webdriver.common.touch_action import TouchAction
