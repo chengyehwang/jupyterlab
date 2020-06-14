@@ -48,12 +48,25 @@ def move(base, to):
     action.release()
     action.perform()
 
+def press_key(value):
+    driver.pressKey(value)
+
+keyboard = True
 def forward():
-    move({'x':251, 'y':600},{'x':251, 'y':400})
+    if keyboard:
+        press_key(66)
+    else:
+        move({'x':251, 'y':600},{'x':251, 'y':400})
 def left():
-    move({'x':551, 'y':600},{'x':251, 'y':100})
+    if keyboard:
+        press_key(66)
+    else:
+        move({'x':551, 'y':600},{'x':251, 'y':100})
 def right():
-    move({'x':551, 'y':600},{'x':851, 'y':400})
+    if keyboard:
+        press_key(66)
+    else:
+        move({'x':551, 'y':600},{'x':851, 'y':400})
 def image(i):
     driver.get_screenshot_as_file('test%d.png'%i)
     im = imageio.imread('test%d.png'%i)
@@ -65,19 +78,24 @@ def close():
 
 
 
-connect()
-while True:
-    try:
-        for i in range(20):
-            forward()
-            left()
-            right()
-            image(i)
-        clear_output()
-    except Exception as e:
-        print(e)
-        connect()
+def control_loop():
+    connect()
+    while True:
+        try:
+            for i in range(20):
+                forward()
+                left()
+                right()
+                image(i)
+            clear_output()
+        except Exception as e:
+            print(e)
+            connect()
 
 
+def test():
+    connect()
+    forward()
+test()
 
 # # 
