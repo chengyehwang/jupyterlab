@@ -45,6 +45,11 @@ COPY install_new.sh /root/install_new.sh
 RUN chmod 755 /root/install_new.sh
 RUN source /opt/miniconda3/etc/profile.d/conda.sh && conda activate && /root/install_new.sh
 
+# test
+COPY install_test.sh /root/install_test.sh
+RUN chmod 755 /root/install_test.sh
+RUN source /opt/miniconda3/etc/profile.d/conda.sh && conda activate && /root/install_test.sh
+
 RUN export DEBIAN_FRONTEND=noninteractive && apt-get install -y python3-pip vim-gtk3
 RUN pip3 install websockify
 
