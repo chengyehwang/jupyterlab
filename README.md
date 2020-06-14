@@ -1,4 +1,4 @@
-# Ubuntu 20.04 + Python 3.7.X + JupyterLab 2.0.X + Snakemake + Conda + Docker
+# Ubuntu 18.04 + Python 3.7.X + JupyterLab 2.0.X + Snakemake + Conda + Docker
 
 Key components:
 1. Programming lanurage: [Python3](http://python.org)
@@ -7,6 +7,7 @@ Key components:
 4. Package management: [Conda](http://anaconda.com)
 5. Deploy the environment: [Docker](http://www.docker.com)
 6. web based X server: [Xpra](http://xpra.org)
+7. Image to Object: [ImageAI](https://github.com/OlafenwaMoses/ImageAI)
 
 Steps to create jupyterlab server:
 1. download git by git clone https://github.com/chengyehwang/jupyterlab

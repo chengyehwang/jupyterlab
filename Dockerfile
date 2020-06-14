@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:18.04
 MAINTAINER ChengYehWang
 
 # basic apt installation
@@ -9,9 +9,9 @@ RUN mkdir -p /opt
 RUN cd /opt
 
 # install trace_processor
-RUN wget http://get.perfetto.dev/trace_processor
-RUN chmod 755 trace_processor
-RUN ./trace_processor --help
+#RUN wget http://get.perfetto.dev/trace_processor
+#RUN chmod 755 trace_processor
+#RUN ./trace_processor --help
 
 # install conda
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
