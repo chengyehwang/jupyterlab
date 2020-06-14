@@ -36,6 +36,7 @@ def connect():
     desired_caps['platformName'] = 'Android'
     desired_caps['automationName'] = 'uiautomator2'
     desired_caps['deviceName'] = 'pixel 4'
+    desired_caps['unicodeKeyboard'] = True
     driver = webdriver.Remote('http://192.168.0.230:4723/wd/hub', desired_caps)
 
 
@@ -48,23 +49,31 @@ def move(base, to):
     action.release()
     action.perform()
 
+def list_element():
+    return driver.find_elements_by_accessibility_id('')
+
+
 def press_key(value):
-    driver.pressKey(value)
+    driver.press_keycode(value)
 
 keyboard = True
+def key_a():
+    press_key(65)
+    press_key(66)
+
 def forward():
     if keyboard:
-        press_key(66)
+        press_key(38)
     else:
         move({'x':251, 'y':600},{'x':251, 'y':400})
 def left():
     if keyboard:
-        press_key(66)
+        press_key(37)
     else:
         move({'x':551, 'y':600},{'x':251, 'y':100})
 def right():
     if keyboard:
-        press_key(66)
+        press_key(39)
     else:
         move({'x':551, 'y':600},{'x':851, 'y':400})
 def image(i):
@@ -74,10 +83,9 @@ def image(i):
     display(Image(filename='test%d.png'%i))
 def close():
     writer.close()
+
+
 # -
-
-
-
 def control_loop():
     connect()
     while True:
@@ -95,7 +103,19 @@ def control_loop():
 
 def test():
     connect()
+    #list_element()
+    key_a()
+    return
+    print('forward')
     forward()
+    print('left')
+    left()
+    print('right')
+    right()
 test()
 
 # # 
+
+
+
+
