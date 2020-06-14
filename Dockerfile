@@ -3,7 +3,7 @@ MAINTAINER ChengYehWang
 
 # basic apt installation
 RUN apt update 
-RUN apt-get upgrade -y
+RUN export DEBIAN_FRONTEND=noninteractive && apt-get upgrade -y
 RUN export DEBIAN_FRONTEND=noninteractive && apt-get install -y x11-apps psmisc sudo sshfs wget python net-tools vim git make gcc apt-utils libnss3 iproute2 libgtk2.0-0 libgconf-2-4 libnotify-dev
 RUN mkdir -p /opt
 RUN cd /opt
