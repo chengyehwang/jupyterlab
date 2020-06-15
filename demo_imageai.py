@@ -13,6 +13,8 @@
 # ---
 
 import os
+if not os.path.exists('hololens-ex-60--loss-2.76.h5'):
+    os.system('wget https://github.com/OlafenwaMoses/ImageAI/releases/download/essential-v4/hololens-ex-60--loss-2.76.h5')
 if not os.path.exists('detection_config.json'):
     os.system('wget https://github.com/OlafenwaMoses/ImageAI/releases/download/essential-v4/detection_config.json')
 
