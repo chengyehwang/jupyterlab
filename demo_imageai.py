@@ -13,24 +13,28 @@
 # ---
 
 import os
-if not os.path.exists('hololens-ex-60--loss-2.76.h5'):
-    os.system('wget https://github.com/OlafenwaMoses/ImageAI/releases/download/essential-v4/hololens-ex-60--loss-2.76.h5')
-if not os.path.exists('detection_config.json'):
-    os.system('wget https://github.com/OlafenwaMoses/ImageAI/releases/download/essential-v4/detection_config.json')
+if not os.path.exists('yolo.h5'):
+    os.system('wget https://github.com/OlafenwaMoses/ImageAI/releases/download/1.0/yolo.h5')
+
 
 # +
-from imageai.Detection.Custom import CustomObjectDetection
+from imageai.Detection import ObjectDetection
+import os
 
-detector = CustomObjectDetection()
+execution_path = os.getcwd()
+
+detector = ObjectDetection()
 detector.setModelTypeAsYOLOv3()
-detector.setModelPath("hololens-ex-60--loss-2.76.h5")
-detector.setJsonPath("detection_config.json")
+detector.setModelPath( os.path.join(execution_path , "yolo.h5"))
 detector.loadModel()
-detections = detector.detectObjectsFromImage(input_image="test0.png", output_image_path="test0-detected.jpg")
-for detection in detections:
-    print(detection["name"], " : ", detection["percentage_probability"], " : ", detection["box_points"])
+detections = detector.detectObjectsFromImage(input_image=os.path.join(execution_path , "demo_image.jpg"), output_image_path=os.path.join(execution_path , "demo_image_new.jpg"), minimum_percentage_probability=30)
 
+for eachObject in detections:
+    print(eachObject["name"] , " : ", eachObject["percentage_probability"], " : ", eachObject["box_points"] )
+    print("--------------------------------")
 
 # -
+from IPython.display import Image
+Image("demo_image_new.jpg")
 
 
