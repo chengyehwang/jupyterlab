@@ -14,12 +14,12 @@ RUN cd /opt
 #RUN ./trace_processor --help
 
 # install conda
-#RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-#RUN chmod 755 ./Miniconda3-latest-Linux-x86_64.sh
-#RUN ./Miniconda3-latest-Linux-x86_64.sh -b -f -p /opt/miniconda3
-RUN wget https://repo.anaconda.com/miniconda/Miniconda3-py38_4.8.2-Linux-x86_64.sh
-RUN chmod 755 ./Miniconda3-py38_4.8.2-Linux-x86_64.sh
-RUN ./Miniconda3-py38_4.8.2-Linux-x86_64.sh -b -f -p /opt/miniconda3
+RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+RUN chmod 755 ./Miniconda3-latest-Linux-x86_64.sh
+RUN ./Miniconda3-latest-Linux-x86_64.sh -b -f -p /opt/miniconda3
+#RUN wget https://repo.anaconda.com/miniconda/Miniconda3-py38_4.8.2-Linux-x86_64.sh
+#RUN chmod 755 ./Miniconda3-py38_4.8.2-Linux-x86_64.sh
+#RUN ./Miniconda3-py38_4.8.2-Linux-x86_64.sh -b -f -p /opt/miniconda3
 
 SHELL ["/bin/bash", "-c", "-l"]
 
