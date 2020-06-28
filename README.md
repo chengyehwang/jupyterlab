@@ -8,7 +8,7 @@ Key components:
 5. Deploy the environment: [Docker](http://www.docker.com)
 6. web based X server: [Xpra](http://xpra.org)
 7. Image to Object: [ImageAI](https://github.com/OlafenwaMoses/ImageAI)
-8. Game Bot Agent: [Serpent.AI](https://github.com/SerpentAI/SerpentAI/wiki)
+8. AI framework: [GYM](https://gym.openai.com/)
 9. App test auto: [Appium](http://appium.io/)
 
 Steps to create jupyterlab server:
