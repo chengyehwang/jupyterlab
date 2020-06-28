@@ -64,6 +64,8 @@ while isopen:
         isopen = env.render()
         if done or restart or isopen == False:
             break
-
+        if steps > 10:
+            break
+    break
 env.close()
 
