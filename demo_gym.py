@@ -21,7 +21,7 @@ class android_car(gym.Env, EzPickle):
         self.state[2] += action[2]
         self.state[3] += action[3]
         self.count += 1
-        step_reward = np.sum(np.array(self.golden) - np.array(self.state))
+        step_reward = abs(np.sum(np.array(self.golden) - np.array(self.state)))
         if step_reward < 1:
             done = True
         else:
