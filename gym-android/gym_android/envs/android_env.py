@@ -5,7 +5,8 @@ from gym.spaces import Tuple, Box, Discrete
 import numpy as np
 class AndroidEnv(gym.Env):
     metadata = {'render.modes':['human']}
-    def __init__(self, verbose=1):
+    def __init__(self, verbose=False):
+        self.verbose = verbose
         self.golden = [1,2,3,4]
         self.state = [1,1,1,1]
         self.action_space = Tuple((Discrete(4),))
@@ -23,7 +24,8 @@ class AndroidEnv(gym.Env):
             ram[i] = self.state[i]
         return ram
     def step(self, action):
-        print('action:', action)
+        if self.verbose:
+            print('action:', action)
         #assert(len(action)>=4)
         if action == 0:
             self.state[0] += 1
@@ -35,7 +37,8 @@ class AndroidEnv(gym.Env):
             self.state[3] += 1
         ob = self.get_obs()
         dist = self.dist()
-        print('dist:', dist)
+        if self.verbose:
+            print('dist:', dist)
         if dist < 1:
             done = True
         else:
@@ -50,11 +53,13 @@ class AndroidEnv(gym.Env):
         self.dist_prev = dist
         return ob, step_reward, done, {}
     def reset(self):
-        print('reset:')
+        if self.verbose:
+            print('reset:')
         self.state = [1,1,1,1]
         return self.get_obs()
     def render(self, mode='human'):
-        print('state:', self.state)
+        if self.verbose:
+            print('state:', self.state)
     def close(self):
         return
 
