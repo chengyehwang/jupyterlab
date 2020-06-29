@@ -2,11 +2,19 @@ import gym
 env = gym.make('gym_android:android-v0')
 
 # +
-env.reset()
-for _ in range(1000):
-    env.render()
-    env.step(env.action_space.sample()) # take a random action
+for game_count in range(20):
+    env.reset()
+    for game_step in range(1000):
+        env.render()
+        action = env.action_space.sample()
+        observation, reward, done, info = env.step(action)
+        if done:
+            print('done')
+            break
 env.close()
+
+
+# -
 
 
 
