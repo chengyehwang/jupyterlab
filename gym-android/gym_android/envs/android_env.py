@@ -1,6 +1,7 @@
 import gym
 from gym import error, spaces, utils
 from gym.utils import seeding
+from gym.spaces import Tuple, Box, Discrete
 import numpy as np
 class AndroidEnv(gym.Env):
     metadata = {'render.modes':['human']}
@@ -8,12 +9,15 @@ class AndroidEnv(gym.Env):
         self.golden = [1,2,3,4]
         self.state = [1,1,1,1]
         self.count = 0
+        self.action_space = Tuple((Discrete(2), Box(-10,10,(2,))))
     def step(self, action):
-        assert(len(action)>=4)
-        self.state[0] += action[0]
-        self.state[1] += action[1]
-        self.state[2] += action[2]
-        self.state[3] += action[3]
+        print(action)
+        print(action[1][0])
+        #assert(len(action)>=4)
+        self.state[0] += 1 if action[1][0] > 0 else 0
+        self.state[1] += 1 if action[1][0] < 0 else 0
+        self.state[2] += 1 if action[1][1] > 0 else 0
+        self.state[3] += 1 if action[1][1] < 0 else 0
         self.count += 1
         step_reward = abs(np.sum(np.array(self.golden) - np.array(self.state)))
         if step_reward < 1:
