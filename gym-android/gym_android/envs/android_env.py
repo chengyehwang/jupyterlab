@@ -45,7 +45,7 @@ class AndroidEnv(gym.Env):
         print('reset:')
         self.state = [1,1,1,1]
         self.count = 0
-        return
+        return self.state
     def render(self, mode='human'):
         print('state:', self.state)
         return self.count < 1000
