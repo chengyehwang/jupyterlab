@@ -8,8 +8,7 @@ class AndroidEnv(gym.Env):
     def __init__(self, verbose=1):
         self.golden = [1,2,3,4]
         self.state = [1,1,1,1]
-        self.count = 0
-        self.action_space = Tuple((Discrete(2), Discrete(2),Discrete(2),Discrete(2)))
+        self.action_space = Tuple((Discrete(4),))
         self.dist_prev = self.dist()
     def dist(self):
         return np.sum(np.abs(np.array(self.golden) - np.array(self.state)))
@@ -18,14 +17,23 @@ class AndroidEnv(gym.Env):
             if self.state[i] <= self.golden[i]:
                 return False
         return True
+    def get_obs(self):
+        ram = np.zeros(4, dtype=np.uint8)
+        for i in range(4):
+            ram[i] = self.state[i]
+        return ram
     def step(self, action):
         print('action:', action)
         #assert(len(action)>=4)
-        self.state[0] += action[0]
-        self.state[1] += action[1]
-        self.state[2] += action[2]
-        self.state[3] += action[3]
-        self.count += 1
+        if action == 0:
+            self.state[0] += 1
+        elif action == 1:
+            self.state[1] += 1
+        elif action == 2:
+            self.state[2] += 1
+        elif action == 3:
+            self.state[3] += 1
+        ob = self.get_obs()
         dist = self.dist()
         print('dist:', dist)
         if dist < 1:
@@ -40,15 +48,13 @@ class AndroidEnv(gym.Env):
             step_reward = -1.0
         
         self.dist_prev = dist
-        return self.state, step_reward, done, {}
+        return ob, step_reward, done, {}
     def reset(self):
         print('reset:')
         self.state = [1,1,1,1]
-        self.count = 0
-        return self.state
+        return self.get_obs()
     def render(self, mode='human'):
         print('state:', self.state)
-        return self.count < 1000
     def close(self):
         return
 
