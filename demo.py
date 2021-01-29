@@ -5,7 +5,7 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.4.2
+#       jupytext_version: 1.9.1
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -60,9 +60,7 @@ img_bytes = pio.to_image(fig, format="svg")
 display(SVG(img_bytes))
 
 # %%
-from export_image import fig_to_png
-fig_to_png(fig, 'out.png')
-Image(filename='out.png')
+fig.write_image('out.png')
 
 # %% [markdown]
 # # Export json for Plotly viewer
