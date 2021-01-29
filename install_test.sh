@@ -7,3 +7,5 @@ conda install -y gnutls=3.6.5 tensorflow=1.13.* kivy ffpyplayer vaex
 #jupyter lab build
 conda install -c akode -y gym
 pip install buildozer
+apt install -y zip unzip openjdk-8-jdk python3-pip autoconf libtool autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev
+
