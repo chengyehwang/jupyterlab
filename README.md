@@ -39,8 +39,8 @@ Key features:
     * File/Save Notebook As -> your-file-name.py
     * or Rename Notebook... -> your-file-name.py
     * Access (open / save) your-file-name.py by Notebook
-8. Electron
-    * Plotly to image [Orca](https://github.com/plotly/orca)
+8. Image export
+    * Plotly to image [kaleido](https://github.com/plotly/Kaleido)
 9. Design Pattern
     * input / output by json
     * Data source
