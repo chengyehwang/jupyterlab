@@ -1,5 +1,5 @@
 #!/bin/bash
-source /opt/miniconda3/etc/profile.d/conda.sh
+source /opt/miniforge3/etc/profile.d/conda.sh
 conda activate
 host_ext=$1
 host=`ifconfig | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | grep 172.17.0`
