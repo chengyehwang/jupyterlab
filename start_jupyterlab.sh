@@ -15,8 +15,8 @@ echo "xpra tcp://jupyterlab:jupyterlab@$host_ext:14500"
 echo "*******************************************"
 
 # jupyterlab user setting
-mkdir -p ~/.jupyter/lab
-cp -rf /jupyterlab/user-settings ~/.jupyter/lab/
+#mkdir -p ~/.jupyter/lab
+#cp -rf /jupyterlab/user-settings ~/.jupyter/lab/
 
 
 
