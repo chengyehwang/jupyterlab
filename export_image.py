@@ -3,16 +3,7 @@ import subprocess
 import plotly.graph_objects as go
 import tempfile
 import os
-def fig_to_png(fig, out_file):
-    json_data = fig.to_json()
 
-
-    temp_fd, temp_name = tempfile.mkstemp(suffix=".json")
-    with open(temp_fd, 'w') as f:
-        f.write(json_data)
-    print(temp_name)
-    subprocess.run(['xvfb-run', '-a', 'orca', 'graph', temp_name, '-o', out_file])
-    os.remove(temp_name)
 
 if __name__ == '__main__':
     len = 500000
@@ -25,4 +16,4 @@ if __name__ == '__main__':
         mode='markers',
         marker_size=size)
     ])
-    fig_to_png(fig,'fig.png')
+    fig.write_image('fig.png')
