@@ -1,5 +1,5 @@
 # select what you want or add what you want
-if [ "1" = "1" ]
+if [ "0" = "1" ]
 then
 npm config set user 0
 npm config set unsafe-perm true
