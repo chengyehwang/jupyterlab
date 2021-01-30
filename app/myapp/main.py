@@ -13,14 +13,24 @@ from kivy.app import App
 # creates the button in kivy 
 # if not imported shows the error 
 from kivy.uix.button import Button 
-  
+
+# jupyter server
+import sys
+from jupyter_core.command import main as jupyter_main
+
 # class in which we are creating the button 
 class ButtonApp(App): 
       
     def build(self): 
           
-        btn = Button(text ="Push Me !") 
-        return btn 
+        btn = Button(text ="Run Jupyter")
+        btn.bind(on_press=self.callback)
+        return btn
+
+    def callback(self, event):
+        print("Jupyter server is running")
+        sys.argv = ['jupyter', 'notebook']
+        jupyter_main()
   
 # creating the object root for ButtonApp() class  
 root = ButtonApp() 
