@@ -22,7 +22,7 @@ Builder.load_string('''
             id: console_input
             shell: root
             size_hint: (1, None)
-            font_size: root.font_size
+            font_size: 40
             foreground_color: root.foreground_color
             background_color: root.background_color
             height: max(self.parent.height, self.minimum_height)
@@ -48,7 +48,7 @@ class Shell(EventDispatcher):
         self.process = subprocess.Popen(command, stdout=subprocess.PIPE)
         lines_iterator = iter(self.process.stdout.readline, "")
         for line in lines_iterator:
-            output += line
+            output += line.decode('utf-8')
             if show_output:
                 self.dispatch('on_output', line)
         self.dispatch('on_complete', output)
@@ -137,7 +137,7 @@ class ConsoleInput(TextInput):
         self.text += ps1
 
     def on_output(self, output):
-        self.text += output
+        self.text += output.decode('utf-8')
         # print(output)
 
     def on_complete(self, output):
@@ -172,7 +172,7 @@ class KivyConsole(BoxLayout, Shell):
     '''Indicates the size of the font used for the console
 
     :data:`font_size` is a :class:`~kivy.properties.NumericProperty`,
-    Default to '9'
+    Default to '40'
     '''
 
     def __init__(self, **kwargs):
