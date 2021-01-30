@@ -22,7 +22,7 @@ Builder.load_string('''
             id: console_input
             shell: root
             size_hint: (1, None)
-            font_size: 40
+            font_size: root.font_size
             foreground_color: root.foreground_color
             background_color: root.background_color
             height: max(self.parent.height, self.minimum_height)
@@ -168,7 +168,7 @@ class KivyConsole(BoxLayout, Shell):
     :data:`foreground_color` is an :class:`~kivy.properties.ListProperty`,
     Default to '(0, 0, 0, 1)'''
 
-    font_size = NumericProperty(14)
+    font_size = NumericProperty(40)
     '''Indicates the size of the font used for the console
 
     :data:`font_size` is a :class:`~kivy.properties.NumericProperty`,
