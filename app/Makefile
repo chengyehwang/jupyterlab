@@ -9,3 +9,5 @@ stdio:
 	tar zxvf android-studio-ide-201.7042882-linux.tar.gz
 run:
 	./android-studio/bin/studio.sh
+console:
+	wget https://gist.githubusercontent.com/aron-bordin/8ed0d0e977e6af7a788b/raw/dd77423b3ee715bb3bcc9f58c8011ae9b4b3026a/kivyconsole.py -O console.py
