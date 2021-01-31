@@ -22,7 +22,8 @@ Builder.load_string("""
     BoxLayout:
         orientation:'vertical'
         Label:
-            text: 'Under Construction'
+            text: 'Test: Under Construction'
+        TextInput:
         Button:
             text: 'Back to Top'
             on_press: root.manager.current = 'Top'
