@@ -5,6 +5,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 Builder.load_string("""
 <TopScreen>:
     BoxLayout:
+        orientation:'vertical'
         Button:
             text: 'Go Education'
             on_press: root.manager.current = 'Education'
@@ -19,21 +20,33 @@ Builder.load_string("""
             on_press: root.manager.current = 'Develop'
 <EducationScreen>:
     BoxLayout:
+        orientation:'vertical'
+        Label:
+            text: 'Under Construction'
         Button:
             text: 'Back to Top'
             on_press: root.manager.current = 'Top'
 <EngineeringScreen>:
     BoxLayout:
+        orientation:'vertical'
+        Label:
+            text: 'Under Construction'
         Button:
             text: 'Back to Top'
             on_press: root.manager.current = 'Top'
 <ScienceScreen>:
     BoxLayout:
+        orientation:'vertical'
+        Label:
+            text: 'Under Construction'
         Button:
             text: 'Back to Top'
             on_press: root.manager.current = 'Top'
 <DevelopScreen>:
     BoxLayout:
+        orientation:'vertical'
+        Label:
+            text: 'Under Construction'
         Button:
             text: 'Back to Top'
             on_press: root.manager.current = 'Top'
