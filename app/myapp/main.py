@@ -73,17 +73,16 @@ from jnius import autoclass
 
 class Myservice():
     def run(self):
+
         return 0
 
+from kivy.utils import platform
 class ScienceScreen(Screen):
     def run(self):
-        service_name = u'{packagename}.Service{servicename}'.format(
-                packagename=u'org.kivy.test',
-                servicename=u'Myservice')
-        service = autoclass(service_name)
-        mActivity = autoclass(u'org.kivy.android.PythonActivity').mActivity
-        argument = ''
-        service.start(mActivity, argument)
+        if platform == 'android':
+            from android import AndroidService
+            service = AndroidService('jupyter service', 'running')
+            service.start('service started')
 
 import sys
 from io import StringIO
@@ -133,3 +132,4 @@ class myApp(App):
 
 if __name__ == '__main__':
     myApp().run()
+
