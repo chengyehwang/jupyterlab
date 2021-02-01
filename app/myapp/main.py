@@ -1,135 +1,62 @@
-from kivy.app import App
-from kivy.lang import Builder
-from kivy.uix.screenmanager import ScreenManager, Screen
+# -*- coding: utf-8 -*-
 
-Builder.load_string("""
-<TopScreen>:
-    BoxLayout:
-        orientation:'vertical'
-        Button:
-            text: 'Go Education'
-            on_press: root.manager.current = 'Education'
-        Button:
-            text: 'Go Engineering'
-            on_press: root.manager.current = 'Engineering'
-        Button:
-            text: 'Go Science'
-            on_press: root.manager.current = 'Science'
-        Button:
-            text: 'Go Develop'
-            on_press: root.manager.current = 'Develop'
-<EducationScreen>:
-    BoxLayout:
-        orientation:'vertical'
-        Label:
-            text: 'Test: Under Construction'
-        TextInput:
-        Button:
-            text: 'Back to Top'
-            on_press: root.manager.current = 'Top'
-<EngineeringScreen>:
-    BoxLayout:
-        orientation:'vertical'
-        Label:
-            text: 'Under Construction'
-        Button:
-            text: 'Back to Top'
-            on_press: root.manager.current = 'Top'
-<ScienceScreen>:
-    BoxLayout:
-        orientation:'vertical'
-        Button:
-            text: 'Run Jupyter'
-            on_press: root.run()
-        Button:
-            text: 'Back to Top'
-            on_press: root.manager.current = 'Top'
-<DevelopScreen>:
-    BoxLayout:
-        orientation:'vertical'
-        Label:
-            text: 'Python Interpreter'
-        TextInput:
-            id: input
-        Button:
-            text: 'Run'
-            on_press: root.run()
-        TextInput:
-            id: output
-            text: ''
-        Button:
-            text: 'Back to Top'
-            on_press: root.manager.current = 'Top'
-""")
 
-class TopScreen(Screen):
-    pass
-class EducationScreen(Screen):
-    pass
-class EngineeringScreen(Screen):
-    pass
+def run_entrypoint(entrypoint):
+    import runpy
+    import sys
+    import os
+    entrypoint_path = os.path.dirname(entrypoint)
+    sys.path.append(os.path.realpath(entrypoint_path))
+    runpy.run_path(
+        entrypoint,
+        run_name="__main__")
 
-from jnius import autoclass
 
-class Myservice():
-    def run(self):
+def run_launcher(tb=None):
+    from launcher.app import Launcher
+    Launcher().run()
 
-        return 0
 
-from kivy.utils import platform
-class ScienceScreen(Screen):
-    def run(self):
-        if platform == 'android':
-            from android import AndroidService
-            service = AndroidService('jupyter service', 'running')
-            service.start('service started')
+def dispatch():
+    import os
 
-import sys
-from io import StringIO
-import contextlib
+    # desktop launch
+    print("dispathc!")
+    entrypoint = os.environ.get("KIVYLAUNCHER_ENTRYPOINT")
+    if entrypoint is not None:
+        return run_entrypoint(entrypoint)
 
-@contextlib.contextmanager
-def stdoutIO(stdout=None):
-    old = sys.stdout
-    if stdout is None:
-        stdout = StringIO()
-    sys.stdout = stdout
-    yield stdout
-    sys.stdout = old
+    # try android
+    try:
+        from jnius import autoclass
+        activity = autoclass("org.kivy.android.PythonActivity").mActivity
+        intent = activity.getIntent()
+        entrypoint = intent.getStringExtra("entrypoint")
+        orientation = intent.getStringExtra("orientation")
 
-class DevelopScreen(Screen):
-    def run(self):
-        input = self.ids.input.text
-        print('============== input  ===========')
-        print(input)
-        err_info = ''
-        with stdoutIO() as s:
+        if orientation == "portrait":
+            # SCREEN_ORIENTATION_PORTRAIT
+            activity.setRequestedOrientation(0x1)
+        elif orientation == "landscape":
+            # SCREEN_ORIENTATION_LANDSCAPE
+            activity.setRequestedOrientation(0x0)
+        elif orientation == "sensor":
+            # SCREEN_ORIENTATION_SENSOR
+            activity.setRequestedOrientation(0x4)
+
+        if entrypoint is not None:
             try:
-                exec(input)
-            except SyntaxError as err:
-                err_info = err.args[0]
-            except Exception as err:
-                err_info = err.args[0]
-        if err_info == '':
-            output = s.getvalue()
-        else:
-            output = err_info
-        print('============== output ===========')
-        print(output)
-        self.ids.output.text = output
-    pass
+                return run_entrypoint(entrypoint)
+            except Exception:
+                import traceback
+                traceback.print_exc()
+                return
+    except Exception:
+        import traceback
+        traceback.print_exc()
 
-class myApp(App):
-    def build(self):
-        sm = ScreenManager()
-        sm.add_widget(TopScreen(name='Top'))
-        sm.add_widget(EducationScreen(name='Education'))
-        sm.add_widget(EngineeringScreen(name='Engineering'))
-        sm.add_widget(ScienceScreen(name='Science'))
-        sm.add_widget(DevelopScreen(name='Develop'))
-        
-        return sm
+    run_launcher()
 
-if __name__ == '__main__':
-    myApp().run()
 
+if __name__ == "__main__":
+    dispatch()
