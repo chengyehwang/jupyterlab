@@ -13,7 +13,7 @@ package.domain = org.test
 source.dir = .
 
 # (list) Source files to include (let empty to include all the files)
-source.include_exts = py,png,jpg,kv,atlas,ttf
+source.include_exts = py,png,jpg,kv,atlas,ttf,txt
 
 # (list) List of inclusions using pattern matching
 #source.include_patterns = assets/*,images/*.png
@@ -304,6 +304,47 @@ ios.codesign.allowed = false
 
 # (str) Name of the certificate to use for signing the release version
 #ios.codesign.release = %(ios.codesign.debug)s
+
+# (list) Permissions
+[app:android.permissions]
+READ_EXTERNAL_STORAGE
+WRITE_EXTERNAL_STORAGE
+ACCESS_LOCATION_EXTRA_COMMANDS
+ACCESS_NETWORK_STATE
+ACCESS_NOTIFICATION_POLICY
+ACCESS_WIFI_STATE
+BLUETOOTH
+BLUETOOTH_ADMIN
+BROADCAST_STICKY
+CHANGE_NETWORK_STATE
+CHANGE_WIFI_MULTICAST_STATE
+CHANGE_WIFI_STATE
+DISABLE_KEYGUARD
+EXPAND_STATUS_BAR
+FOREGROUND_SERVICE
+GET_PACKAGE_SIZE
+INSTALL_SHORTCUT
+INTERNET
+KILL_BACKGROUND_PROCESSES
+MANAGE_OWN_CALLS
+MODIFY_AUDIO_SETTINGS
+NFC
+READ_SYNC_SETTINGS
+READ_SYNC_STATS
+RECEIVE_BOOT_COMPLETED
+REORDER_TASKS
+REQUEST_COMPANION_RUN_IN_BACKGROUND
+REQUEST_COMPANION_USE_DATA_IN_BACKGROUND
+REQUEST_DELETE_PACKAGES
+REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
+SET_ALARM
+SET_WALLPAPER
+SET_WALLPAPER_HINTS
+TRANSMIT_IR
+USE_FINGERPRINT
+VIBRATE
+WAKE_LOCK
+WRITE_SYNC_SETTINGS
 
 
 [buildozer]
