@@ -38,8 +38,9 @@ Builder.load_string("""
 <ScienceScreen>:
     BoxLayout:
         orientation:'vertical'
-        Label:
-            text: 'Under Construction'
+        Button:
+            text: 'Run Jupyter'
+            on_press: root.run()
         Button:
             text: 'Back to Top'
             on_press: root.manager.current = 'Top'
@@ -67,8 +68,22 @@ class EducationScreen(Screen):
     pass
 class EngineeringScreen(Screen):
     pass
+
+from jnius import autoclass
+
+class Myservice():
+    def run(self):
+        return 0
+
 class ScienceScreen(Screen):
-    pass
+    def run(self):
+        service_name = u'{packagename}.Service{servicename}'.format(
+                packagename=u'org.kivy.test',
+                servicename=u'Myservice')
+        service = autoclass(service_name)
+        mActivity = autoclass(u'org.kivy.android.PythonActivity').mActivity
+        argument = ''
+        service.start(mActivity, argument)
 
 import sys
 from io import StringIO
@@ -88,12 +103,18 @@ class DevelopScreen(Screen):
         input = self.ids.input.text
         print('============== input  ===========')
         print(input)
+        err_info = ''
         with stdoutIO() as s:
             try:
                 exec(input)
-            except:
-                print('error in code')
-        output = s.getvalue()
+            except SyntaxError as err:
+                err_info = err.args[0]
+            except Exception as err:
+                err_info = err.args[0]
+        if err_info == '':
+            output = s.getvalue()
+        else:
+            output = err_info
         print('============== output ===========')
         print(output)
         self.ids.output.text = output
