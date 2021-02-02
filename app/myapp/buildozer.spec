@@ -42,6 +42,9 @@ requirements = python3, kivy, jupyter, numpy, pandas, matplotlib, pyjnius
 # Sets custom source for any requirements with recipes
 # requirements.source.kivy = ../../kivy
 
+# (list) Garden requirements
+#garden_requirements =
+
 # (str) Presplash of the application
 #presplash.filename = %(source.dir)s/data/presplash.png
 
@@ -82,17 +85,8 @@ fullscreen = 0
 # olive, purple, silver, teal.
 #android.presplash_color = #FFFFFF
 
-# (string) Presplash animation using Lottie format.
-# see https://lottiefiles.com/ for examples and https://airbnb.design/lottie/
-# for general documentation.
-# Lottie files can be created using various tools, like Adobe After Effect or Synfig.
-#android.presplash_lottie = "path/to/lottie/file.json"
-
 # (list) Permissions
-#android.permissions = INTERNET
-
-# (list) features (adds uses-feature -tags to manifest)
-#android.features = android.hardware.usb.host
+android.permissions = INTERNET, MANAGE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE
 
 # (int) Target Android API, should be as high as possible.
 android.api = 29
@@ -227,7 +221,7 @@ android.manifest.launch_mode = standard
 #android.copy_libs = 1
 
 # (str) The Android arch to build for, choices: armeabi-v7a, arm64-v8a, x86, x86_64
-android.arch = armeabi-v7a
+android.arch = arm64-v8a
 
 # (int) overrides automatic versionCode computation (used in build.gradle)
 # this is not the same as app version and should only be edited if you know what you're doing
@@ -307,6 +301,7 @@ ios.codesign.allowed = false
 
 # (list) Permissions
 [app:android.permissions]
+MANAGE_EXTERNAL_STORAGE
 READ_EXTERNAL_STORAGE
 WRITE_EXTERNAL_STORAGE
 ACCESS_LOCATION_EXTRA_COMMANDS
