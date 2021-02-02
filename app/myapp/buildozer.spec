@@ -22,7 +22,7 @@ source.include_exts = py,png,jpg,kv,atlas,ttf,txt
 #source.exclude_exts = spec
 
 # (list) List of directory to exclude (let empty to not exclude anything)
-#source.exclude_dirs = tests, bin, venv
+#source.exclude_dirs = tests, bin
 
 # (list) List of exclusions using pattern matching
 #source.exclude_patterns = license,images/*/*.jpg
@@ -56,7 +56,6 @@ orientation = portrait
 
 # (list) List of service to declare
 #services = NAME:ENTRYPOINT_TO_PY,NAME2:ENTRYPOINT2_TO_PY
-#services = Myservice:main.py
 
 #
 # OSX Specific
@@ -78,7 +77,7 @@ osx.kivy_version = 1.9.1
 # (bool) Indicate if the application should be fullscreen or not
 fullscreen = 0
 
-# (string) Presplash background color (for android toolchain)
+# (string) Presplash background color (for new android toolchain)
 # Supported formats are: #RRGGBB #AARRGGBB or one of the following names:
 # red, blue, green, black, white, gray, cyan, magenta, yellow, lightgray,
 # darkgray, grey, lightgrey, darkgrey, aqua, fuchsia, lime, maroon, navy,
@@ -86,10 +85,10 @@ fullscreen = 0
 #android.presplash_color = #FFFFFF
 
 # (list) Permissions
-android.permissions = INTERNET, MANAGE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE
+#android.permissions = INTERNET
 
 # (int) Target Android API, should be as high as possible.
-android.api = 29
+#android.api = 27
 
 # (int) Minimum API your APK will support.
 #android.minapi = 21
@@ -151,10 +150,12 @@ android.api = 29
 # directory containing the files)
 #android.add_src =
 
-# (list) Android AAR archives to add
+# (list) Android AAR archives to add (currently works only with sdl2_gradle
+# bootstrap)
 #android.add_aars =
 
-# (list) Gradle dependencies to add
+# (list) Gradle dependencies to add (currently works only with sdl2_gradle
+# bootstrap)
 #android.gradle_dependencies =
 
 # (list) add java compile options
@@ -172,7 +173,7 @@ android.api = 29
 # can be necessary to solve conflicts in gradle_dependencies
 # please enclose in double quotes 
 # e.g. android.add_packaging_options = "exclude 'META-INF/common.kotlin_module'", "exclude 'META-INF/*.kotlin_module'"
-#android.add_packaging_options =
+#android.add_gradle_repositories =
 
 # (list) Java classes to add as activities to the manifest.
 #android.add_activities = com.example.ExampleActivity
@@ -188,7 +189,7 @@ android.api = 29
 #android.manifest.intent_filters =
 
 # (str) launchMode to set for the main activity
-android.manifest.launch_mode = standard
+#android.manifest.launch_mode = standard
 
 # (list) Android additional libraries to copy into libs/armeabi
 #android.add_libs_armeabi = libs/android/*.so
@@ -214,9 +215,6 @@ android.manifest.launch_mode = standard
 # (str) Android logcat filters to use
 #android.logcat_filters = *:S python:D
 
-# (str) Android additional adb arguments
-#android.adb_args = -H host.docker.internal
-
 # (bool) Copy library instead of making a libpymodules.so
 #android.copy_libs = 1
 
@@ -226,18 +224,6 @@ android.arch = armeabi-v7a
 # (int) overrides automatic versionCode computation (used in build.gradle)
 # this is not the same as app version and should only be edited if you know what you're doing
 # android.numeric_version = 1
-
-# (bool) enables Android auto backup feature (Android API >=23)
-android.allow_backup = True
-
-# (str) XML file for custom backup rules (see official auto backup documentation)
-# android.backup_rules =
-
-# (str) If you need to insert variables into your AndroidManifest.xml file,
-# you can do so with the manifestPlaceholders property.
-# This property takes a map of key-value pairs. (via a string)
-# Usage example : android.manifest_placeholders = [myCustomUrl:\"org.kivy.customurl\"]
-# android.manifest_placeholders = [:]
 
 #
 # Python for android (p4a) specific
@@ -264,13 +250,6 @@ android.allow_backup = True
 # (int) port number to specify an explicit --port= p4a argument (eg for bootstrap flask)
 #p4a.port =
 
-# Control passing the --use-setup-py vs --ignore-setup-py to p4a
-# "in the future" --use-setup-py is going to be the default behaviour in p4a, right now it is not
-# Setting this to false will pass --ignore-setup-py, true will pass --use-setup-py
-# NOTE: this is general setuptools integration, having pyproject.toml is enough, no need to generate
-# setup.py if you're using Poetry, but you need to add "toml" to source.include_exts.
-#p4a.setup_py = false
-
 
 #
 # iOS specific
@@ -287,10 +266,7 @@ ios.kivy_ios_branch = master
 #ios.ios_deploy_dir = ../ios_deploy
 # Or specify URL and branch
 ios.ios_deploy_url = https://github.com/phonegap/ios-deploy
-ios.ios_deploy_branch = 1.10.0
-
-# (bool) Whether or not to sign the code
-ios.codesign.allowed = false
+ios.ios_deploy_branch = 1.7.0
 
 # (str) Name of the certificate to use for signing the debug version
 # Get a list of available identities: buildozer ios list_identities
@@ -298,48 +274,6 @@ ios.codesign.allowed = false
 
 # (str) Name of the certificate to use for signing the release version
 #ios.codesign.release = %(ios.codesign.debug)s
-
-# (list) Permissions
-[app:android.permissions]
-MANAGE_EXTERNAL_STORAGE
-READ_EXTERNAL_STORAGE
-WRITE_EXTERNAL_STORAGE
-ACCESS_LOCATION_EXTRA_COMMANDS
-ACCESS_NETWORK_STATE
-ACCESS_NOTIFICATION_POLICY
-ACCESS_WIFI_STATE
-BLUETOOTH
-BLUETOOTH_ADMIN
-BROADCAST_STICKY
-CHANGE_NETWORK_STATE
-CHANGE_WIFI_MULTICAST_STATE
-CHANGE_WIFI_STATE
-DISABLE_KEYGUARD
-EXPAND_STATUS_BAR
-FOREGROUND_SERVICE
-GET_PACKAGE_SIZE
-INSTALL_SHORTCUT
-INTERNET
-KILL_BACKGROUND_PROCESSES
-MANAGE_OWN_CALLS
-MODIFY_AUDIO_SETTINGS
-NFC
-READ_SYNC_SETTINGS
-READ_SYNC_STATS
-RECEIVE_BOOT_COMPLETED
-REORDER_TASKS
-REQUEST_COMPANION_RUN_IN_BACKGROUND
-REQUEST_COMPANION_USE_DATA_IN_BACKGROUND
-REQUEST_DELETE_PACKAGES
-REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
-SET_ALARM
-SET_WALLPAPER
-SET_WALLPAPER_HINTS
-TRANSMIT_IR
-USE_FINGERPRINT
-VIBRATE
-WAKE_LOCK
-WRITE_SYNC_SETTINGS
 
 
 [buildozer]
