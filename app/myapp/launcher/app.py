@@ -182,6 +182,10 @@ class Launcher(App):
 
     def build(self):
         self.log('start of log')
+        if platform == 'android':
+            from android.permissions import request_permissions, Permission
+            request_permissions([Permission.READ_EXTERNAL_STORAGE])
+
         if KIVYLAUNCHER_PATHS:
             self.paths.extend(KIVYLAUNCHER_PATHS.split(","))
         else:
@@ -194,10 +198,6 @@ class Launcher(App):
 
         self.root = Builder.load_string(KV)
         self.refresh_entries()
-
-        if platform == 'android':
-            from android.permissions import request_permissions, Permission
-            request_permissions([Permission.READ_EXTERNAL_STORAGE])
 
     def refresh_entries(self):
         data = []
@@ -226,7 +226,7 @@ class Launcher(App):
                 self.log(f'{path} does not exist')
                 return
 
-            self.log(f'{os.listdir(path)}')
+            #self.log(f'{os.listdir(path)}')
             for filename in glob("{}/*/android.txt".format(path)):
                 self.log(f'{filename} exist')
                 entry = self.read_entry(filename)
