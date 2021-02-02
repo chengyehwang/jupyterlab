@@ -22,7 +22,7 @@ def dispatch():
     from kivy.utils import platform
 
     # desktop launch
-    print("dispathc!")
+    print("dispatch!")
     entrypoint = os.environ.get("KIVYLAUNCHER_ENTRYPOINT")
     if entrypoint is not None:
         return run_entrypoint(entrypoint)
@@ -33,6 +33,8 @@ def dispatch():
 
     # try android
     try:
+        from android.permissions import request_permissions, Permission
+        request_permissions([Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE])
         from jnius import autoclass
         activity = autoclass("org.kivy.android.PythonActivity").mActivity
         intent = activity.getIntent()

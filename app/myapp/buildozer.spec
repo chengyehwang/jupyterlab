@@ -36,7 +36,7 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3, kivy, jupyter, numpy, pandas, matplotlib, pyjnius
+requirements = python3, kivy, jupyter, android, numpy, pandas, matplotlib
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -221,7 +221,7 @@ android.manifest.launch_mode = standard
 #android.copy_libs = 1
 
 # (str) The Android arch to build for, choices: armeabi-v7a, arm64-v8a, x86, x86_64
-android.arch = arm64-v8a
+android.arch = armeabi-v7a
 
 # (int) overrides automatic versionCode computation (used in build.gradle)
 # this is not the same as app version and should only be edited if you know what you're doing
