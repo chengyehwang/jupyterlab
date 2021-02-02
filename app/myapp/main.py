@@ -19,12 +19,17 @@ def run_launcher(tb=None):
 
 def dispatch():
     import os
+    from kivy.utils import platform
 
     # desktop launch
     print("dispathc!")
     entrypoint = os.environ.get("KIVYLAUNCHER_ENTRYPOINT")
     if entrypoint is not None:
         return run_entrypoint(entrypoint)
+
+    if platform != 'android':
+        return run_launcher()
+
 
     # try android
     try:

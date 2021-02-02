@@ -1,0 +1,3 @@
+title=jupyter
+author=ChengYeh Wang
+orientation=landscape
