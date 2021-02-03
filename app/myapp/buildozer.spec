@@ -36,7 +36,7 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3, kivy, jupyter, android, numpy, pandas, matplotlib
+requirements = python3, kivy, jupyter, android, numpy, pandas, matplotlib, requests, urllib3, chardet, idna
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -85,7 +85,7 @@ fullscreen = 0
 #android.presplash_color = #FFFFFF
 
 # (list) Permissions
-#android.permissions = INTERNET
+android.permissions = INTERNET
 
 # (int) Target Android API, should be as high as possible.
 #android.api = 27
@@ -94,10 +94,10 @@ fullscreen = 0
 #android.minapi = 21
 
 # (int) Android SDK version to use
-#android.sdk = 20
+android.sdk = 27
 
 # (str) Android NDK version to use
-#android.ndk = 19b
+android.ndk = 19c
 
 # (int) Android NDK API to use. This is the minimum API your app will support, it should usually match android.minapi.
 #android.ndk_api = 21
@@ -233,7 +233,7 @@ android.arch = armeabi-v7a
 #p4a.fork = kivy
 
 # (str) python-for-android branch to use, defaults to master
-#p4a.branch = master
+p4a.branch = master
 
 # (str) python-for-android git clone directory (if empty, it will be automatically cloned from github)
 #p4a.source_dir =

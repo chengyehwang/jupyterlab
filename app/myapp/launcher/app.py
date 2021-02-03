@@ -10,6 +10,13 @@ from glob import glob
 from os.path import dirname, join, exists
 import traceback
 
+def git(target_path):
+    import requests, zipfile, io
+    zip_file_url = "http://github.com/chengyehwang/kivy_app/archive/main.zip"
+    r = requests.get(zip_file_url)
+    z = zipfile.ZipFile(io.BytesIO(r.content))
+    z.extractall(target_path)
+
 KIVYLAUNCHER_PATHS = os.environ.get("KIVYLAUNCHER_PATHS")
 
 KV = r"""
@@ -184,16 +191,15 @@ class Launcher(App):
         self.log('start of log')
         if platform == 'android':
             from android.permissions import request_permissions, Permission
-            request_permissions([Permission.READ_EXTERNAL_STORAGE])
+            request_permissions([Permission.READ_EXTERNAL_STORAGE,Permission.INTERNET])
 
         if KIVYLAUNCHER_PATHS:
             self.paths.extend(KIVYLAUNCHER_PATHS.split(","))
         else:
-            from jnius import autoclass
-            Environment = autoclass('android.os.Environment')
-            sdcard_path = Environment.getExternalStorageDirectory().getAbsolutePath()
+            user_data_dir = getattr(self, 'user_data_dir')
+            git(user_data_dir)
             self.paths = [
-                sdcard_path + "/kivy",
+                user_data_dir + "/kivy_app-main"
             ]
 
         self.root = Builder.load_string(KV)
