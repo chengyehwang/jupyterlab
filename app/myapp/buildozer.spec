@@ -36,7 +36,7 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3, kivy, jupyter, android, numpy, pandas, matplotlib, requests, urllib3, chardet, idna
+requirements = python3, kivy, jupyter, android, numpy, pandas, matplotlib, requests, urllib3, chardet, idna, jupyter_core, notebook, ipython_genutils, traitlets, tornado, jinja2, markupsafe
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -189,7 +189,7 @@ android.ndk = 19c
 #android.manifest.intent_filters =
 
 # (str) launchMode to set for the main activity
-#android.manifest.launch_mode = standard
+android.manifest.launch_mode = singleTop
 
 # (list) Android additional libraries to copy into libs/armeabi
 #android.add_libs_armeabi = libs/android/*.so

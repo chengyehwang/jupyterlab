@@ -63,6 +63,25 @@ def dispatch():
 
     run_launcher()
 
+kv = '''
+Button:
+    text: 'push me!'
+'''
+from kivy.app import App
+from kivy.lang import Builder
+from kivy.utils import platform
+class ServiceApp(App):
+    def build(self):
+        if platform == 'android':
+            from android import AndroidService
+            service = AndroidService('launch service')
+            service.start('service started')
+            self.service = service
+        return Builder.load_string(kv)
+
 
 if __name__ == "__main__":
-    dispatch()
+    ServiceApp().run()
+    #dispatch()
+    #print('second run')
+    #dispatch()
