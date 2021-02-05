@@ -27,6 +27,7 @@ for install in installs:
         if m:
             continue
         if package not in packages:
+            continue
             packages[package] = 1
             select[package] = 1
 
