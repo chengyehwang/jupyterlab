@@ -4,7 +4,7 @@ apt update
 apt install -y openssh wget vi net-tools make gcc
 apt install -y libzmq libxml2 libxslt python build-essential libjpeg-turbo
 pip install --upgrade pip
-pip install numpy lxml matplotlib pandas ipython future cython requests jupyterlab plotly 
+pip install numpy lxml matplotlib pandas ipython future cython requests xlrd scikit-learn jupyterlab jupytext plotly plotly-kaleido python-pptx autopep8 seaborn
 }
 launch_sshd() {
     passwd
