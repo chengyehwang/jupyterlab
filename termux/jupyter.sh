@@ -9,4 +9,10 @@ pip install numpy lxml matplotlib pandas ipython future cython requests jupyterl
 launch_sshd() {
     passwd
 }
-install_jupyter
+launch_jupyter () {
+    host=`ifconfig | grep -oE "inet 192.[0-9.]+" | tr -d "inet "`
+    echo $host
+    jupyter-lab --ip $host --no-browser
+}
+#install_jupyter
+launch_jupyter
