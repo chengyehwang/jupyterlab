@@ -1,9 +1,9 @@
 install_jupyter () {
 apt upgrade
 apt update
-apt install -y openssh wget
-apt install -y libzmq python
+apt install -y openssh wget vi
+apt install -y libzmq libxml2 libxslt python
 pip install --upgrade pip
-pip install -y numpy lxml matplotlib pandas ipython future cython requests jupyterlab plotly 
+pip install numpy lxml matplotlib pandas ipython future cython requests jupyterlab plotly 
 }
 install_jupyter
