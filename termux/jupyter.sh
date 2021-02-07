@@ -1,8 +1,11 @@
 install_jupyter () {
 apt upgrade
 apt update
+apt install science-repo
 apt install -y openssh wget vi net-tools make gcc
-apt install -y libzmq libxml2 libxslt python build-essential libjpeg-turbo
+wget https://its-pointless.github.io/setup-pointless-repo.sh
+source ./setup-pointless-repo.sh
+apt install -y libzmq libxml2 libxslt python build-essential libjpeg-turbo openblas libgfortran4
 pip install --upgrade pip
 pip install numpy lxml matplotlib pandas ipython future cython requests xlrd scikit-learn jupyterlab jupytext plotly plotly-kaleido python-pptx autopep8 seaborn
 }
