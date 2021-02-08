@@ -11,10 +11,12 @@ For more details on building multi-page Dash applications, check out the Dash
 documentation: https://dash.plot.ly/urls
 """
 import dash
+import dash_table
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
+import argparse
 
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 
@@ -69,7 +71,12 @@ def render_page_content(pathname):
     elif pathname == "/page-1":
         return html.P("This is the content of page 1. Yay!")
     elif pathname == "/page-2":
-        return html.P("Oh cool, this is page 2!")
+        #return html.P("Oh cool, this is page 2!")
+        return dash_table.DataTable(
+                id='table',
+                columns = [{"name":i,"id":i} for i in range(10)],
+                data = [i for i in range(10)],
+                )
     # If the user tries to reach a different page, return a 404 message
     return dbc.Jumbotron(
         [
@@ -81,4 +88,8 @@ def render_page_content(pathname):
 
 
 if __name__ == "__main__":
-    app.run_server(port=8050)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-h', dest='host', action='store', default='127.0.0.1')
+    args = parser.parse_args()
+
+    app.run_server(host=host, port=8050)
