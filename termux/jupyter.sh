@@ -5,11 +5,11 @@ apt install -y science-repo
 apt install -y openssh wget vim net-tools make gcc
 wget https://its-pointless.github.io/setup-pointless-repo.sh
 source ./setup-pointless-repo.sh
-apt install -y libzmq libxml2 libxslt python build-essential libjpeg-turbo openblas libgfortran4 libcompiler-rt
+apt install -y libzmq libxml2 libxslt python build-essential libjpeg-turbo openblas libgfortran4 libcompiler-rt nodejs
 #scipy
 pip install --upgrade pip
 pip install wheel
-pip install numpy lxml matplotlib pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8
+pip install numpy lxml matplotlib pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 kivy
 #seaborn kaleido
 }
 launch_sshd() {
@@ -44,7 +44,14 @@ launch_buildapk() {
     echo "~/buildAPKs/build.github.bash $1"
     ~/buildAPKs/build.github.bash $1
 }
-while getopts 'wilsba:' opt; do
+launch_node() {
+    apt install -y nodejs
+    npm install
+    killall node
+    node server.js &
+    termux-open http://localhost:8080
+}
+while getopts 'wilsba:xn' opt; do
     case $opt in
         (w) launch_jupyter_wlan;;
         (i) install_jupyter;;
@@ -52,7 +59,8 @@ while getopts 'wilsba:' opt; do
         (s) launch_sshd;;
         (b) install_buildapk;;
         (a) launch_buildapk $OPTARG;;
-        (b) install_x11;;
+        (x) install_x11;;
+        (n) launch_node;;
     esac
 done
 
