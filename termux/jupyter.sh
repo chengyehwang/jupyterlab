@@ -20,16 +20,22 @@ launch_sshd() {
     echo "adb forward tcp:8022 tcp:8022"
     echo "ssh $user@localhost -p 8022"
 }
-launch_jupyter () {
+launch_jupyter_wlan () {
     host=`ip addr show wlan0 | grep "inet\b" | awk '{print $2}' | cut -d/ -f1`
-    echo $host
+    echo "jupyter-lab --ip $host --no-browser"
     jupyter-lab --ip $host --no-browser
 }
-
-while getopts 'ijs' opt; do
+launch_jupyter_local () {
+    host="localhost"
+    echo "adb forward tcp:8888 tcp:8888"   
+    echo "jupyter-lab --ip $host --no-browser"
+    jupyter-lab --ip $host --no-browser
+}
+while getopts 'wils' opt; do
     case $opt in
+        (w) launch_jupyter_wlan;;
         (i) install_jupyter;;
-        (j) launch_jupyter;;
+        (l) launch_jupyter_local;;
         (s) launch_sshd;;
     esac
 done
