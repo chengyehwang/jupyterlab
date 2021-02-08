@@ -36,13 +36,18 @@ install_buildapk () {
    curl -O https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/setup.buildAPKs.bash
    bash setup.buildAPKs.bash
 }
-while getopts 'wilsb' opt; do
+launch_buildapk() {
+    echo "~/buildAPKs/build.github.bash $1"
+    ~/buildAPKs/build.github.bash $1
+}
+while getopts 'wilsba:' opt; do
     case $opt in
         (w) launch_jupyter_wlan;;
         (i) install_jupyter;;
         (l) launch_jupyter_local;;
         (s) launch_sshd;;
         (b) install_buildapk;;
+        (a) launch_buildapk $OPTARG;;
     esac
 done
 
