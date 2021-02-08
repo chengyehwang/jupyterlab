@@ -5,7 +5,7 @@ apt install -y science-repo
 apt install -y openssh wget vim net-tools make gcc
 wget https://its-pointless.github.io/setup-pointless-repo.sh
 source ./setup-pointless-repo.sh
-apt install -y libzmq libxml2 libxslt python build-essential libjpeg-turbo openblas libgfortran4
+apt install -y libzmq libxml2 libxslt python build-essential libjpeg-turbo openblas libgfortran4 libcompiler-rt
 #scipy
 pip install --upgrade pip
 pip install wheel
