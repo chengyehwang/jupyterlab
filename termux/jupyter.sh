@@ -9,7 +9,7 @@ apt install -y libzmq libxml2 libxslt python build-essential libjpeg-turbo openb
 #scipy
 pip install --upgrade pip
 pip install wheel
-pip install numpy lxml matplotlib pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 kivy
+pip install numpy lxml matplotlib pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 kivy dash dash-bootstrap-components
 #seaborn kaleido
 }
 launch_sshd() {
@@ -44,21 +44,11 @@ launch_buildapk() {
     echo "~/buildAPKs/build.github.bash $1"
     ~/buildAPKs/build.github.bash $1
 }
-launch_node() {
-    apt install -y nodejs
-    npm install
-    killall node
-    node server.js &
-    termux-open http://localhost:8080
+launch_dash() {
+    termux-open http://localhost:8050
+    python app.py
 }
-launch_react() {
-    apt install -y nodejs
-    npx create-react-app my-app
-    termux-open-url http://localhost:3000
-    cd my-app
-    npm start
-}
-while getopts 'wilsba:nr' opt; do
+while getopts 'wilsba:d' opt; do
     case $opt in
         (w) launch_jupyter_wlan;;
         (i) install_jupyter;;
@@ -67,8 +57,7 @@ while getopts 'wilsba:nr' opt; do
         (b) install_buildapk;;
         (a) launch_buildapk $OPTARG;;
         (x) install_x11;;
-        (n) launch_node;;
-        (r) launch_react;;
+        (d) launch_dash;;
     esac
 done
 
