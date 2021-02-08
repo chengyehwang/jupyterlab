@@ -15,22 +15,21 @@ launch_sshd() {
     apt install -y openssh
     passwd
     sshd
+    user=`whoami`
     echo "adb forward tcp:8022 tcp:8022"
-    echo "ssh u0_a207@localhost -p 8022"
+    echo "ssh $user@localhost -p 8022"
 }
 launch_jupyter () {
     host=`ifconfig | grep -oE "inet 192.[0-9.]+" | tr -d "inet "`
     echo $host
     jupyter-lab --ip $host --no-browser
 }
-if [[ $1 -eq 1 ]]
-then
-    install_jupyter
-elif [[ $1 -eq 2 ]]
-then
-    launch_jupyter
-elif [[ $1 -eq 3 ]]
-then
-    launch_sshd
-fi
+
+while getopts 'ijs' opt; do
+    case $opt in
+        (i) install_jupyter;;
+        (j) launch_jupyter;;
+        (s) launch_sshd;;
+    esac
+done
 
