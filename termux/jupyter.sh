@@ -32,9 +32,13 @@ launch_jupyter_local () {
     jupyter-lab --ip $host --no-browser
 }
 install_buildapk () {
-   apt install curl
+   apt install -y curl
    curl -O https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/setup.buildAPKs.bash
    bash setup.buildAPKs.bash
+}
+install_x11 () {
+    pkg install -y x11-repo
+    apt install -y vim-gtk
 }
 launch_buildapk() {
     echo "~/buildAPKs/build.github.bash $1"
@@ -48,6 +52,7 @@ while getopts 'wilsba:' opt; do
         (s) launch_sshd;;
         (b) install_buildapk;;
         (a) launch_buildapk $OPTARG;;
+        (b) install_x11;;
     esac
 done
 
