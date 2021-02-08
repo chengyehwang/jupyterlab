@@ -51,7 +51,14 @@ launch_node() {
     node server.js &
     termux-open http://localhost:8080
 }
-while getopts 'wilsba:xn' opt; do
+launch_react() {
+    apt install -y nodejs
+    npx create-react-app my-app
+    termux-open-url http://localhost:3000
+    cd my-app
+    npm start
+}
+while getopts 'wilsba:nr' opt; do
     case $opt in
         (w) launch_jupyter_wlan;;
         (i) install_jupyter;;
@@ -61,6 +68,7 @@ while getopts 'wilsba:xn' opt; do
         (a) launch_buildapk $OPTARG;;
         (x) install_x11;;
         (n) launch_node;;
+        (r) launch_react;;
     esac
 done
 
