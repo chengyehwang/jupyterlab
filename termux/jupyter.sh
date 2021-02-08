@@ -1,7 +1,7 @@
 install_jupyter () {
-apt upgrade
-apt update
-apt install science-repo
+apt upgrade -y
+apt update -y
+apt install -y science-repo
 apt install -y openssh wget vi net-tools make gcc
 wget https://its-pointless.github.io/setup-pointless-repo.sh
 source ./setup-pointless-repo.sh
