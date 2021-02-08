@@ -21,7 +21,7 @@ launch_sshd() {
     echo "ssh $user@localhost -p 8022"
 }
 launch_jupyter () {
-    host=`ifconfig | grep -oE "inet 192.[0-9.]+" | tr -d "inet "`
+    host=`ip addr show wlan0 | grep "inet\b" | awk '{print $2}' | cut -d/ -f1`
     echo $host
     jupyter-lab --ip $host --no-browser
 }
