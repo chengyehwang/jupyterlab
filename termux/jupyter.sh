@@ -8,6 +8,7 @@ source ./setup-pointless-repo.sh
 apt install -y libzmq libxml2 libxslt python build-essential libjpeg-turbo openblas libgfortran4
 #scipy
 pip install --upgrade pip
+pip install wheel
 pip install numpy lxml matplotlib pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8
 #seaborn kaleido
 }
