@@ -31,12 +31,18 @@ launch_jupyter_local () {
     echo "jupyter-lab --ip $host --no-browser"
     jupyter-lab --ip $host --no-browser
 }
-while getopts 'wils' opt; do
+install_buildapk () {
+   apt install curl
+   curl -O https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/setup.buildAPKs.bash
+   bash setup.buildAPKs.bash
+}
+while getopts 'wilsb' opt; do
     case $opt in
         (w) launch_jupyter_wlan;;
         (i) install_jupyter;;
         (l) launch_jupyter_local;;
         (s) launch_sshd;;
+        (b) install_buildapk;;
     esac
 done
 
