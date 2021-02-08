@@ -12,12 +12,25 @@ pip install numpy lxml matplotlib pandas ipython future cython requests xlrd jup
 #seaborn
 }
 launch_sshd() {
+    apt install -y openssh
     passwd
+    sshd
+    echo "adb forward tcp:8022 tcp:8022"
+    echo "ssh u0_a207@localhost -p 8022"
 }
 launch_jupyter () {
     host=`ifconfig | grep -oE "inet 192.[0-9.]+" | tr -d "inet "`
     echo $host
     jupyter-lab --ip $host --no-browser
 }
-install_jupyter
-launch_jupyter
+if [[ $1 -eq 1 ]]
+then
+    install_jupyter
+elif [[ $1 -eq 2 ]]
+then
+    launch_jupyter
+elif [[ $1 -eq 3 ]]
+then
+    launch_sshd
+fi
+
