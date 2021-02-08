@@ -46,8 +46,8 @@ launch_buildapk() {
 }
 launch_dash() {
     host=`ip addr show wlan0 | grep "inet\b" | awk '{print $2}' | cut -d/ -f1`
-    termux-open http://localhost:8050
-    python app.py -h $host
+    termux-open http://$host:8050
+    python app.py -a $host
 }
 while getopts 'wilsba:d' opt; do
     case $opt in

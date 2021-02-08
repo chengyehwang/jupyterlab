@@ -89,7 +89,7 @@ def render_page_content(pathname):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('-h', dest='host', action='store', default='127.0.0.1')
+    parser.add_argument('-a', dest='host', action='store', default='127.0.0.1')
     args = parser.parse_args()
 
-    app.run_server(host=host, port=8050)
+    app.run_server(host=args.host, port=8050)
