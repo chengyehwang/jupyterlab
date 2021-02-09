@@ -1,8 +1,7 @@
 install_jupyter () {
 apt upgrade -y
 apt update -y
-apt install -y science-repo
-apt install -y openssh wget vim net-tools make gcc iproute2
+apt install -y openssh-server wget vim net-tools make gcc iproute2
 apt install -y libzmq libxml2 libxslt build-essential libjpeg-turbo openblas libgfortran4 libcompiler-rt nodejs
 pip install --upgrade pip
 pip install wheel
