@@ -72,10 +72,12 @@ def render_page_content(pathname):
         return html.P("This is the content of page 1. Yay!")
     elif pathname == "/page-2":
         #return html.P("Oh cool, this is page 2!")
+        import pandas as pd
+        df pd.DataFrame([{'a':12,'b':22},{'a':22,'b':12}])
         return dash_table.DataTable(
                 id='table',
-                columns = [{"name":i,"id":i} for i in range(10)],
-                data = [i for i in range(10)],
+                columns = [{"name":i,"id":i} for i in df.columns],
+                data = df.to_dict('records'),
                 )
     # If the user tries to reach a different page, return a 404 message
     return dbc.Jumbotron(
