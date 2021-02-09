@@ -3,18 +3,10 @@ apt upgrade -y
 apt update -y
 apt install -y science-repo
 apt install -y openssh wget vim net-tools make gcc
-#wget https://its-pointless.github.io/setup-pointless-repo.sh
-#source ./setup-pointless-repo.sh
 apt install -y libzmq libxml2 libxslt build-essential libjpeg-turbo openblas libgfortran4 libcompiler-rt nodejs
-#if [ ! -f ./python_3.8.6_aarch64.deb ]; then
-#    wget https://github.com/Termux-pod/termux-pod/raw/main/arch64/python/python-3.8.6/python_3.8.6_aarch64.deb
-#fi
-#apt install ./python_3.8.6_aarch64.deb
-#scipy
 pip install --upgrade pip
 pip install wheel
-pip install numpy lxml matplotlib pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 dash dash-bootstrap-components seaborn kaleido
-#kivy
+pip install numpy lxml matplotlib pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 dash dash-bootstrap-components seaborn kaleido imageai scikit-learn
 }
 launch_sshd() {
     apt install -y openssh
