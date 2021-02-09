@@ -78,12 +78,13 @@ def render_page_content(pathname):
         import pandas as pd
         df=pd.DataFrame([{'a':12,'b':22},{'a':22,'b':12}])
         fig=px.scatter(df, x='a', y='b')
-        return dcc.Graph(figure=fig)
-        return dash_table.DataTable(
+        return html.Div([
+        dash_table.DataTable(
                 id='table',
                 columns = [{"name":i,"id":i} for i in df.columns],
                 data = df.to_dict('records'),
-                )
+                ),
+        dcc.Graph(figure=fig)])
     # If the user tries to reach a different page, return a 404 message
     return dbc.Jumbotron(
         [
