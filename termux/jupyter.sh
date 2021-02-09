@@ -2,7 +2,7 @@ install_jupyter () {
 apt upgrade -y
 apt update -y
 apt install -y science-repo
-apt install -y openssh wget vim net-tools make gcc
+apt install -y openssh wget vim net-tools make gcc iproute2
 apt install -y libzmq libxml2 libxslt build-essential libjpeg-turbo openblas libgfortran4 libcompiler-rt nodejs
 pip install --upgrade pip
 pip install wheel
@@ -47,6 +47,8 @@ launch_dash() {
     python app.py -a $host
 }
 install_tensor() {
+    update-alternatives --install /usr/bin/python python /usr/bin/python3 10
+
     wget https://github.com/bazelbuild/bazelisk/releases/download/v1.7.4/bazelisk-linux-arm64
     git clone https://github.com/tensorflow/tensorflow.git
     cd tensorflow ; ../bazelisk-linux-arm64 build tensorflow/tools/pip_package:build_pip_package
