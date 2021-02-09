@@ -15,6 +15,9 @@ import dash_table
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
+
+import plotly.express as px
+
 from dash.dependencies import Input, Output
 import argparse
 
@@ -74,6 +77,8 @@ def render_page_content(pathname):
         #return html.P("Oh cool, this is page 2!")
         import pandas as pd
         df=pd.DataFrame([{'a':12,'b':22},{'a':22,'b':12}])
+        fig=px.scatter(df, x='a', y='b')
+        return dcc.Graph(figure=fig)
         return dash_table.DataTable(
                 id='table',
                 columns = [{"name":i,"id":i} for i in df.columns],
