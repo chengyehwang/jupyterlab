@@ -1,15 +1,14 @@
 install_jupyter () {
 apt upgrade -y
 apt update -y
-apt install -y science-repo
-apt install -y openssh wget vim net-tools make gcc iproute2
+apt install -y openssh-server wget vim net-tools make gcc iproute2
 apt install -y libzmq libxml2 libxslt build-essential libjpeg-turbo openblas libgfortran4 libcompiler-rt nodejs
 pip install --upgrade pip
 pip install wheel
 pip install numpy lxml matplotlib pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 dash dash-bootstrap-components seaborn kaleido imageai scikit-learn jupyterlab-dash
 }
 launch_sshd() {
-    apt install -y openssh
+    apt install -y openssh-server
     passwd
     sshd_abs=`which sshd`
     $sshd_abs
@@ -49,7 +48,9 @@ launch_dash() {
 install_tensor() {
     update-alternatives --install /usr/bin/python python /usr/bin/python3 10
 
-    wget https://github.com/bazelbuild/bazelisk/releases/download/v1.7.4/bazelisk-linux-arm64
+    if [ not -f bazelisk-linux-arm64 ]; then
+        wget https://github.com/bazelbuild/bazelisk/releases/download/v1.7.4/bazelisk-linux-arm64
+    fi
     git clone https://github.com/tensorflow/tensorflow.git
     cd tensorflow ; ../bazelisk-linux-arm64 build tensorflow/tools/pip_package:build_pip_package
 }
