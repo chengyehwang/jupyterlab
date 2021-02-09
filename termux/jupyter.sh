@@ -19,7 +19,8 @@ pip install numpy lxml matplotlib pandas ipython future cython requests xlrd jup
 launch_sshd() {
     apt install -y openssh
     passwd
-    sshd
+    sshd_abs=`which sshd`
+    $sshd_abs
     user=`whoami`
     echo "adb forward tcp:8022 tcp:8022"
     echo "ssh $user@localhost -p 8022"
