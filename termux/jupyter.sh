@@ -46,6 +46,11 @@ launch_dash() {
     termux-open http://$host:8050
     python app.py -a $host
 }
+install_tensor() {
+    wget https://github.com/bazelbuild/bazelisk/releases/download/v1.7.4/bazelisk-linux-arm64
+    git clone https://github.com/tensorflow/tensorflow.git
+    cd tensorflow ; ../bazelisk-linux-arm64 build tensorflow/tools/pip_package:build_pip_package
+}
 while getopts 'wilsba:d' opt; do
     case $opt in
         (w) launch_jupyter_wlan;;
