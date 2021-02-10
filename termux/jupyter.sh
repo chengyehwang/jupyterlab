@@ -3,9 +3,9 @@ apt upgrade -y
 apt update -y
 apt install -y openssh-server wget vim net-tools make gcc iproute2 git
 apt install -y libxml2 python3 python3-pip build-essential libgfortran4 nodejs
-pip install --upgrade pip
-pip install wheel
-pip install numpy lxml matplotlib pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 dash dash-bootstrap-components seaborn kaleido imageai scikit-learn jupyterlab-dash
+pip3 install --upgrade pip
+pip3 install wheel
+pip3 install numpy lxml matplotlib pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 dash dash-bootstrap-components seaborn kaleido imageai scikit-learn jupyterlab-dash
 }
 launch_sshd() {
     apt install -y openssh-server
