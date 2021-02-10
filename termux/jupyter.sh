@@ -24,13 +24,13 @@ launch_sshd() {
 launch_jupyter_wlan () {
     host=`ip addr show wlan0 | grep "inet\b" | awk '{print $2}' | cut -d/ -f1`
     echo "jupyter-lab --ip $host --no-browser --allow-root"
-    jupyter-lab --ip $host --no-browser --allow-root
+    cd .. ; jupyter-lab --ip $host --no-browser --allow-root
 }
 launch_jupyter_local () {
     host="127.0.0.1"
     echo "adb forward tcp:8888 tcp:8888"   
     echo "jupyter-lab --ip $host --no-browser --allow-root"
-    jupyter-lab --ip $host --no-browser --allow-root
+    cd .. ; jupyter-lab --ip $host --no-browser --allow-root
 }
 install_buildapk () {
    apt install -y curl
