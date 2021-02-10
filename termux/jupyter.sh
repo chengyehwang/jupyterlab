@@ -1,6 +1,7 @@
 install_jupyter () {
 apt upgrade -y
 apt update -y
+apt install -y pkg-config
 apt install -y openssh-server wget vim net-tools make gcc iproute2 git
 apt install -y liblapack-dev libblas-dev libxml2-dev libxslt-dev python3 python3-pip build-essential libjpeg-dev libgfortran4 nodejs gfortran zlib1g-dev libhdf5-dev
 pip3 install --upgrade pip
