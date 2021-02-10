@@ -8,8 +8,12 @@ pip install wheel
 pip install numpy lxml matplotlib pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 dash dash-bootstrap-components seaborn kaleido imageai scikit-learn jupyterlab-dash
 }
 launch_sshd() {
-    apt install -y openssh-server
-    passwd
+    if [ ! -d /run/sshd ]; then
+        apt install -y openssh-server
+        mkdir -p /run/sshd
+        echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+        passwd
+    fi
     sshd_abs=`which sshd`
     $sshd_abs -p 8022 -E sshd.log
     user=`whoami`
@@ -65,7 +69,7 @@ while getopts 'wilsba:dt' opt; do
         (a) launch_buildapk $OPTARG;;
         (x) install_x11;;
         (d) launch_dash;;
-	(t) install_tensor;;
+        (t) install_tensor;;
     esac
 done
 
