@@ -78,7 +78,7 @@ if [ -n "\$(ls -A ubuntu-binds)" ]; then
       . \$f
     done
 fi
-command+=" -b .:/jupyter"
+command+=" -b .:/jupyterlab"
 command+=" -b /dev"
 command+=" -b /proc"
 command+=" -b /sys"
