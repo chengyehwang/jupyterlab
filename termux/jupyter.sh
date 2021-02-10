@@ -55,7 +55,7 @@ install_tensor() {
     git clone https://github.com/tensorflow/tensorflow.git
     cd tensorflow ; ../bazelisk-linux-arm64 build tensorflow/tools/pip_package:build_pip_package
 }
-while getopts 'wilsba:d' opt; do
+while getopts 'wilsba:dt' opt; do
     case $opt in
         (w) launch_jupyter_wlan;;
         (i) install_jupyter;;
@@ -65,6 +65,7 @@ while getopts 'wilsba:d' opt; do
         (a) launch_buildapk $OPTARG;;
         (x) install_x11;;
         (d) launch_dash;;
+	(t) install_tensor;;
     esac
 done
 
