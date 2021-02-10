@@ -2,7 +2,7 @@ install_jupyter () {
 apt upgrade -y
 apt update -y
 apt install -y openssh-server wget vim net-tools make gcc iproute2 git
-apt install -y liblapack-dev libblas-dev libxml2 python3 python3-pip build-essential libgfortran4 nodejs
+apt install -y liblapack-dev libblas-dev libxml2 python3 python3-pip build-essential libgfortran4 nodejs gfortran
 pip3 install --upgrade pip
 pip install wheel
 pip install numpy lxml matplotlib pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 dash dash-bootstrap-components seaborn kaleido imageai scikit-learn jupyterlab-dash
