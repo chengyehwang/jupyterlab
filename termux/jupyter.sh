@@ -5,9 +5,11 @@ apt install -y pkg-config
 apt install -y openssh-server wget vim net-tools make gcc iproute2 git
 apt install -y libgl1-mesa-glx libfreetype6-dev
 apt install -y liblapack-dev libblas-dev libxml2-dev libxslt-dev python3 python3-pip build-essential libjpeg-dev libgfortran4 nodejs gfortran zlib1g-dev libhdf5-dev
+apt install -y python3-numpy python3-scipy python3-matplotlib
 pip3 install --upgrade pip
 pip install wheel
 pip install numpy lxml matplotlib pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 dash dash-bootstrap-components seaborn kaleido imageai scikit-learn jupyterlab-dash
+pip install termux-api
 }
 launch_sshd() {
     if [ ! -d /run/sshd ]; then

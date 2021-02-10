@@ -95,11 +95,11 @@ Key features:
 15. embedded dev
     * termux
     * chroot to ubuntu (arm64)
-    * python / pip
-    * jupyterlab server on phone
+    * python 3.8.X / pip
+    * jupyterlab server (3.0.X) on phone
     * browser access by PC
     * camera by termux-api?
-    * NN by tensorflow?
+    * NN by tensorflow (2.2)?
     * Object detect by imageai?
     * UI by dash?
 
