@@ -92,3 +92,10 @@ Key features:
     * 6080: xpra - X11 server
     * 9000: minio - storage
 [image](https://github.com/chengyehwang/jupyterlab/blob/master/jupyter_demo.png)
+15. embedded dev
+    * termux
+    * chroot to ubuntu
+    * python / pip
+    * jupyterlab server on phone
+    * browser access by PC
+
