@@ -50,6 +50,7 @@ install_tensor() {
 
     if [ not -f bazelisk-linux-arm64 ]; then
         wget https://github.com/bazelbuild/bazelisk/releases/download/v1.7.4/bazelisk-linux-arm64
+        chmod 755 bazelisk-linux-arm64
     fi
     git clone https://github.com/tensorflow/tensorflow.git
     cd tensorflow ; ../bazelisk-linux-arm64 build tensorflow/tools/pip_package:build_pip_package
