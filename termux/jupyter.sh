@@ -11,7 +11,7 @@ launch_sshd() {
     apt install -y openssh-server
     passwd
     sshd_abs=`which sshd`
-    $sshd_abs
+    $sshd_abs -p 8022
     user=`whoami`
     echo "adb forward tcp:8022 tcp:8022"
     echo "ssh $user@localhost -p 8022"
@@ -50,6 +50,7 @@ install_tensor() {
 
     if [ ! -f bazelisk-linux-arm64 ]; then
         wget https://github.com/bazelbuild/bazelisk/releases/download/v1.7.4/bazelisk-linux-arm64
+        chmod 755 bazelisk-linux-arm64
     fi
     git clone https://github.com/tensorflow/tensorflow.git
     cd tensorflow ; ../bazelisk-linux-arm64 build tensorflow/tools/pip_package:build_pip_package
