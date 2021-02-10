@@ -11,7 +11,7 @@ launch_sshd() {
     apt install -y openssh-server
     passwd
     sshd_abs=`which sshd`
-    $sshd_abs -p 8022
+    $sshd_abs -p 8022 -E sshd.log
     user=`whoami`
     echo "adb forward tcp:8022 tcp:8022"
     echo "ssh $user@localhost -p 8022"
