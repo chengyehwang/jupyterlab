@@ -48,7 +48,7 @@ launch_dash() {
 install_tensor() {
     update-alternatives --install /usr/bin/python python /usr/bin/python3 10
 
-    if [ not -f bazelisk-linux-arm64 ]; then
+    if [ ! -f bazelisk-linux-arm64 ]; then
         wget https://github.com/bazelbuild/bazelisk/releases/download/v1.7.4/bazelisk-linux-arm64
     fi
     git clone https://github.com/tensorflow/tensorflow.git
