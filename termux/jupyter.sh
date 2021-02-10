@@ -22,7 +22,7 @@ launch_jupyter_wlan () {
     jupyter-lab --ip $host --no-browser --allow-root
 }
 launch_jupyter_local () {
-    host="localhost"
+    host="127.0.0.1"
     echo "adb forward tcp:8888 tcp:8888"   
     echo "jupyter-lab --ip $host --no-browser --allow-root"
     jupyter-lab --ip $host --no-browser --allow-root
