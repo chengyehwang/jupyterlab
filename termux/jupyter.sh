@@ -56,13 +56,13 @@ launch_dash() {
 install_tensor() {
     update-alternatives --install /usr/bin/python python /usr/bin/python3 10
 
-    if [ ! -f bazel-linux-arm64 ]; then
+    if [ ! -f /usr/bin/bazel ]; then
         wget https://github.com/bazelbuild/bazel/releases/download/4.0.0/bazel-4.0.0-linux-arm64
         chmod 755 bazel-4.0.0-linux-arm64
 	cp bazel-4.0.0-linux-arm64 /usr/bin/bazel
     fi
     git clone https://github.com/tensorflow/tensorflow.git
-    cd tensorflow ; ../bazelisk-linux-arm64 build tensorflow/tools/pip_package:build_pip_package --local_ram_resources=2048
+    cd tensorflow ; bazel build tensorflow/tools/pip_package:build_pip_package --local_ram_resources=2048
 }
 launch_proot() {
     pkg install proot-distro
