@@ -61,7 +61,7 @@ install_tensor() {
         chmod 755 bazelisk-linux-arm64
     fi
     git clone https://github.com/tensorflow/tensorflow.git
-    cd tensorflow ; ../bazelisk-linux-arm64 build tensorflow/tools/pip_package:build_pip_package
+    cd tensorflow ; ../bazelisk-linux-arm64 build tensorflow/tools/pip_package:build_pip_package --local_ram_resources=2048
 }
 while getopts 'wilsba:dt' opt; do
     case $opt in
