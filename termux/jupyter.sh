@@ -69,7 +69,7 @@ launch_proot() {
     proot-distro install ubuntu-20.04
     proot-distro login ubuntu-20.04
 }
-while getopts 'wilsba:dt' opt; do
+while getopts 'wilsba:dtp' opt; do
     case $opt in
         (w) launch_jupyter_wlan;;
         (i) install_jupyter;;
@@ -80,7 +80,7 @@ while getopts 'wilsba:dt' opt; do
         (x) install_x11;;
         (d) launch_dash;;
         (t) install_tensor;;
-	(p) launch_proot;;
+        (p) launch_proot;;
     esac
 done
 
