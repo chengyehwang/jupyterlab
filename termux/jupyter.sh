@@ -10,7 +10,7 @@ if [  -n "$(cat /etc/issue | grep Ubuntu)" ]; then
     apt install -y software-properties-common
     add-apt-repository ppa:deadsnakes/ppa
     apt-get update
-    apt install -y python3.7 python3.7-pip python3.7-numpy python3.7-scipy python3.7-matplotlib
+    apt install -y python3.7 python3.7-dev python3.7-venv python3.7-distutils
 else
     apt install -y python3 python3-pip python3-numpy python3-scipy python-matplotlib
 fi
