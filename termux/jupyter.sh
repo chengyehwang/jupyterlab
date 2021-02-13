@@ -67,13 +67,13 @@ install_tensor() {
 launch_proot() {
     pkg install proot-distro
     proot-distro install ubuntu-20.04
-    proot-distro login ubuntu-20.04
+    proot-distro login ubuntu-20.04 --termux-home
 }
-while getopts 'wilsba:dt' opt; do
+while getopts 'wijsba:dt' opt; do
     case $opt in
         (w) launch_jupyter_wlan;;
         (i) install_jupyter;;
-        (l) launch_jupyter_local;;
+        (j) launch_jupyter_local;;
         (s) launch_sshd;;
         (b) install_buildapk;;
         (a) launch_buildapk $OPTARG;;
