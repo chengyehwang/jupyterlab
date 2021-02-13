@@ -64,12 +64,17 @@ install_tensor() {
     git clone https://github.com/tensorflow/tensorflow.git
     cd tensorflow ; bazel build tensorflow/tools/pip_package:build_pip_package --local_ram_resources=2048
 }
-launch_proot() {
+launch_proot_ubuntu() {
     pkg install proot-distro
     proot-distro install ubuntu-20.04
-    proot-distro login ubuntu-20.04
+    proot-distro login ubuntu-20.04 --termux-home
 }
-while getopts 'wilsba:dtp' opt; do
+launch_proot_debian() {
+    pkg install proot-distro
+    proot-distro install debian-buster
+    proot-distro login debian-buster --termux-home
+}
+while getopts 'wilsba:dtup' opt; do
     case $opt in
         (w) launch_jupyter_wlan;;
         (i) install_jupyter;;
@@ -80,7 +85,8 @@ while getopts 'wilsba:dtp' opt; do
         (x) install_x11;;
         (d) launch_dash;;
         (t) install_tensor;;
-        (p) launch_proot;;
+        (u) launch_proot_ubuntu;;
+        (p) launch_proot_debian;;
     esac
 done
 
