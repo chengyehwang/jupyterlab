@@ -1,7 +1,7 @@
 install_jupyter () {
-apt upgrade -y
-apt update -y
-apt install -y pkg-config
+export DEBIAN_FRONTEND=noninteractive && apt upgrade -y
+export DEBIAN_FRONTEND=noninteractive && apt update -y
+export DEBIAN_FRONTEND=noninteractive && apt install -y pkg-config
 apt install -y openssh-server wget vim net-tools make gcc iproute2 git
 apt install -y libgl1-mesa-glx libfreetype6-dev
 apt install -y liblapack-dev libblas-dev libxml2-dev libxslt-dev build-essential libjpeg-dev libgfortran4 nodejs gfortran zlib1g-dev libhdf5-dev
