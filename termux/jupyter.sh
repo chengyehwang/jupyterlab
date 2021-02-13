@@ -17,13 +17,21 @@ pip install numpy lxml matplotlib pandas ipython future cython requests xlrd jup
 pip install termux-api
 }
 launch_sshd() {
-    #if [ ! -d /run/sshd ]; then
+    if [ ! -d /run/sshd ]; then
         apt install -y openssh-server
         mkdir -p /run/sshd
         echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
         echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
         passwd
-    #fi
+    fi
+    if [  -n "$(uname -a | grep Ubuntu)" ]; then
+    else
+        echo "Port 8022" >> /etc/ssh/sshd_config
+        echo "AddressFamily any" >> /etc/ssh/sshd_config
+        echo "ListenAddress 0.0.0.0" >> /etc/ssh/sshd_config
+        echo "ListenAddress ::" >> /etc/ssh/sshd_config
+        /etc/init.d/ssh restart
+    fi
     sshd_abs=`which sshd`
     $sshd_abs -p 8022 -E sshd.log
     user=`whoami`
