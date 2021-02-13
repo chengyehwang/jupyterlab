@@ -6,7 +6,7 @@ apt install -y openssh-server wget vim net-tools make gcc iproute2 git
 apt install -y libgl1-mesa-glx libfreetype6-dev
 apt install -y liblapack-dev libblas-dev libxml2-dev libxslt-dev build-essential libjpeg-dev libgfortran4 nodejs gfortran zlib1g-dev libhdf5-dev
 
-if [  -n "$(uname -a | grep Ubuntu)" ]; then
+if [  -n "$(cat /etc/issue | grep Ubuntu)" ]; then
     add-apt-repository ppa:deadsnakes/ppa
     apt-get update
     apt install -y python3.7 python3.7-pip python3.7-numpy python3.7-scipy python3.7-matplotlib
