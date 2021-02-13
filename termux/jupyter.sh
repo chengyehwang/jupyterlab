@@ -20,7 +20,8 @@ launch_sshd() {
     #if [ ! -d /run/sshd ]; then
         apt install -y openssh-server
         mkdir -p /run/sshd
-        echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+        #echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+        echo "PermitRootLogin without-password" >> /etc/ssh/sshd_config
         passwd
     #fi
     sshd_abs=`which sshd`
