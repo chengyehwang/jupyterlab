@@ -7,10 +7,20 @@ apt install -y libgl1-mesa-glx libfreetype6-dev libjpeg62
 apt install -y liblapack-dev libblas-dev libxml2-dev libxslt-dev build-essential libjpeg-dev libgfortran4 nodejs gfortran zlib1g-dev libhdf5-dev libexpat1-dev
 
 if [  -n "$(cat /etc/issue | grep Ubuntu)" ]; then
-    apt install -y software-properties-common
-    add-apt-repository -y ppa:deadsnakes/ppa
+    # fix python 3.7.6 for imageai
+    wget http://launchpadlibrarian.net/399281175/libffi6_3.2.1-9_arm64.deb
+    wget http://launchpadlibrarian.net/456430448/libpython3.7_3.7.6-1_arm64.deb
+    wget http://launchpadlibrarian.net/456430444/libpython3.7-dev_3.7.6-1_arm64.deb
+    wget http://launchpadlibrarian.net/456430445/libpython3.7-minimal_3.7.6-1_arm64.deb
+    wget http://launchpadlibrarian.net/456430447/libpython3.7-stdlib_3.7.6-1_arm64.deb
+    wget http://launchpadlibrarian.net/456430453/python3.7_3.7.6-1_arm64.deb
+    wget http://launchpadlibrarian.net/456430451/python3.7-minimal_3.7.6-1_arm64.deb
+    wget http://launchpadlibrarian.net/456430450/python3.7-dev_3.7.6-1_arm64.deb
+    dpkg -i *.deb
+    #apt install -y software-properties-common
+    #add-apt-repository -y ppa:deadsnakes/ppa
     apt-get update
-    apt install -y python3.7 python3.7-dev python3.7-venv python3.7-distutils
+    #apt install -y python3.7 python3.7-dev python3.7-venv python3.7-distutils
     apt install -y python3-pip
 else
     apt install -y python3 python3-pip python3-numpy python3-scipy python-matplotlib
