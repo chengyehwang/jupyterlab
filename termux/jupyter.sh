@@ -18,7 +18,7 @@ fi
 
 pip3 install --upgrade pip
 pip install wheel
-pip install numpy lxml matplotlib pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 dash dash-bootstrap-components seaborn kaleido imageai scikit-learn jupyterlab-dash
+pip install versioned-hdf5 h5py numpy lxml matplotlib pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 dash dash-bootstrap-components seaborn kaleido imageai scikit-learn jupyterlab-dash
 pip install termux-api
 }
 launch_sshd() {
