@@ -14,6 +14,7 @@ apt install -y liblapack-dev libblas-dev libxml2-dev libxslt-dev build-essential
 
 if [  -n "$(cat /etc/issue | grep Ubuntu)" ]; then
     # fix python 3.7.6 for imageai
+    echo "ubuntu"
 else
     apt install -y python3 python3-pip python3-numpy python3-scipy python-matplotlib
 fi
