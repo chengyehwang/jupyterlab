@@ -4,13 +4,17 @@ apt update -y
 apt install -y pkg-config
 apt install -y openssh-server wget vim net-tools make gcc iproute2 git
 apt install -y libgl1-mesa-glx libfreetype6-dev
-apt install -y liblapack-dev libblas-dev libxml2-dev libxslt-dev python3 python3-pip build-essential libjpeg-dev libgfortran4 nodejs gfortran zlib1g-dev libhdf5-dev
+apt install -y liblapack-dev libblas-dev libxml2-dev libxslt-dev build-essential libjpeg-dev libgfortran4 nodejs gfortran zlib1g-dev libhdf5-dev
+
 if [  -n "$(uname -a | grep Ubuntu)" ]; then
-    apt install -y gcc
+    apt install -y python3 python3-pip python3-numpy python3-scipy python3-matplotlib
 else
-    apt install -y gcc
+    wget https://pascalroeleven.nl/deb-pascalroeleven.gpg
+    apt-key add deb-pascalroeleven.gpg
+    echo "deb http://deb.pascalroeleven.nl/python3.8 buster-backports main" >> /etc/apt/sources.list
+    apt install python3.8 pyton3.8-dev python3.8-pip
 fi
-apt install -y python3-numpy python3-scipy python3-matplotlib
+
 pip3 install --upgrade pip
 pip install wheel
 pip install versioned-hdf5 h5py numpy lxml matplotlib pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 dash dash-bootstrap-components seaborn kaleido imageai scikit-learn jupyterlab-dash
