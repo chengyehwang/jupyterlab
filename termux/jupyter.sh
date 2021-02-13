@@ -2,9 +2,9 @@ install_jupyter () {
 wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-aarch64.sh
 chmod 755 Miniforge3-Linux-aarch64.sh
 ./Miniforge3-Linux-aarch64.sh -b -f -p ./miniforge3
-source source ./miniforge3/etc/profile.d/conda.sh
+source ./miniforge3/etc/profile.d/conda.sh
 conda activate
-conda install python3.7.6 numpy matplotlib psutil
+conda install -y python3.7.6 numpy matplotlib psutil
 export DEBIAN_FRONTEND=noninteractive && apt update -y
 export DEBIAN_FRONTEND=noninteractive && apt upgrade -y
 export DEBIAN_FRONTEND=noninteractive && apt install -y pkg-config
