@@ -25,7 +25,7 @@ fi
 pip3.7 install tensorflow-2.4.0-cp37-none-linux_aarch64.whl
 pip3.7 install --upgrade pip
 pip3.7 install wheel
-pip3.7 install versioned-hdf5 h5py numpy lxml matplotlib pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 dash dash-bootstrap-components seaborn kaleido imageai scikit-learn jupyterlab-dash
+pip3.7 install versioned-hdf5 keras==2.4.3 scipy==1.4.1 h5py==2.10.0 numpy==1.19.3 lxml matplotlib==3.3.2 pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 dash dash-bootstrap-components seaborn kaleido imageai scikit-learn jupyterlab-dash pillow==7.0.0
 pip3.7 install termux-api
 }
 launch_sshd() {
