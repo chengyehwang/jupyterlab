@@ -9,23 +9,24 @@ apt install -y libsqlite3-dev curl llvm tk-dev libssl-dev xz-utils libncursesw5-
 
 if [  -n "$(cat /etc/issue | grep Ubuntu)" ]; then
     # fix python 3.7.6 for imageai
-    wget https://www.python.org/ftp/python/3.7.6/Python-3.7.6.tgz
-    tar zxf Python-3.7.6.tgz
-    ( cd Python-3.7.6 ; ./configure --with-ensurepip=install)
-    ( cd Python-3.7.6 ; make -j 8 )
-    ( cd Python-3.7.6 ; make altinstall )
-    echo "ubuntu"
+    if [ ! -f /usr/local/bin/python3.7 ]; then
+        wget https://www.python.org/ftp/python/3.7.6/Python-3.7.6.tgz
+        tar zxf Python-3.7.6.tgz
+        ( cd Python-3.7.6 ; ./configure --with-ensurepip=install)
+        ( cd Python-3.7.6 ; make -j 8 )
+        ( cd Python-3.7.6 ; make altinstall )
+    fi
 else
     apt install -y python3 python3-pip python3-numpy python3-scipy python-matplotlib
 fi
 if [ ! -f tensorflow-2.4.0-cp37-none-linux_aarch64.whl ]; then
     wget https://github.com/lhelontra/tensorflow-on-arm/releases/download/v2.4.0/tensorflow-2.4.0-cp37-none-linux_aarch64.whl
 fi
-pip install tensorflow-2.4.0-cp37-none-linux_aarch64.whl
-pip install --upgrade pip
-pip install wheel
-pip install versioned-hdf5 h5py numpy lxml matplotlib pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 dash dash-bootstrap-components seaborn kaleido imageai scikit-learn jupyterlab-dash
-pip install termux-api
+pip3.7 install tensorflow-2.4.0-cp37-none-linux_aarch64.whl
+pip3.7 install --upgrade pip
+pip3.7 install wheel
+pip3.7 install versioned-hdf5 h5py numpy lxml matplotlib pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 dash dash-bootstrap-components seaborn kaleido imageai scikit-learn jupyterlab-dash
+pip3.7 install termux-api
 }
 launch_sshd() {
     if [ ! -d /run/sshd ]; then
