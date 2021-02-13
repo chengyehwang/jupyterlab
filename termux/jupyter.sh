@@ -13,7 +13,7 @@ fi
 apt install -y python3-numpy python3-scipy python3-matplotlib
 pip3 install --upgrade pip
 pip install wheel
-pip install numpy lxml matplotlib pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 dash dash-bootstrap-components seaborn kaleido imageai scikit-learn jupyterlab-dash
+pip install versioned-hdf5 h5py numpy lxml matplotlib pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 dash dash-bootstrap-components seaborn kaleido imageai scikit-learn jupyterlab-dash
 pip install termux-api
 }
 launch_sshd() {
@@ -25,6 +25,7 @@ launch_sshd() {
         passwd
     fi
     if [  -n "$(uname -a | grep Ubuntu)" ]; then
+        echo "ubuntu"
     else
         echo "Port 8022" >> /etc/ssh/sshd_config
         echo "AddressFamily any" >> /etc/ssh/sshd_config
