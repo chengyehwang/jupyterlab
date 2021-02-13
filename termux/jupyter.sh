@@ -21,7 +21,7 @@ launch_sshd() {
         apt install -y openssh-server
         mkdir -p /run/sshd
         echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
-        echo "PermitRootLogin prohibit-password" >> /etc/ssh/sshd_config
+        echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
         passwd
     #fi
     sshd_abs=`which sshd`
