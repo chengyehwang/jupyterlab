@@ -1,4 +1,10 @@
 install_jupyter () {
+wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-aarch64.sh
+chmod 755 Miniforge3-Linux-aarch64.sh
+./Miniforge3-Linux-aarch64.sh -b -f -p ./miniforge3
+source source ./miniforge3/etc/profile.d/conda.sh
+conda activate
+conda install python3.7.6 numpy matplotlib psutil
 export DEBIAN_FRONTEND=noninteractive && apt update -y
 export DEBIAN_FRONTEND=noninteractive && apt upgrade -y
 export DEBIAN_FRONTEND=noninteractive && apt install -y pkg-config
@@ -8,31 +14,17 @@ apt install -y liblapack-dev libblas-dev libxml2-dev libxslt-dev build-essential
 
 if [  -n "$(cat /etc/issue | grep Ubuntu)" ]; then
     # fix python 3.7.6 for imageai
-    wget http://launchpadlibrarian.net/399281175/libffi6_3.2.1-9_arm64.deb
-    wget http://launchpadlibrarian.net/456430448/libpython3.7_3.7.6-1_arm64.deb
-    wget http://launchpadlibrarian.net/456430444/libpython3.7-dev_3.7.6-1_arm64.deb
-    wget http://launchpadlibrarian.net/456430445/libpython3.7-minimal_3.7.6-1_arm64.deb
-    wget http://launchpadlibrarian.net/456430447/libpython3.7-stdlib_3.7.6-1_arm64.deb
-    wget http://launchpadlibrarian.net/456430453/python3.7_3.7.6-1_arm64.deb
-    wget http://launchpadlibrarian.net/456430451/python3.7-minimal_3.7.6-1_arm64.deb
-    wget http://launchpadlibrarian.net/456430450/python3.7-dev_3.7.6-1_arm64.deb
-    dpkg -i *.deb
-    #apt install -y software-properties-common
-    #add-apt-repository -y ppa:deadsnakes/ppa
-    apt-get update
-    #apt install -y python3.7 python3.7-dev python3.7-venv python3.7-distutils
-    apt install -y python3-pip
 else
     apt install -y python3 python3-pip python3-numpy python3-scipy python-matplotlib
 fi
 if [ ! -f tensorflow-2.4.0-cp37-none-linux_aarch64.whl ]; then
     wget https://github.com/lhelontra/tensorflow-on-arm/releases/download/v2.4.0/tensorflow-2.4.0-cp37-none-linux_aarch64.whl
 fi
-python3.7 -m pip install tensorflow-2.4.0-cp37-none-linux_aarch64.whl
-python3.7 -m pip install --upgrade pip
-python3.7 -m pip install wheel
-python3.7 -m pip install versioned-hdf5 h5py numpy lxml matplotlib pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 dash dash-bootstrap-components seaborn kaleido imageai scikit-learn jupyterlab-dash
-python3.7 -m pip install termux-api
+pip install tensorflow-2.4.0-cp37-none-linux_aarch64.whl
+pip install --upgrade pip
+pip install wheel
+pip install versioned-hdf5 h5py numpy lxml matplotlib pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 dash dash-bootstrap-components seaborn kaleido imageai scikit-learn jupyterlab-dash
+pip install termux-api
 }
 launch_sshd() {
     if [ ! -d /run/sshd ]; then
