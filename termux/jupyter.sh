@@ -74,11 +74,11 @@ launch_proot_debian() {
     proot-distro install debian-buster
     proot-distro login debian-buster --termux-home
 }
-while getopts 'wilsba:dtup' opt; do
+while getopts 'wijsba:dtup' opt; do
     case $opt in
         (w) launch_jupyter_wlan;;
         (i) install_jupyter;;
-        (l) launch_jupyter_local;;
+        (j) launch_jupyter_local;;
         (s) launch_sshd;;
         (b) install_buildapk;;
         (a) launch_buildapk $OPTARG;;
