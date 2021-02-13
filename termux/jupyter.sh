@@ -15,7 +15,10 @@ if [  -n "$(cat /etc/issue | grep Ubuntu)" ]; then
 else
     apt install -y python3 python3-pip python3-numpy python3-scipy python-matplotlib
 fi
-
+if [ ! -f tensorflow-2.4.0-cp37-none-linux_aarch64.whl ]; then
+    wget https://github.com/lhelontra/tensorflow-on-arm/releases/download/v2.4.0/tensorflow-2.4.0-cp37-none-linux_aarch64.whl
+fi
+python3.7 -m pip install tensorflow-2.4.0-cp37-none-linux_aarch64.whl
 python3.7 -m pip install --upgrade pip
 python3.7 -m pip install wheel
 python3.7 -m pip install versioned-hdf5 h5py numpy lxml matplotlib pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 dash dash-bootstrap-components seaborn kaleido imageai scikit-learn jupyterlab-dash
