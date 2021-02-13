@@ -7,13 +7,11 @@ apt install -y libgl1-mesa-glx libfreetype6-dev
 apt install -y liblapack-dev libblas-dev libxml2-dev libxslt-dev build-essential libjpeg-dev libgfortran4 nodejs gfortran zlib1g-dev libhdf5-dev
 
 if [  -n "$(uname -a | grep Ubuntu)" ]; then
-    apt install -y python3 python3-pip python3-numpy python3-scipy python3-matplotlib
+    add-apt-repository ppa:deadsnakes/ppa
+    apt-get update
+    apt install -y python3.7 python3.7-pip python3.7-numpy python3.7-scipy python3.7-matplotlib
 else
-    wget https://pascalroeleven.nl/deb-pascalroeleven.gpg
-    apt-key add deb-pascalroeleven.gpg
-    echo "deb http://deb.pascalroeleven.nl/python3.8 buster-backports main" >> /etc/apt/sources.list
-    apt update
-    apt install -y python3.8 python3.8-dev
+    apt install -y python3 python3-pip python3-numpy python3-scipy python-matplotlib
 fi
 
 pip3 install --upgrade pip
