@@ -1,19 +1,19 @@
 install_jupyter () {
-wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-aarch64.sh
-chmod 755 Miniforge3-Linux-aarch64.sh
-./Miniforge3-Linux-aarch64.sh -b -f -p ./miniforge3
-source ./miniforge3/etc/profile.d/conda.sh
-conda activate
-conda install -y python3.7.6 numpy matplotlib psutil
 export DEBIAN_FRONTEND=noninteractive && apt update -y
 export DEBIAN_FRONTEND=noninteractive && apt upgrade -y
 export DEBIAN_FRONTEND=noninteractive && apt install -y pkg-config
 apt install -y openssh-server wget vim net-tools make gcc iproute2 git
 apt install -y libgl1-mesa-glx libfreetype6-dev libjpeg62
 apt install -y liblapack-dev libblas-dev libxml2-dev libxslt-dev build-essential libjpeg-dev libgfortran4 nodejs gfortran zlib1g-dev libhdf5-dev libexpat1-dev
+apt install -y libsqlite3-dev curl llvm tk-dev libssl-dev xz-utils libncursesw5-dev libncurses5-dev libbz2-dev libreadline-dev make libssl-dev
 
 if [  -n "$(cat /etc/issue | grep Ubuntu)" ]; then
     # fix python 3.7.6 for imageai
+    wget https://www.python.org/ftp/python/3.7.6/Python-3.7.6.tgz
+    tar zxf Python-3.7.6.tgz
+    ( cd Python-3.7.6 ; ./configure --with-ensurepip=install)
+    ( cd Python-3.7.6 ; make -j 8 )
+    ( cd Python-3.7.6 ; make altinstall )
     echo "ubuntu"
 else
     apt install -y python3 python3-pip python3-numpy python3-scipy python-matplotlib
