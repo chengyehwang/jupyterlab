@@ -16,10 +16,10 @@ else
     apt install -y python3 python3-pip python3-numpy python3-scipy python-matplotlib
 fi
 
-python3.7 pip install --upgrade pip
-python3.7 pip install wheel
-python3.7 pip install versioned-hdf5 h5py numpy lxml matplotlib pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 dash dash-bootstrap-components seaborn kaleido imageai scikit-learn jupyterlab-dash
-python3.7 pip install termux-api
+python3.7 -m pip install --upgrade pip
+python3.7 -m pip install wheel
+python3.7 -m pip install versioned-hdf5 h5py numpy lxml matplotlib pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 dash dash-bootstrap-components seaborn kaleido imageai scikit-learn jupyterlab-dash
+python3.7 -m pip install termux-api
 }
 launch_sshd() {
     if [ ! -d /run/sshd ]; then
