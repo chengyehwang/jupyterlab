@@ -8,7 +8,7 @@ apt install -y liblapack-dev libblas-dev libxml2-dev libxslt-dev build-essential
 
 if [  -n "$(cat /etc/issue | grep Ubuntu)" ]; then
     apt install -y software-properties-common
-    add-apt-repository ppa:deadsnakes/ppa
+    add-apt-repository -y ppa:deadsnakes/ppa
     apt-get update
     apt install -y python3.7 python3.7-dev python3.7-venv python3.7-distutils
 else
@@ -24,8 +24,12 @@ launch_sshd() {
     if [ ! -d /run/sshd ]; then
         apt install -y openssh-server
         mkdir -p /run/sshd
-        echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
-        echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+        if [  -n "$(uname -a | grep Ubuntu)" ]; then
+            echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+        else
+            echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
+            echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+        fi
         passwd
     fi
     if [  -n "$(uname -a | grep Ubuntu)" ]; then
