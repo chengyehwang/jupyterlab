@@ -12,7 +12,8 @@ else
     wget https://pascalroeleven.nl/deb-pascalroeleven.gpg
     apt-key add deb-pascalroeleven.gpg
     echo "deb http://deb.pascalroeleven.nl/python3.8 buster-backports main" >> /etc/apt/sources.list
-    apt install python3.8 pyton3.8-dev python3.8-pip
+    apt update
+    apt install python3.8 python3.8-dev
 fi
 
 pip3 install --upgrade pip
