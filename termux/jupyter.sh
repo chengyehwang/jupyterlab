@@ -17,12 +17,12 @@ pip install numpy lxml matplotlib pandas ipython future cython requests xlrd jup
 pip install termux-api
 }
 launch_sshd() {
-    if [ ! -d /run/sshd ]; then
+    #if [ ! -d /run/sshd ]; then
         apt install -y openssh-server
         mkdir -p /run/sshd
         echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
         passwd
-    fi
+    #fi
     sshd_abs=`which sshd`
     $sshd_abs -p 8022 -E sshd.log
     user=`whoami`
