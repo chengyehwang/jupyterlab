@@ -11,14 +11,15 @@ if [  -n "$(cat /etc/issue | grep Ubuntu)" ]; then
     add-apt-repository -y ppa:deadsnakes/ppa
     apt-get update
     apt install -y python3.7 python3.7-dev python3.7-venv python3.7-distutils
+    apt install -y python3-pip
 else
     apt install -y python3 python3-pip python3-numpy python3-scipy python-matplotlib
 fi
 
-pip3 install --upgrade pip
-pip install wheel
-pip install versioned-hdf5 h5py numpy lxml matplotlib pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 dash dash-bootstrap-components seaborn kaleido imageai scikit-learn jupyterlab-dash
-pip install termux-api
+python3.7 pip install --upgrade pip
+python3.7 pip install wheel
+python3.7 pip install versioned-hdf5 h5py numpy lxml matplotlib pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 dash dash-bootstrap-components seaborn kaleido imageai scikit-learn jupyterlab-dash
+python3.7 pip install termux-api
 }
 launch_sshd() {
     if [ ! -d /run/sshd ]; then
