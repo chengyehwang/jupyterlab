@@ -3,7 +3,7 @@ export DEBIAN_FRONTEND=noninteractive && apt update -y
 export DEBIAN_FRONTEND=noninteractive && apt upgrade -y
 export DEBIAN_FRONTEND=noninteractive && apt install -y pkg-config
 apt install -y openssh-server wget vim net-tools make gcc g++ iproute2 git
-apt install -y libgl1-mesa-glx libfreetype6-dev libjpeg62 lzma
+apt install -y libgl1-mesa-glx libfreetype6-dev libjpeg62 lzma liblzma-dev
 apt install -y liblapack-dev libblas-dev libxml2-dev libxslt-dev build-essential libjpeg-dev libgfortran4 nodejs gfortran zlib1g-dev libhdf5-dev libexpat1-dev
 apt install -y libsqlite3-dev curl llvm tk-dev libssl-dev xz-utils libncursesw5-dev libncurses5-dev libbz2-dev libreadline-dev make libssl-dev
 
