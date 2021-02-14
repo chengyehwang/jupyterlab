@@ -84,9 +84,9 @@ def render_page_content(pathname):
         pwd = os.environ['PWD']
         image_file = '%s/test1.jpeg'%pwd
         function.camera().takephoto(saveas=image_file)
-        encoded_image = base64.b64encode(open(image_file, 'rb').read())
+        encoded_image = base64.b64encode(open(image_file, 'rb').read()).decode()
         return html.Div([
-        html.Img(src='data:image/jpeg;base64,{}'.format(encoded_image)),
+        html.Img(src='data:image/jpeg;base64,%s'%encoded_image),
         html.P('page 1')
         ])
     elif pathname == "/Chart":
