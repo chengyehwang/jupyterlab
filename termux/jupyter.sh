@@ -16,16 +16,17 @@ if [  -n "$(cat /etc/issue | grep Ubuntu)" ]; then
         ( cd Python-3.7.6 ; make -j 8 )
         ( cd Python-3.7.6 ; make altinstall )
     fi
+
 else
     apt install -y python3 python3-pip python3-numpy python3-scipy python-matplotlib
 fi
 if [ ! -f tensorflow-2.4.0-cp37-none-linux_aarch64.whl ]; then
     wget https://github.com/lhelontra/tensorflow-on-arm/releases/download/v2.4.0/tensorflow-2.4.0-cp37-none-linux_aarch64.whl
 fi
-pip3.7 install --upgrade pip
-pip3.7 install wheel tensorflow-2.4.0-cp37-none-linux_aarch64.whl versioned-hdf5 scipy==1.4.1 h5py==2.10.0 numpy==1.19.3 lxml matplotlib==3.3.2 pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 dash dash-bootstrap-components seaborn kaleido imageai==2.1.6 keras=2.4.3 scikit-learn jupyterlab-dash pillow==7.0.0 Cython==0.29.18
+python3.7 -m pip install --upgrade pip
+python3.7 -m pip install wheel tensorflow-2.4.0-cp37-none-linux_aarch64.whl versioned-hdf5 scipy==1.4.1 h5py==2.10.0 numpy==1.19.3 lxml matplotlib==3.3.2 pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 dash dash-bootstrap-components seaborn kaleido imageai==2.1.6 keras=2.4.3 scikit-learn jupyterlab-dash pillow==7.0.0 Cython==0.29.18
 #--no-binary :all: --force-reinstall
-pip3.7 install termux-api
+python3.7 -m pip install termux-api
 }
 launch_sshd() {
     if [ ! -d /run/sshd ]; then
