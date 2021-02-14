@@ -21,6 +21,15 @@ import plotly.express as px
 from dash.dependencies import Input, Output
 import argparse
 
+# application import
+import pandas as pd
+
+from pimux import function
+import os
+import base64
+
+#end application import
+
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 # the style arguments for the sidebar. We use position:fixed and a fixed width
@@ -52,8 +61,8 @@ sidebar = html.Div(
         dbc.Nav(
             [
                 dbc.NavLink("Home", href="/", active="exact"),
-                dbc.NavLink("Page 1", href="/page-1", active="exact"),
-                dbc.NavLink("Page 2", href="/page-2", active="exact"),
+                dbc.NavLink("CameraAI", href="/CameraAI", active="exact"),
+                dbc.NavLink("Chart", href="/Chart", active="exact"),
             ],
             vertical=True,
             pills=True,
@@ -71,11 +80,17 @@ app.layout = html.Div([dcc.Location(id="url"), sidebar, content])
 def render_page_content(pathname):
     if pathname == "/":
         return html.P("This is the content of the home page!")
-    elif pathname == "/page-1":
-        return html.P("This is the content of page 1. Yay!")
-    elif pathname == "/page-2":
+    elif pathname == "/CameraAI":
+        pwd = os.environ['PWD']
+        image_file = '%s/test1.jpeg'%pwd
+        function.camera().takephoto(saveas=image_file)
+        encoded_image = base64.b64encode(open(image_file, 'rb').read())
+        return html.Div([
+        html.Img(src='data:image/jpeg;base64,{}'.format(encoded_image)),
+        html.P('page 1')
+        ])
+    elif pathname == "/Chart":
         #return html.P("Oh cool, this is page 2!")
-        import pandas as pd
         df=pd.DataFrame([{'a':12,'b':22},{'a':22,'b':12}])
         fig=px.scatter(df, x='a', y='b')
         return html.Div([
@@ -100,4 +115,4 @@ if __name__ == "__main__":
     parser.add_argument('-a', dest='host', action='store', default='127.0.0.1')
     args = parser.parse_args()
 
-    app.run_server(host=args.host, port=8050)
+    app.run_server(host=args.host, port=8050, debug=True)
