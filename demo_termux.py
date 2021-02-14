@@ -5,15 +5,21 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
-#       jupytext_version: 1.10.0
+#       jupytext_version: 1.10.1
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
 #     name: python3
 # ---
 
-import termux
+from pimux import function
 
-termux.API.vibrate()
+import os
+pwd = os.environ['PWD']
 
-help(termux.API) #for available methods
+function.camera().takephoto(saveas='%s/test.jpeg'%pwd)
+
+from IPython.display import Image
+Image("test.jpeg")
+
+
