@@ -35,28 +35,16 @@ tar xvf h5py-2.10.0.tar.gz
 
 }
 launch_sshd() {
-    if [ ! -d /run/sshd ]; then
+    if [  -n "$(cat /etc/issue | grep Ubuntu)" ]; then
         apt install -y openssh-server
-        mkdir -p /run/sshd
-        if [  -n "$(uname -a | grep Ubuntu)" ]; then
-            echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
-        else
-            echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
-            echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
-        fi
         passwd
-    fi
-    if [  -n "$(uname -a | grep Ubuntu)" ]; then
-        echo "ubuntu"
-    else
+        echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
         echo "Port 8022" >> /etc/ssh/sshd_config
         echo "AddressFamily any" >> /etc/ssh/sshd_config
         echo "ListenAddress 0.0.0.0" >> /etc/ssh/sshd_config
         echo "ListenAddress ::" >> /etc/ssh/sshd_config
         /etc/init.d/ssh restart
     fi
-    sshd_abs=`which sshd`
-    $sshd_abs -p 8022 -E sshd.log
     user=`whoami`
     echo "adb forward tcp:8022 tcp:8022"
     echo "ssh $user@localhost -p 8022"
