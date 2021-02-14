@@ -94,12 +94,12 @@ Key features:
 [image](https://github.com/chengyehwang/jupyterlab/blob/master/jupyter_demo.png)
 15. embedded dev
     * termux
-    * chroot to ubuntu (arm64)
-    * python 3.8.X / pip
+    * proot to ubuntu 20.04 (arm64)
+    * python 3.7.X / pip
     * jupyterlab server (3.0.X) on phone
     * browser access by PC
-    * camera by termux-api?
-    * NN by tensorflow (2.2)?
-    * Object detect by imageai?
-    * UI by dash?
+    * camera by termux-api
+    * NN by tensorflow (2.4)
+    * Object detect by imageai
+    * UI by dash
 
