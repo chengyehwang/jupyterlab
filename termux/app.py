@@ -93,7 +93,7 @@ JupyterLab_layout = html.Div([
     html.Button('Run', id='jupyterlab-run', n_clicks=0),
     html.Div(id='jupyterlab-status', children='Wait for command'),
     dcc.Textarea(id='jupyterlab-output', value='',
-        style={'width': '100%', 'height': 300})
+        style={'width': '100%', 'height': 800})
 ])
 JupyterLab_process = None
 JupyterLab_output = ""
