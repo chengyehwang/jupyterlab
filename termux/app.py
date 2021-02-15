@@ -90,7 +90,8 @@ app.layout = html.Div([dcc.Location(id="url"), sidebar, content])
 
 MicrophoneAI_layout = html.Div([
     html.Button('Record', id='MicrophoneAI-record', n_clicks=0),
-    dcc.Textarea(id='MicrophoneAI-output', value='')
+    dcc.Textarea(id='MicrophoneAI-output', value='',
+        style={'width': '100%', 'height': 300})
 ])
 @app.callback(
     dash.dependencies.Output('MicrophoneAI-output', 'value'),
@@ -113,6 +114,7 @@ def trigger_microphone(n_clicks):
         audio = r.record(source)
     text = r.recognize_sphinx(audio)
     return text
+
 # jupyterlab APP
 
 JupyterLab_layout = html.Div([
