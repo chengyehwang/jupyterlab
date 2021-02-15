@@ -112,7 +112,8 @@ def render_page_content(pathname):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('-a', dest='host', action='store', default='127.0.0.1')
+    parser.add_argument('-a', dest='host', action='store')
     args = parser.parse_args()
 
-    app.run_server(host=args.host, port=8050, debug=True)
+    print('Browser URL: http://%s:8050/'%args.host)
+    app.run_server(host='0.0.0.0', port=8050, debug=True)

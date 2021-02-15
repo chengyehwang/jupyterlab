@@ -75,7 +75,7 @@ launch_buildapk() {
 }
 launch_dash() {
     host=`ip addr show wlan0 | grep "inet\b" | awk '{print $2}' | cut -d/ -f1`
-    termux-open http://$host:8050
+    termux-open http://localhost:8050
     python3.7 app.py -a $host
 }
 install_tensor() {
