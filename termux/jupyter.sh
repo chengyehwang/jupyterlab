@@ -1,3 +1,4 @@
+#!/usr/bin/bash
 install_jupyter () {
 export DEBIAN_FRONTEND=noninteractive && apt update -y
 export DEBIAN_FRONTEND=noninteractive && apt upgrade -y

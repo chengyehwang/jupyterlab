@@ -85,20 +85,27 @@ app.config.suppress_callback_exceptions = True
 app.layout = html.Div([dcc.Location(id="url"), sidebar, content])
 
 JupyterLab_layout = html.Div([
-    html.Div(dcc.Input(id='input-on-submit', type='text')),
-    html.Button('Submit', id='submit-val', n_clicks=0),
-    html.Div(id='container-button-basic',
-    children='Enter a value and press submit')
+    html.Div(children='extra options for jupyterlab'),
+    html.Div(dcc.Input(id='jupyterlab-options', type='text')),
+    html.Button('Run', id='jupyterlab-run', n_clicks=0),
+    html.Div(id='jupyterlab-status', children='Wait for command')
 ])
+JupyterLab_process = None
+JupyterLab_output = ""
 @app.callback(
-    dash.dependencies.Output('container-button-basic', 'children'),
-    [dash.dependencies.Input('submit-val', 'n_clicks')],
-    [dash.dependencies.State('input-on-submit', 'value')])
+    dash.dependencies.Output('jupyterlab-status', 'children'),
+    [dash.dependencies.Input('jupyterlab-run', 'n_clicks')],
+    [dash.dependencies.State('jupyterlab-options', 'value')])
 def update_output(n_clicks, value):
-    return 'The input value was "{}" and the button has been clicked {} times'.format(
-    value,
-    n_clicks
-    )
+    global JupyterLab_process
+    global JupyterLab_output
+    import subprocess
+    if JupyterLab_process is not None:
+        JupyterLab_process.terminate()
+    JupyterLab_process = subprocess.Popen(["./jupyter.sh","-j"])
+    for line in JupyterLab_process.stdout:
+        JupyterLab_output += line
+    return JupyterLab_output
 
 @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
 def render_page_content(pathname):
