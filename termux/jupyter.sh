@@ -78,6 +78,11 @@ launch_dash() {
     termux-open http://localhost:8050
     python3.7 app.py -a $host
 }
+install_voice() {
+    wget https://github.com/Uberi/speech_recognition/archive/3.8.1.zip
+    unzip 3.8.1.zip
+    cd speech_recognition-3.8.1 ; python3.7 -m pip install .
+}
 install_tensor() {
     update-alternatives --install /usr/bin/python python /usr/bin/python3 10
 
@@ -99,7 +104,7 @@ launch_proot_debian() {
     proot-distro install debian-buster
     proot-distro login debian-buster --termux-home
 }
-while getopts 'wijsba:dtup' opt; do
+while getopts 'wijsba:dtupv' opt; do
     case $opt in
         (w) launch_jupyter_wlan;;
         (i) install_jupyter;;
@@ -112,6 +117,7 @@ while getopts 'wijsba:dtup' opt; do
         (t) install_tensor;;
         (u) launch_proot_ubuntu;;
         (p) launch_proot_debian;;
+	(v) install_voice;;
     esac
 done
 

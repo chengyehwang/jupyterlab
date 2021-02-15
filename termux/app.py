@@ -24,9 +24,15 @@ import argparse
 # application import
 import pandas as pd
 
+# camera
 from pimux import function
 import os
 import base64
+
+# AI
+from imageai.Detection import ObjectDetection
+
+detector = None
 
 #end application import
 
@@ -82,9 +88,24 @@ def render_page_content(pathname):
         return html.P("This is the content of the home page!")
     elif pathname == "/CameraAI":
         pwd = os.environ['PWD']
-        image_file = '%s/test1.jpeg'%pwd
-        function.camera().takephoto(saveas=image_file)
-        encoded_image = base64.b64encode(open(image_file, 'rb').read()).decode()
+        camera_image = '%s/camera.jpeg'%pwd
+        camera_ai_image = '%s/camera_ai.jpeg'%pwd
+        function.camera().takephoto(saveas=camera_image)
+
+        global detector
+        if detector is None:
+            if not os.path.exists('yolo.h5'):
+                os.system('wget https://github.com/OlafenwaMoses/ImageAI/releases/download/1.0/yolo.h5')
+            execution_path = os.getcwd()
+            detector = ObjectDetection()
+            detector.setModelTypeAsYOLOv3()
+            detector.setModelPath( os.path.join(execution_path , "yolo.h5"))
+            detector.loadModel()
+        if detector is None:
+            encoded_image = base64.b64encode(open(camera_image, 'rb').read()).decode()
+        else:
+            detections = detector.detectObjectsFromImage(input_image=camera_image, output_image_path=camera_ai_image, minimum_percentage_probability=30)
+            encoded_image = base64.b64encode(open(camera_ai_image, 'rb').read()).decode()
         return html.Div([
         html.Img(src='data:image/jpeg;base64,%s'%encoded_image),
         html.P('page 1')
