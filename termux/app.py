@@ -99,11 +99,20 @@ def trigger_microphone(n_clicks):
     import termux
     termux.Microphone.stop()
     pwd = os.environ['PWD']
-    output = "%s/test.wave"%pwd
-    if os.path.exists(output):
-        os.remove(output)
-    termux.Microphone.record(output,limit=5)
-
+    aac_file = "%s/microphone.aac"%pwd
+    wave_file = "%s/microphone.wave"%pwd
+    if os.path.exists(aac_file):
+        os.remove(aac_file)
+    termux.Microphone.record(aac_file,encoder='aac', limit=5)
+    import time
+    time.sleep(6)
+    os.system('faad -o %s %s'%(wave_file, aac_file))
+    import speech_recognition as sr
+    r = sr.Recognizer()
+    with sr.WavFile(wave_file) as source:
+        audio = r.record(source)
+    text = r.recognize_sphinx(audio)
+    return text
 # jupyterlab APP
 
 JupyterLab_layout = html.Div([
