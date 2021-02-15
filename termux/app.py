@@ -24,16 +24,6 @@ import argparse
 # application import
 import pandas as pd
 
-# camera
-from pimux import function
-import os
-import base64
-
-# AI
-from imageai.Detection import ObjectDetection
-
-detector = None
-
 # JupyterLab
 #end application import
 
@@ -48,6 +38,7 @@ SIDEBAR_STYLE = {
     "width": "16rem",
     "padding": "2rem 1rem",
     "background-color": "#f8f9fa",
+    "font-size": "30px",
 }
 
 # the styles for the main content position it to the right of the sidebar and
@@ -56,6 +47,7 @@ CONTENT_STYLE = {
     "margin-left": "18rem",
     "margin-right": "2rem",
     "padding": "2rem 1rem",
+    "font-size": "30px",
 }
 
 sidebar = html.Div(
@@ -86,6 +78,47 @@ app.config.suppress_callback_exceptions = True
 
 app.layout = html.Div([dcc.Location(id="url"), sidebar, content])
 
+# CameraAI APP
+from pimux import function
+import os
+import base64
+
+# AI
+from imageai.Detection import ObjectDetection
+
+detector = None
+
+CameraAI_layout = html.Div([
+    html.Button('Capture', id='CameraAI-capture', n_clicks=0),
+    html.Img(id='CameraAI-output')
+])
+@app.callback(
+    dash.dependencies.Output('CameraAI-output', 'src'),
+    [dash.dependencies.Input('CameraAI-capture', 'n_clicks')])
+def trigger_camera(n_clicks):
+    print('trigger camera')
+    pwd = os.environ['PWD']
+    camera_image = '%s/camera.jpeg'%pwd
+    camera_ai_image = '%s/camera_ai.jpeg'%pwd
+    function.camera().takephoto(saveas=camera_image)
+
+    global detector
+    if detector is None:
+        if not os.path.exists('yolo.h5'):
+            os.system('wget https://github.com/OlafenwaMoses/ImageAI/releases/download/1.0/yolo.h5')
+        execution_path = os.getcwd()
+        detector = ObjectDetection()
+        detector.setModelTypeAsYOLOv3()
+        detector.setModelPath( os.path.join(execution_path , "yolo.h5"))
+        detector.loadModel()
+    if detector is None:
+        encoded_image = base64.b64encode(open(camera_image, 'rb').read()).decode()
+    else:
+        detections = detector.detectObjectsFromImage(input_image=camera_image, output_image_path=camera_ai_image, minimum_percentage_probability=30)
+        encoded_image = base64.b64encode(open(camera_ai_image, 'rb').read()).decode()
+    print('finish camera')
+    return 'data:image/jpeg;base64,%s'%encoded_image
+
 # MicrophoneAI APP
 
 MicrophoneAI_layout = html.Div([
@@ -97,6 +130,7 @@ MicrophoneAI_layout = html.Div([
     dash.dependencies.Output('MicrophoneAI-output', 'value'),
     [dash.dependencies.Input('MicrophoneAI-record', 'n_clicks')])
 def trigger_microphone(n_clicks):
+    print('trigger microphone')
     import termux
     termux.Microphone.stop()
     pwd = os.environ['PWD']
@@ -113,6 +147,7 @@ def trigger_microphone(n_clicks):
     with sr.WavFile(wave_file) as source:
         audio = r.record(source)
     text = r.recognize_sphinx(audio)
+    print('finish microphone')
     return text
 
 # jupyterlab APP
@@ -133,6 +168,7 @@ JupyterLab_output = ""
     [dash.dependencies.Input('jupyterlab-run', 'n_clicks')],
     [dash.dependencies.State('jupyterlab-options', 'value')])
 def trigger_jupyterlab_output(n_clicks, value):
+    print('trigger jupyterlab')
     global JupyterLab_process
     global JupyterLab_output
     os.system('killall jupyter-lab')
@@ -158,29 +194,7 @@ def render_page_content(pathname):
     if pathname == "/":
         return html.P("This is the content of the home page!")
     elif pathname == "/CameraAI":
-        pwd = os.environ['PWD']
-        camera_image = '%s/camera.jpeg'%pwd
-        camera_ai_image = '%s/camera_ai.jpeg'%pwd
-        function.camera().takephoto(saveas=camera_image)
-
-        global detector
-        if detector is None:
-            if not os.path.exists('yolo.h5'):
-                os.system('wget https://github.com/OlafenwaMoses/ImageAI/releases/download/1.0/yolo.h5')
-            execution_path = os.getcwd()
-            detector = ObjectDetection()
-            detector.setModelTypeAsYOLOv3()
-            detector.setModelPath( os.path.join(execution_path , "yolo.h5"))
-            detector.loadModel()
-        if detector is None:
-            encoded_image = base64.b64encode(open(camera_image, 'rb').read()).decode()
-        else:
-            detections = detector.detectObjectsFromImage(input_image=camera_image, output_image_path=camera_ai_image, minimum_percentage_probability=30)
-            encoded_image = base64.b64encode(open(camera_ai_image, 'rb').read()).decode()
-        return html.Div([
-        html.Img(src='data:image/jpeg;base64,%s'%encoded_image),
-        html.P('page 1')
-        ])
+        return CameraAI_layout
     elif pathname == "/MicrophoneAI":
         return MicrophoneAI_layout
     elif pathname == "/Chart":
