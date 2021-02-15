@@ -25,6 +25,6 @@ with sr.WavFile("harvard.wav") as source:
 
 audio
 
-r.recognize_google(audio)
+r.recognize_sphinx(audio)
 
 
