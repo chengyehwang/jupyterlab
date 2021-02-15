@@ -93,7 +93,7 @@ MicrophoneAI_layout = html.Div([
     dcc.Textarea(id='MicrophoneAI-output', value='')
 ])
 @app.callback(
-    dash.dependencies.Output('MicrophoneAI-output', 'children'),
+    dash.dependencies.Output('MicrophoneAI-output', 'value'),
     [dash.dependencies.Input('MicrophoneAI-record', 'n_clicks')])
 def trigger_microphone(n_clicks):
     import termux
@@ -206,6 +206,7 @@ def render_page_content(pathname):
 
 
 if __name__ == "__main__":
+    os.system('killall jupyter-lab')
     parser = argparse.ArgumentParser()
     parser.add_argument('-a', dest='host', action='store')
     args = parser.parse_args()
