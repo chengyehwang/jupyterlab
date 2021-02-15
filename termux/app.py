@@ -69,6 +69,7 @@ sidebar = html.Div(
                 dbc.NavLink("Home", href="/", active="exact"),
                 dbc.NavLink("CameraAI", href="/CameraAI", active="exact"),
                 dbc.NavLink("Chart", href="/Chart", active="exact"),
+                dbc.NavLink("JupyterLab", href="/JupyterLab", active="exact"),
             ],
             vertical=True,
             pills=True,
@@ -79,8 +80,25 @@ sidebar = html.Div(
 
 content = html.Div(id="page-content", style=CONTENT_STYLE)
 
+app.config.suppress_callback_exceptions = True
+
 app.layout = html.Div([dcc.Location(id="url"), sidebar, content])
 
+JupyterLab_layout = html.Div([
+    html.Div(dcc.Input(id='input-on-submit', type='text')),
+    html.Button('Submit', id='submit-val', n_clicks=0),
+    html.Div(id='container-button-basic',
+    children='Enter a value and press submit')
+])
+@app.callback(
+    dash.dependencies.Output('container-button-basic', 'children'),
+    [dash.dependencies.Input('submit-val', 'n_clicks')],
+    [dash.dependencies.State('input-on-submit', 'value')])
+def update_output(n_clicks, value):
+    return 'The input value was "{}" and the button has been clicked {} times'.format(
+    value,
+    n_clicks
+    )
 
 @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
 def render_page_content(pathname):
@@ -121,6 +139,9 @@ def render_page_content(pathname):
                 data = df.to_dict('records'),
                 ),
         dcc.Graph(figure=fig)])
+    elif pathname == "/JupyterLab":
+        return JupyterLab_layout
+
     # If the user tries to reach a different page, return a 404 message
     return dbc.Jumbotron(
         [
