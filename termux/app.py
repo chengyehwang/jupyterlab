@@ -104,11 +104,9 @@ JupyterLab_output = ""
 def trigger_output(n_clicks, value):
     global JupyterLab_process
     global JupyterLab_output
-    import subprocess
-    if JupyterLab_process is not None:
-        JupyterLab_process.terminate()
-        JupyterLab_output = ''
-    JupyterLab_process = subprocess.Popen(['./jupyter.sh', '-j'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    os.system('killall -2 jupyter-lab')
+    os.system('killall -2 jupyter-lab')
+    os.system('./jupyter.sh -j >jupyter.log 2>&1')
     return 'JupyterLab is running'
 
 from nonblock import nonblock_read
@@ -119,9 +117,8 @@ from nonblock import nonblock_read
 def update_output(n_intervals):
     global JupyterLab_process
     global JupyterLab_output
-    if JupyterLab_process is not None:
-        line = nonblock_read(JupyterLab_process.stdout)
-        JupyterLab_output += line.decode()
+    with open('jupyter.log') as fd:
+        JupyterLab_output = ''.join(fd.readlines())
     return JupyterLab_output
 
 @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
