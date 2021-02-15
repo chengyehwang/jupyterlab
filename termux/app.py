@@ -92,7 +92,8 @@ JupyterLab_layout = html.Div([
     html.Div(dcc.Input(id='jupyterlab-options', type='text')),
     html.Button('Run', id='jupyterlab-run', n_clicks=0),
     html.Div(id='jupyterlab-status', children='Wait for command'),
-    html.Div(id='jupyterlab-output', children='')
+    dcc.Textarea(id='jupyterlab-output', value='',
+        style={'width': '100%', 'height': 300})
 ])
 JupyterLab_process = None
 JupyterLab_output = ""
@@ -105,22 +106,23 @@ def trigger_output(n_clicks, value):
     global JupyterLab_output
     import subprocess
     if JupyterLab_process is not None:
-        JupyterLab_process.terminate()
-    JupyterLab_process = subprocess.Popen(["./jupyter.sh","-j"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        #JupyterLab_process.terminate()
+        pass
+    JupyterLab_process = os.popen("./jupyter.sh -j 2>&1")
     return 'JupyterLab is running'
 
+from nonblock import nonblock_read
+
 @app.callback(
-    dash.dependencies.Output('jupyterlab-output', 'children'),
+    dash.dependencies.Output('jupyterlab-output', 'value'),
     [dash.dependencies.Input('interval', 'n_intervals')])
 def update_output(n_intervals):
     global JupyterLab_process
     global JupyterLab_output
     if JupyterLab_process is not None:
-        for line in JupyterLab_process.stdout:
-            JupyterLab_output += line.decode()
-        for line in JupyterLab_process.stderr:
-            JupyterLab_output += line.decode()
-    print(JupyterLab_output)
+        line = nonblock_read(JupyterLab_process)
+        JupyterLab_output += line
+    #print(JupyterLab_output)
     return JupyterLab_output
 
 @app.callback(Output("page-content", "children"), [Input("url", "pathname")])

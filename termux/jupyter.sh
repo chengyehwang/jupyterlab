@@ -26,7 +26,7 @@ if [ ! -f tensorflow-2.4.0-cp37-none-linux_aarch64.whl ]; then
 fi
 python3.7 -m pip install --upgrade pip
 python3.7 -m pip install Cython==0.29.18 numpy==1.19.3
-python3.7 -m pip install wheel tensorflow-2.4.0-cp37-none-linux_aarch64.whl versioned-hdf5 scipy==1.4.1 h5py==2.10.0 numpy==1.19.3 lxml matplotlib==3.3.2 pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 dash dash-bootstrap-components seaborn kaleido imageai==2.1.6 keras==2.4.3 scikit-learn jupyterlab-dash pillow==7.0.0 Cython==0.29.18
+python3.7 -m pip install wheel tensorflow-2.4.0-cp37-none-linux_aarch64.whl versioned-hdf5 scipy==1.4.1 h5py==2.10.0 numpy==1.19.3 lxml matplotlib==3.3.2 pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 dash dash-bootstrap-components seaborn kaleido imageai==2.1.6 keras==2.4.3 scikit-learn jupyterlab-dash pillow==7.0.0 Cython==0.29.18 python-nonblock
 #--no-binary :all: --force-reinstall
 python3.7 -m pip install termux-api pimux
 
