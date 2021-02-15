@@ -35,7 +35,6 @@ from imageai.Detection import ObjectDetection
 detector = None
 
 # JupyterLab
-import time
 #end application import
 
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
@@ -70,6 +69,7 @@ sidebar = html.Div(
             [
                 dbc.NavLink("Home", href="/", active="exact"),
                 dbc.NavLink("CameraAI", href="/CameraAI", active="exact"),
+                dbc.NavLink("MicrophoneAI", href="/MicrophoneAI", active="exact"),
                 dbc.NavLink("Chart", href="/Chart", active="exact"),
                 dbc.NavLink("JupyterLab", href="/JupyterLab", active="exact"),
             ],
@@ -86,6 +86,26 @@ app.config.suppress_callback_exceptions = True
 
 app.layout = html.Div([dcc.Location(id="url"), sidebar, content])
 
+# MicrophoneAI APP
+
+MicrophoneAI_layout = html.Div([
+    html.Button('Record', id='MicrophoneAI-record', n_clicks=0),
+    dcc.Textarea(id='MicrophoneAI-output', value='')
+])
+@app.callback(
+    dash.dependencies.Output('MicrophoneAI-output', 'children'),
+    [dash.dependencies.Input('MicrophoneAI-record', 'n_clicks')])
+def trigger_microphone(n_clicks):
+    import termux
+    termux.Microphone.stop()
+    pwd = os.environ['PWD']
+    output = "%s/test.wave"%pwd
+    if os.path.exists(output):
+        os.remove(output)
+    termux.Microphone.record(output,limit=5)
+
+# jupyterlab APP
+
 JupyterLab_layout = html.Div([
     dcc.Interval(id='interval', interval=1000, n_intervals=0),
     html.Div(children='extra options for jupyterlab'),
@@ -101,7 +121,7 @@ JupyterLab_output = ""
     dash.dependencies.Output('jupyterlab-status', 'children'),
     [dash.dependencies.Input('jupyterlab-run', 'n_clicks')],
     [dash.dependencies.State('jupyterlab-options', 'value')])
-def trigger_output(n_clicks, value):
+def trigger_jupyterlab_output(n_clicks, value):
     global JupyterLab_process
     global JupyterLab_output
     os.system('killall jupyter-lab')
@@ -113,12 +133,14 @@ from nonblock import nonblock_read
 @app.callback(
     dash.dependencies.Output('jupyterlab-output', 'value'),
     [dash.dependencies.Input('interval', 'n_intervals')])
-def update_output(n_intervals):
+def update_jupyterlab_output(n_intervals):
     global JupyterLab_process
     global JupyterLab_output
     with open('jupyter.log') as fd:
         JupyterLab_output = ''.join(fd.readlines())
     return JupyterLab_output
+
+# End App
 
 @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
 def render_page_content(pathname):
@@ -148,6 +170,8 @@ def render_page_content(pathname):
         html.Img(src='data:image/jpeg;base64,%s'%encoded_image),
         html.P('page 1')
         ])
+    elif pathname == "/MicrophoneAI":
+        return MicrophoneAI_layout
     elif pathname == "/Chart":
         #return html.P("Oh cool, this is page 2!")
         df=pd.DataFrame([{'a':12,'b':22},{'a':22,'b':12}])
