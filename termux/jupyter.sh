@@ -82,6 +82,8 @@ install_voice() {
     wget https://github.com/Uberi/speech_recognition/archive/3.8.1.zip
     unzip 3.8.1.zip
     cd speech_recognition-3.8.1 ; python3.7 -m pip install .
+    apt install -y swig libpulse-dev
+    python3.7 -m pip install PocketSphinx
 }
 install_tensor() {
     update-alternatives --install /usr/bin/python python /usr/bin/python3 10
