@@ -104,8 +104,7 @@ JupyterLab_output = ""
 def trigger_output(n_clicks, value):
     global JupyterLab_process
     global JupyterLab_output
-    os.system('killall -2 jupyter-lab')
-    os.system('killall -2 jupyter-lab')
+    os.system('killall jupyter-lab')
     os.system('./jupyter.sh -j >jupyter.log 2>&1 &')
     return 'JupyterLab is running'
 
