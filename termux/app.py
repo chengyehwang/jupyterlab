@@ -34,6 +34,8 @@ from imageai.Detection import ObjectDetection
 
 detector = None
 
+# JupyterLab
+import time
 #end application import
 
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
@@ -85,10 +87,12 @@ app.config.suppress_callback_exceptions = True
 app.layout = html.Div([dcc.Location(id="url"), sidebar, content])
 
 JupyterLab_layout = html.Div([
+    dcc.Interval(id='interval', interval=1000, n_intervals=0),
     html.Div(children='extra options for jupyterlab'),
     html.Div(dcc.Input(id='jupyterlab-options', type='text')),
     html.Button('Run', id='jupyterlab-run', n_clicks=0),
-    html.Div(id='jupyterlab-status', children='Wait for command')
+    html.Div(id='jupyterlab-status', children='Wait for command'),
+    html.Div(id='jupyterlab-output', children='')
 ])
 JupyterLab_process = None
 JupyterLab_output = ""
@@ -96,15 +100,27 @@ JupyterLab_output = ""
     dash.dependencies.Output('jupyterlab-status', 'children'),
     [dash.dependencies.Input('jupyterlab-run', 'n_clicks')],
     [dash.dependencies.State('jupyterlab-options', 'value')])
-def update_output(n_clicks, value):
+def trigger_output(n_clicks, value):
     global JupyterLab_process
     global JupyterLab_output
     import subprocess
     if JupyterLab_process is not None:
         JupyterLab_process.terminate()
-    JupyterLab_process = subprocess.Popen(["./jupyter.sh","-j"])
-    for line in JupyterLab_process.stdout:
-        JupyterLab_output += line
+    JupyterLab_process = subprocess.Popen(["./jupyter.sh","-j"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    return 'JupyterLab is running'
+
+@app.callback(
+    dash.dependencies.Output('jupyterlab-output', 'children'),
+    [dash.dependencies.Input('interval', 'n_intervals')])
+def update_output(n_intervals):
+    global JupyterLab_process
+    global JupyterLab_output
+    if JupyterLab_process is not None:
+        for line in JupyterLab_process.stdout:
+            JupyterLab_output += line.decode()
+        for line in JupyterLab_process.stderr:
+            JupyterLab_output += line.decode()
+    print(JupyterLab_output)
     return JupyterLab_output
 
 @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
