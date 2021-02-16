@@ -103,3 +103,4 @@ Key features:
     * Object detect by imageai
     * UI by dash
     * QR code scan by google lens for login
+    * fdroidserver for apk build
