@@ -68,12 +68,14 @@ launch_sshd() {
 }
 launch_jupyter_wlan () {
     host=`ip addr show wlan0 | grep "inet\b" | awk '{print $2}' | cut -d/ -f1`
+    echo "browser access URL https://$host:8888/lab"
     echo "jupyter-lab --ip $host --no-browser --allow-root"
     cd .. ; jupyter-lab --ip $host --no-browser --allow-root
 }
 launch_jupyter_local () {
     host="127.0.0.1"
-    echo "adb forward tcp:8888 tcp:8888"   
+    echo "adb forward tcp:8888 tcp:8888"
+    echo "browser access URL https://localhost:8888/lab"
     echo "jupyter-lab --ip $host --no-browser --allow-root"
     cd .. ; jupyter-lab --ip $host --no-browser --allow-root
 }
