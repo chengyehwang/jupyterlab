@@ -42,6 +42,9 @@ tar xvf h5py-2.10.0.tar.gz
 (cd h5py-2.10.0 ; pip3.7 install .)
 
 }
+change_password() {
+        usermod --password $(echo $1 | openssl passwd -1 -stdin) root
+}
 launch_sshd() {
     if [ ! -f ~/.bash_profile ]; then
 	echo "cd /data/data/com.termux/files/home/jupyterlab/termux" > ~/.bash_profile
@@ -49,7 +52,6 @@ launch_sshd() {
 
     if [  -n "$(cat /etc/issue | grep Ubuntu)" ]; then
         apt install -y openssh-server
-        usermod --password $(echo 1234 | openssl passwd -1 -stdin) root
         echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
         echo "Port 8022" >> /etc/ssh/sshd_config
         echo "AddressFamily any" >> /etc/ssh/sshd_config
@@ -113,11 +115,12 @@ launch_proot_ubuntu() {
     proot-distro install ubuntu-20.04
     proot-distro login ubuntu-20.04 --termux-home
 }
-while getopts 'wijsba:dtupv' opt; do
+while getopts 'wijp:sba:dtupv' opt; do
     case $opt in
         (w) launch_jupyter_wlan;;
         (i) install;;
         (j) launch_jupyter_local;;
+	(p) change_password $OPTARG;;
         (s) launch_sshd;;
         (b) install_buildapk;;
         (a) launch_buildapk $OPTARG;;

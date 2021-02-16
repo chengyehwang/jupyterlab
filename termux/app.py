@@ -191,6 +191,8 @@ def update_jupyterlab_output(n_intervals):
 # SSHD APP
 
 SSHD_layout = html.Div([
+    html.Div(children='password'),
+    html.Div(dcc.Input(id='SSHD-password', type='text', value='1234')),
     html.Button('Run', id='SSHD-trigger', n_clicks=0),
     html.Div(id='SSHD-status', children='Wait for command'),
     dcc.Interval(id='SSHD-interval', interval=1000, n_intervals=0),
@@ -199,10 +201,13 @@ SSHD_layout = html.Div([
 ])
 @app.callback(
     dash.dependencies.Output('SSHD-status', 'children'),
-    [dash.dependencies.Input('SSHD-trigger', 'n_clicks')])
-def trigger_SSHD(n_clicks):
+    [dash.dependencies.Input('SSHD-trigger', 'n_clicks')],
+    [dash.dependencies.State('jupyterlab-options', 'value')])
+def trigger_SSHD(n_clicks, value):
     if n_clicks == 0 :
         return 'Wait for command'
+    print('password %s'%value)
+    os.system('./jupyter.sh -p %s'%value)
     print('trigger update %d'%n_clicks)
     os.system('./jupyter.sh -s >sshd.log 2>&1 &')
     return 'SSHD is running'
