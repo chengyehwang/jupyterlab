@@ -191,9 +191,9 @@ def update_jupyterlab_output(n_intervals):
 # SSHD APP
 
 SSHD_layout = html.Div([
-    dcc.Interval(id='SSHD-interval', interval=1000, n_intervals=0),
     html.Button('Run', id='SSHD-trigger', n_clicks=0),
     html.Div(id='SSHD-status', children='Wait for command'),
+    dcc.Interval(id='SSHD-interval', interval=1000, n_intervals=0),
     dcc.Textarea(id='SSHD-output', value='', readOnly=True,
         style={'width': '100%', 'height': 1200})
 ])
@@ -207,6 +207,15 @@ def trigger_SSHD(n_clicks):
     os.system('./jupyter.sh -s >sshd.log 2>&1 &')
     return 'SSHD is running'
 
+@app.callback(
+    dash.dependencies.Output('SSHD-output', 'value'),
+    [dash.dependencies.Input('SSHD-interval', 'n_intervals')])
+def update_SSHD_output(n_intervals):
+    output = ''
+    if os.path.exists('sshd.log'):
+        with open('sshd.log') as fd:
+            output = ''.join(fd.readlines())
+    return output
 
 # Update APP
 
