@@ -160,7 +160,7 @@ JupyterLab_layout = html.Div([
     html.Div(dcc.Input(id='jupyterlab-options', type='text')),
     html.Button('Run', id='jupyterlab-run', n_clicks=0),
     html.Div(id='jupyterlab-status', children='Wait for command'),
-    dcc.Textarea(id='jupyterlab-output', value='',
+    dcc.Textarea(id='jupyterlab-output', value='', readOnly=True,
         style={'width': '100%', 'height': 800})
 ])
 @app.callback(
@@ -192,7 +192,7 @@ Update_layout = html.Div([
     dcc.Interval(id='Update-interval', interval=1000, n_intervals=0),
     html.Button('Update', id='Update-trigger', n_clicks=0),
     html.Div(id='Update-status', children='Wait for command'),
-    dcc.Textarea(id='Update-output', value='',
+    dcc.Textarea(id='Update-output', value='', readOnly=True,
         style={'width': '100%', 'height': 1200})
 ])
 @app.callback(
@@ -217,7 +217,7 @@ def update_update_output(n_intervals):
 @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
 def render_page_content(pathname):
     if pathname == "/":
-        return html.P("This is the content of the home page!")
+        return html.P("Welcome to Termux based Python development env")
     elif pathname == "/CameraAI":
         return CameraAI_layout
     elif pathname == "/MicrophoneAI":
