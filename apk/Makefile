@@ -1,3 +1,2 @@
 all:
-	sudo adduser --disabled-password fdroid
-	su fdroid ; build.sh
+	sudo su -c "su fdroid -c ./build.sh"
