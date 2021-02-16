@@ -1,15 +1,13 @@
 #!/usr/bin/bash
 install() {
-echo "=========== install/update this package    ============"
+echo "====== install/update this package    ======"
 apt install -y git
 git pull
-echo "=========== install/update jupyter package ============"
+echo "====== install/update jupyter package ======"
 install_jupyter
-echo "=========== install/update voice package   ============"
+echo "====== install/update voice package   ======"
 install_voice
-echo "=========== install/update voice package   ============"
-install_tensor
-echo "=========== the install is complete        ============"
+echo "====== the install is complete        ======"
 }
 install_jupyter () {
 export DEBIAN_FRONTEND=noninteractive && apt update -y
@@ -22,7 +20,7 @@ apt install -y libsqlite3-dev curl llvm tk-dev libssl-dev xz-utils libncursesw5-
 
 if [  -n "$(cat /etc/issue | grep Ubuntu)" ]; then
     # fix python 3.7.6 for imageai
-    if [ ! -f /usr/local/bin/python3.7 ]; then
+    if [ ! -f "/usr/local/bin/python3.7" ]; then
         wget https://www.python.org/ftp/python/3.7.6/Python-3.7.6.tgz
         tar zxf Python-3.7.6.tgz
         ( cd Python-3.7.6 ; ./configure --with-ensurepip=install)
@@ -56,7 +54,7 @@ change_sshd_password() {
         usermod --password $(echo $1 | openssl passwd -1 -stdin) root
 }
 launch_sshd() {
-    if [ ! -f ~/.bash_profile ]; then
+    if [ ! -f "~/.bash_profile" ]; then
 	echo "cd /data/data/com.termux/files/home/jupyterlab/termux" > ~/.bash_profile
     fi
 
@@ -105,12 +103,15 @@ launch_dash() {
     python3.7 app.py -a $host
 }
 install_voice() {
-    wget https://github.com/Uberi/speech_recognition/archive/3.8.1.zip
-    unzip 3.8.1.zip
+    if [ -d "speech_recognition-3.8.1" ]; then
+        wget https://github.com/Uberi/speech_recognition/archive/3.8.1.zip
+        unzip 3.8.1.zip
+    fi
     cd speech_recognition-3.8.1 ; python3.7 -m pip install .
     apt install -y swig libpulse-dev libasound2-dev
     python3.7 -m pip install PocketSphinx
 }
+# rebuild tensor but fail
 install_tensor() {
     update-alternatives --install /usr/bin/python python /usr/bin/python3 10
 
