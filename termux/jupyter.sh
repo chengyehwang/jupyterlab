@@ -103,7 +103,7 @@ launch_dash() {
     python3.7 app.py -a $host
 }
 install_voice() {
-    if [ -d "speech_recognition-3.8.1" ]; then
+    if [ ! -d "speech_recognition-3.8.1" ]; then
         wget https://github.com/Uberi/speech_recognition/archive/3.8.1.zip
         unzip 3.8.1.zip
     fi
