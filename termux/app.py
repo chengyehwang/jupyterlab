@@ -183,8 +183,9 @@ from nonblock import nonblock_read
     [dash.dependencies.Input('jupyterlab-interval', 'n_intervals')])
 def update_jupyterlab_output(n_intervals):
     JupyterLab_output = ''
-    with open('jupyter.log') as fd:
-        JupyterLab_output = ''.join(fd.readlines())
+    if os.path.exists('jupyter.log'):
+        with open('jupyter.log') as fd:
+            JupyterLab_output = ''.join(fd.readlines())
     return JupyterLab_output
 
 # SSHD APP
@@ -230,8 +231,9 @@ def trigger_update(n_clicks):
     dash.dependencies.Output('Update-output', 'value'),
     [dash.dependencies.Input('Update-interval', 'n_intervals')])
 def update_update_output(n_intervals):
-    with open('update.log') as fd:
-        update_output = ''.join(fd.readlines())
+    if os.path.exists('update.log'):
+        with open('update.log') as fd:
+            update_output = ''.join(fd.readlines())
     return update_output
 # End App
 
