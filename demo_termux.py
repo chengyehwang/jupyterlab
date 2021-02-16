@@ -23,3 +23,14 @@ from IPython.display import Image
 Image("test.jpeg")
 
 
+
+import termux
+termux.Microphone.stop()
+#help(termux.API)
+output = "%s/test.wave"%pwd
+if os.path.exists(output):
+  os.remove(output)
+termux.Microphone.record(output,limit=5)
+
+
+

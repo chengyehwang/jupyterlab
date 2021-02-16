@@ -21,6 +21,12 @@ import plotly.express as px
 from dash.dependencies import Input, Output
 import argparse
 
+# application import
+import pandas as pd
+
+# JupyterLab
+#end application import
+
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 # the style arguments for the sidebar. We use position:fixed and a fixed width
@@ -32,6 +38,7 @@ SIDEBAR_STYLE = {
     "width": "16rem",
     "padding": "2rem 1rem",
     "background-color": "#f8f9fa",
+    "font-size": "30px",
 }
 
 # the styles for the main content position it to the right of the sidebar and
@@ -40,20 +47,22 @@ CONTENT_STYLE = {
     "margin-left": "18rem",
     "margin-right": "2rem",
     "padding": "2rem 1rem",
+    "font-size": "30px",
 }
 
 sidebar = html.Div(
     [
-        html.H2("Sidebar", className="display-4"),
+        html.H2("Termux", className="display-4"),
         html.Hr(),
-        html.P(
-            "A simple sidebar layout with navigation links", className="lead"
-        ),
         dbc.Nav(
             [
                 dbc.NavLink("Home", href="/", active="exact"),
-                dbc.NavLink("Page 1", href="/page-1", active="exact"),
-                dbc.NavLink("Page 2", href="/page-2", active="exact"),
+                dbc.NavLink("CameraAI", href="/CameraAI", active="exact"),
+                dbc.NavLink("MicrophoneAI", href="/MicrophoneAI", active="exact"),
+                dbc.NavLink("Chart", href="/Chart", active="exact"),
+                dbc.NavLink("JupyterLab", href="/JupyterLab", active="exact"),
+                dbc.NavLink("SSHD", href="/SSHD", active="exact"),
+                dbc.NavLink("Update", href="/Update", active="exact"),
             ],
             vertical=True,
             pills=True,
@@ -64,18 +73,180 @@ sidebar = html.Div(
 
 content = html.Div(id="page-content", style=CONTENT_STYLE)
 
+app.config.suppress_callback_exceptions = True
+
 app.layout = html.Div([dcc.Location(id="url"), sidebar, content])
 
+# CameraAI APP
+from pimux import function
+import os
+import base64
+
+# AI
+from imageai.Detection import ObjectDetection
+
+detector = None
+
+CameraAI_layout = html.Div([
+    html.Button('Capture', id='CameraAI-capture', n_clicks=0),
+    html.Img(id='CameraAI-output')
+])
+@app.callback(
+    dash.dependencies.Output('CameraAI-output', 'src'),
+    [dash.dependencies.Input('CameraAI-capture', 'n_clicks')])
+def trigger_camera(n_clicks):
+    if n_clicks == 0 :
+        return ''
+    print('trigger camera %d'%n_clicks)
+    pwd = os.environ['PWD']
+    camera_image = '%s/camera.jpeg'%pwd
+    camera_ai_image = '%s/camera_ai.jpeg'%pwd
+    function.camera().takephoto(saveas=camera_image)
+
+    global detector
+    if detector is None:
+        if not os.path.exists('yolo.h5'):
+            os.system('wget https://github.com/OlafenwaMoses/ImageAI/releases/download/1.0/yolo.h5')
+        execution_path = os.getcwd()
+        detector = ObjectDetection()
+        detector.setModelTypeAsYOLOv3()
+        detector.setModelPath( os.path.join(execution_path , "yolo.h5"))
+        detector.loadModel()
+    if detector is None:
+        encoded_image = base64.b64encode(open(camera_image, 'rb').read()).decode()
+    else:
+        detections = detector.detectObjectsFromImage(input_image=camera_image, output_image_path=camera_ai_image, minimum_percentage_probability=30)
+        encoded_image = base64.b64encode(open(camera_ai_image, 'rb').read()).decode()
+    print('finish camera')
+    return 'data:image/jpeg;base64,%s'%encoded_image
+
+# MicrophoneAI APP
+
+MicrophoneAI_layout = html.Div([
+    html.Button('Record', id='MicrophoneAI-record', n_clicks=0),
+    dcc.Textarea(id='MicrophoneAI-output', value='',
+        style={'width': '100%', 'height': 300})
+])
+@app.callback(
+    dash.dependencies.Output('MicrophoneAI-output', 'value'),
+    [dash.dependencies.Input('MicrophoneAI-record', 'n_clicks')])
+def trigger_microphone(n_clicks):
+    if n_clicks == 0:
+        return ''
+    print('trigger microphone %d'%n_clicks)
+    import termux
+    termux.Microphone.stop()
+    pwd = os.environ['PWD']
+    aac_file = "%s/microphone.aac"%pwd
+    wave_file = "%s/microphone.wave"%pwd
+    if os.path.exists(aac_file):
+        os.remove(aac_file)
+    termux.Microphone.record(aac_file,encoder='aac', limit=5)
+    import time
+    time.sleep(6)
+    os.system('faad -o %s %s'%(wave_file, aac_file))
+    import speech_recognition as sr
+    r = sr.Recognizer()
+    with sr.WavFile(wave_file) as source:
+        audio = r.record(source)
+    text = r.recognize_sphinx(audio)
+    print('finish microphone')
+    return text
+
+# jupyterlab APP
+
+JupyterLab_layout = html.Div([
+    dcc.Interval(id='jupyterlab-interval', interval=1000, n_intervals=0),
+    html.Div(children='extra options for jupyterlab'),
+    html.Div(dcc.Input(id='jupyterlab-options', type='text')),
+    html.Button('Run', id='jupyterlab-run', n_clicks=0),
+    html.Div(id='jupyterlab-status', children='Wait for command'),
+    dcc.Textarea(id='jupyterlab-output', value='', readOnly=True,
+        style={'width': '100%', 'height': 800})
+])
+@app.callback(
+    dash.dependencies.Output('jupyterlab-status', 'children'),
+    [dash.dependencies.Input('jupyterlab-run', 'n_clicks')],
+    [dash.dependencies.State('jupyterlab-options', 'value')])
+def trigger_jupyterlab_output(n_clicks, value):
+    if n_clicks == 0 :
+        return 'Wait for command'
+    print('trigger jupyterlab %d'%n_clicks)
+    os.system('killall jupyter-lab')
+    os.system('./jupyter.sh -j >jupyter.log 2>&1 &')
+    return 'JupyterLab is running'
+
+from nonblock import nonblock_read
+
+@app.callback(
+    dash.dependencies.Output('jupyterlab-output', 'value'),
+    [dash.dependencies.Input('jupyterlab-interval', 'n_intervals')])
+def update_jupyterlab_output(n_intervals):
+    JupyterLab_output = ''
+    if os.path.exists('jupyter.log'):
+        with open('jupyter.log') as fd:
+            JupyterLab_output = ''.join(fd.readlines())
+    return JupyterLab_output
+
+# SSHD APP
+
+SSHD_layout = html.Div([
+    dcc.Interval(id='SSHD-interval', interval=1000, n_intervals=0),
+    html.Button('Run', id='SSHD-trigger', n_clicks=0),
+    html.Div(id='SSHD-status', children='Wait for command'),
+    dcc.Textarea(id='SSHD-output', value='', readOnly=True,
+        style={'width': '100%', 'height': 1200})
+])
+@app.callback(
+    dash.dependencies.Output('SSHD-status', 'children'),
+    [dash.dependencies.Input('SSHD-trigger', 'n_clicks')])
+def trigger_SSHD(n_clicks):
+    if n_clicks == 0 :
+        return 'Wait for command'
+    print('trigger update %d'%n_clicks)
+    os.system('./jupyter.sh -s >sshd.log 2>&1 &')
+    return 'SSHD is running'
+
+
+# Update APP
+
+Update_layout = html.Div([
+    dcc.Interval(id='Update-interval', interval=1000, n_intervals=0),
+    html.Button('Update', id='Update-trigger', n_clicks=0),
+    html.Div(id='Update-status', children='Wait for command'),
+    dcc.Textarea(id='Update-output', value='', readOnly=True,
+        style={'width': '100%', 'height': 1200})
+])
+@app.callback(
+    dash.dependencies.Output('Update-status', 'children'),
+    [dash.dependencies.Input('Update-trigger', 'n_clicks')])
+def trigger_update(n_clicks):
+    if n_clicks == 0 :
+        return 'Wait for command'
+    print('trigger update %d'%n_clicks)
+    os.system('./jupyter.sh -i >update.log 2>&1 &')
+    return 'Update is running'
+
+@app.callback(
+    dash.dependencies.Output('Update-output', 'value'),
+    [dash.dependencies.Input('Update-interval', 'n_intervals')])
+def update_update_output(n_intervals):
+    if os.path.exists('update.log'):
+        with open('update.log') as fd:
+            update_output = ''.join(fd.readlines())
+    return update_output
+# End App
 
 @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
 def render_page_content(pathname):
     if pathname == "/":
-        return html.P("This is the content of the home page!")
-    elif pathname == "/page-1":
-        return html.P("This is the content of page 1. Yay!")
-    elif pathname == "/page-2":
+        return html.P("Welcome to Termux based Python development env")
+    elif pathname == "/CameraAI":
+        return CameraAI_layout
+    elif pathname == "/MicrophoneAI":
+        return MicrophoneAI_layout
+    elif pathname == "/Chart":
         #return html.P("Oh cool, this is page 2!")
-        import pandas as pd
         df=pd.DataFrame([{'a':12,'b':22},{'a':22,'b':12}])
         fig=px.scatter(df, x='a', y='b')
         return html.Div([
@@ -85,6 +256,13 @@ def render_page_content(pathname):
                 data = df.to_dict('records'),
                 ),
         dcc.Graph(figure=fig)])
+    elif pathname == "/JupyterLab":
+        return JupyterLab_layout
+    elif pathname == "/SSHD":
+        return SSHD_layout
+    elif pathname == "/Update":
+        return Update_layout
+
     # If the user tries to reach a different page, return a 404 message
     return dbc.Jumbotron(
         [
@@ -96,8 +274,10 @@ def render_page_content(pathname):
 
 
 if __name__ == "__main__":
+    os.system('killall jupyter-lab')
     parser = argparse.ArgumentParser()
-    parser.add_argument('-a', dest='host', action='store', default='127.0.0.1')
+    parser.add_argument('-a', dest='host', action='store')
     args = parser.parse_args()
 
-    app.run_server(host=args.host, port=8050)
+    print('Browser URL: http://%s:8050/'%args.host)
+    app.run_server(host='0.0.0.0', port=8050, debug=True)
