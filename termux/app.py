@@ -52,11 +52,8 @@ CONTENT_STYLE = {
 
 sidebar = html.Div(
     [
-        html.H2("Sidebar", className="display-4"),
+        html.H2("Termux", className="display-4"),
         html.Hr(),
-        html.P(
-            "A simple sidebar layout with navigation links", className="lead"
-        ),
         dbc.Nav(
             [
                 dbc.NavLink("Home", href="/", active="exact"),
@@ -64,6 +61,7 @@ sidebar = html.Div(
                 dbc.NavLink("MicrophoneAI", href="/MicrophoneAI", active="exact"),
                 dbc.NavLink("Chart", href="/Chart", active="exact"),
                 dbc.NavLink("JupyterLab", href="/JupyterLab", active="exact"),
+                dbc.NavLink("Update", href="/Update", active="exact"),
             ],
             vertical=True,
             pills=True,
@@ -153,7 +151,7 @@ def trigger_microphone(n_clicks):
 # jupyterlab APP
 
 JupyterLab_layout = html.Div([
-    dcc.Interval(id='interval', interval=1000, n_intervals=0),
+    dcc.Interval(id='jupyterlab-interval', interval=1000, n_intervals=0),
     html.Div(children='extra options for jupyterlab'),
     html.Div(dcc.Input(id='jupyterlab-options', type='text')),
     html.Button('Run', id='jupyterlab-run', n_clicks=0),
@@ -161,16 +159,12 @@ JupyterLab_layout = html.Div([
     dcc.Textarea(id='jupyterlab-output', value='',
         style={'width': '100%', 'height': 800})
 ])
-JupyterLab_process = None
-JupyterLab_output = ""
 @app.callback(
     dash.dependencies.Output('jupyterlab-status', 'children'),
     [dash.dependencies.Input('jupyterlab-run', 'n_clicks')],
     [dash.dependencies.State('jupyterlab-options', 'value')])
 def trigger_jupyterlab_output(n_clicks, value):
     print('trigger jupyterlab')
-    global JupyterLab_process
-    global JupyterLab_output
     os.system('killall jupyter-lab')
     os.system('./jupyter.sh -j >jupyter.log 2>&1 &')
     return 'JupyterLab is running'
@@ -179,14 +173,37 @@ from nonblock import nonblock_read
 
 @app.callback(
     dash.dependencies.Output('jupyterlab-output', 'value'),
-    [dash.dependencies.Input('interval', 'n_intervals')])
+    [dash.dependencies.Input('jupyterlab-interval', 'n_intervals')])
 def update_jupyterlab_output(n_intervals):
-    global JupyterLab_process
-    global JupyterLab_output
+    JupyterLab_output = ''
     with open('jupyter.log') as fd:
         JupyterLab_output = ''.join(fd.readlines())
     return JupyterLab_output
 
+# Update APP
+
+Update_layout = html.Div([
+    dcc.Interval(id='Update-interval', interval=1000, n_intervals=0),
+    html.Button('Update', id='Update-trigger', n_clicks=0),
+    html.Div(id='Update-status', children='Wait for command'),
+    dcc.Textarea(id='Update-output', value='',
+        style={'width': '100%', 'height': 600})
+])
+@app.callback(
+    dash.dependencies.Output('Update-status', 'value'),
+    [dash.dependencies.Input('Update-trigger', 'n_clicks')])
+def trigger_update(n_clicks):
+    print('trigger update')
+    os.system('./jupyter.sh -i >update.log 2>&1 &')
+    return 'Update is running'
+
+@app.callback(
+    dash.dependencies.Output('Update-output', 'value'),
+    [dash.dependencies.Input('Update-interval', 'n_intervals')])
+def update_update_output(n_intervals):
+    with open('update.log') as fd:
+        update_output = ''.join(fd.readlines())
+    return update_output
 # End App
 
 @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
@@ -210,6 +227,8 @@ def render_page_content(pathname):
         dcc.Graph(figure=fig)])
     elif pathname == "/JupyterLab":
         return JupyterLab_layout
+    elif pathname == "/Update":
+        return Update_layout
 
     # If the user tries to reach a different page, return a 404 message
     return dbc.Jumbotron(
