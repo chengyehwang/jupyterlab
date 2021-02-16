@@ -94,7 +94,9 @@ CameraAI_layout = html.Div([
     dash.dependencies.Output('CameraAI-output', 'src'),
     [dash.dependencies.Input('CameraAI-capture', 'n_clicks')])
 def trigger_camera(n_clicks):
-    print('trigger camera')
+    if n_clicks is None:
+        return ''
+    print('trigger camera %d'%n_clicks)
     pwd = os.environ['PWD']
     camera_image = '%s/camera.jpeg'%pwd
     camera_ai_image = '%s/camera_ai.jpeg'%pwd
@@ -128,7 +130,9 @@ MicrophoneAI_layout = html.Div([
     dash.dependencies.Output('MicrophoneAI-output', 'value'),
     [dash.dependencies.Input('MicrophoneAI-record', 'n_clicks')])
 def trigger_microphone(n_clicks):
-    print('trigger microphone')
+    if n_clicks is None:
+        return ''
+    print('trigger microphone %d'%n_clicks)
     import termux
     termux.Microphone.stop()
     pwd = os.environ['PWD']
@@ -164,7 +168,9 @@ JupyterLab_layout = html.Div([
     [dash.dependencies.Input('jupyterlab-run', 'n_clicks')],
     [dash.dependencies.State('jupyterlab-options', 'value')])
 def trigger_jupyterlab_output(n_clicks, value):
-    print('trigger jupyterlab')
+    if n_clicks is None:
+        return 'Wait for command'
+    print('trigger jupyterlab %d'%n_clicks)
     os.system('killall jupyter-lab')
     os.system('./jupyter.sh -j >jupyter.log 2>&1 &')
     return 'JupyterLab is running'
@@ -187,13 +193,15 @@ Update_layout = html.Div([
     html.Button('Update', id='Update-trigger', n_clicks=0),
     html.Div(id='Update-status', children='Wait for command'),
     dcc.Textarea(id='Update-output', value='',
-        style={'width': '100%', 'height': 600})
+        style={'width': '100%', 'height': 1200})
 ])
 @app.callback(
     dash.dependencies.Output('Update-status', 'value'),
     [dash.dependencies.Input('Update-trigger', 'n_clicks')])
 def trigger_update(n_clicks):
-    print('trigger update')
+    if n_clicks is None:
+        return 'Wait for command'
+    print('trigger update %d'%n_clicks)
     os.system('./jupyter.sh -i >update.log 2>&1 &')
     return 'Update is running'
 
