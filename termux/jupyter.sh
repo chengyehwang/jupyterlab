@@ -1,4 +1,9 @@
 #!/usr/bin/bash
+install() {
+install_jupyter
+install_voice
+install_tensor
+}
 install_jupyter () {
 export DEBIAN_FRONTEND=noninteractive && apt update -y
 export DEBIAN_FRONTEND=noninteractive && apt upgrade -y
@@ -106,15 +111,10 @@ launch_proot_ubuntu() {
     proot-distro install ubuntu-20.04
     proot-distro login ubuntu-20.04 --termux-home
 }
-launch_proot_debian() {
-    pkg install proot-distro
-    proot-distro install debian-buster
-    proot-distro login debian-buster --termux-home
-}
 while getopts 'wijsba:dtupv' opt; do
     case $opt in
         (w) launch_jupyter_wlan;;
-        (i) install_jupyter;;
+        (i) install;;
         (j) launch_jupyter_local;;
         (s) launch_sshd;;
         (b) install_buildapk;;
@@ -123,7 +123,6 @@ while getopts 'wijsba:dtupv' opt; do
         (d) launch_dash;;
         (t) install_tensor;;
         (u) launch_proot_ubuntu;;
-        (p) launch_proot_debian;;
 	(v) install_voice;;
     esac
 done

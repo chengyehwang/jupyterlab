@@ -61,6 +61,7 @@ sidebar = html.Div(
                 dbc.NavLink("MicrophoneAI", href="/MicrophoneAI", active="exact"),
                 dbc.NavLink("Chart", href="/Chart", active="exact"),
                 dbc.NavLink("JupyterLab", href="/JupyterLab", active="exact"),
+                dbc.NavLink("SSHD", href="/SSHD", active="exact"),
                 dbc.NavLink("Update", href="/Update", active="exact"),
             ],
             vertical=True,
@@ -186,6 +187,26 @@ def update_jupyterlab_output(n_intervals):
         JupyterLab_output = ''.join(fd.readlines())
     return JupyterLab_output
 
+# SSHD APP
+
+SSHD_layout = html.Div([
+    dcc.Interval(id='SSHD-interval', interval=1000, n_intervals=0),
+    html.Button('Run', id='SSHD-trigger', n_clicks=0),
+    html.Div(id='SSHD-status', children='Wait for command'),
+    dcc.Textarea(id='SSHD-output', value='', readOnly=True,
+        style={'width': '100%', 'height': 1200})
+])
+@app.callback(
+    dash.dependencies.Output('SSHD-status', 'children'),
+    [dash.dependencies.Input('SSHD-trigger', 'n_clicks')])
+def trigger_SSHD(n_clicks):
+    if n_clicks == 0 :
+        return 'Wait for command'
+    print('trigger update %d'%n_clicks)
+    os.system('./jupyter.sh -s >sshd.log 2>&1 &')
+    return 'SSHD is running'
+
+
 # Update APP
 
 Update_layout = html.Div([
@@ -196,7 +217,7 @@ Update_layout = html.Div([
         style={'width': '100%', 'height': 1200})
 ])
 @app.callback(
-    dash.dependencies.Output('Update-status', 'value'),
+    dash.dependencies.Output('Update-status', 'children'),
     [dash.dependencies.Input('Update-trigger', 'n_clicks')])
 def trigger_update(n_clicks):
     if n_clicks == 0 :
@@ -235,6 +256,8 @@ def render_page_content(pathname):
         dcc.Graph(figure=fig)])
     elif pathname == "/JupyterLab":
         return JupyterLab_layout
+    elif pathname == "/SSHD":
+        return SSHD_layout
     elif pathname == "/Update":
         return Update_layout
 
