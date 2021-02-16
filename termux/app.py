@@ -94,7 +94,7 @@ CameraAI_layout = html.Div([
     dash.dependencies.Output('CameraAI-output', 'src'),
     [dash.dependencies.Input('CameraAI-capture', 'n_clicks')])
 def trigger_camera(n_clicks):
-    if n_clicks is None:
+    if n_clicks == 0 :
         return ''
     print('trigger camera %d'%n_clicks)
     pwd = os.environ['PWD']
@@ -130,7 +130,7 @@ MicrophoneAI_layout = html.Div([
     dash.dependencies.Output('MicrophoneAI-output', 'value'),
     [dash.dependencies.Input('MicrophoneAI-record', 'n_clicks')])
 def trigger_microphone(n_clicks):
-    if n_clicks is None:
+    if n_clicks == 0:
         return ''
     print('trigger microphone %d'%n_clicks)
     import termux
@@ -168,7 +168,7 @@ JupyterLab_layout = html.Div([
     [dash.dependencies.Input('jupyterlab-run', 'n_clicks')],
     [dash.dependencies.State('jupyterlab-options', 'value')])
 def trigger_jupyterlab_output(n_clicks, value):
-    if n_clicks is None:
+    if n_clicks == 0 :
         return 'Wait for command'
     print('trigger jupyterlab %d'%n_clicks)
     os.system('killall jupyter-lab')
@@ -199,7 +199,7 @@ Update_layout = html.Div([
     dash.dependencies.Output('Update-status', 'value'),
     [dash.dependencies.Input('Update-trigger', 'n_clicks')])
 def trigger_update(n_clicks):
-    if n_clicks is None:
+    if n_clicks == 0 :
         return 'Wait for command'
     print('trigger update %d'%n_clicks)
     os.system('./jupyter.sh -i >update.log 2>&1 &')
