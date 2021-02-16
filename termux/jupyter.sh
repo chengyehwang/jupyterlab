@@ -49,7 +49,7 @@ launch_sshd() {
 
     if [  -n "$(cat /etc/issue | grep Ubuntu)" ]; then
         apt install -y openssh-server
-        passwd
+        usermod --password $(echo 1234 | openssl passwd -1 -stdin) root
         echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
         echo "Port 8022" >> /etc/ssh/sshd_config
         echo "AddressFamily any" >> /etc/ssh/sshd_config
