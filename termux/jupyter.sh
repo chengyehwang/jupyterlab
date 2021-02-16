@@ -36,6 +36,10 @@ tar xvf h5py-2.10.0.tar.gz
 
 }
 launch_sshd() {
+    if [ ! -f ~/.bash_profile ]; then
+	echo "cd /data/data/com.termux/files/home/jupyterlab/termux" > ~/.bash_profile
+    fi
+
     if [  -n "$(cat /etc/issue | grep Ubuntu)" ]; then
         apt install -y openssh-server
         passwd
