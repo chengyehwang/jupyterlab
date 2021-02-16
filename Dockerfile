@@ -2,7 +2,7 @@ FROM ubuntu:20.04
 MAINTAINER ChengYehWang
 
 # basic apt installation
-RUN apt  update 
+RUN apt update 
 RUN export DEBIAN_FRONTEND=noninteractive && apt-get upgrade -y
 RUN export DEBIAN_FRONTEND=noninteractive && apt-get install -y x11-apps psmisc sudo sshfs wget python net-tools vim git make gcc apt-utils libnss3 iproute2 libgtk2.0-0 libgconf-2-4 libnotify-dev
 RUN mkdir -p /opt
@@ -52,6 +52,12 @@ RUN source /opt/miniforge3/etc/profile.d/conda.sh && conda activate && /root/ins
 
 RUN export DEBIAN_FRONTEND=noninteractive && apt-get install -y python3-pip vim-gtk3
 RUN pip3 install websockify
+
+# fdroid
+COPY install_fdroid.sh /root/install_fdroid.sh
+RUN chmod 755 /root/install_fdroid.sh
+RUN source /opt/miniforge3/etc/profile.d/conda.sh && conda activate && /root/install_fdroid.sh
+
 
 # clean to reduce image size
 RUN apt clean
