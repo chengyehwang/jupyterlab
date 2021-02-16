@@ -42,7 +42,10 @@ tar xvf h5py-2.10.0.tar.gz
 (cd h5py-2.10.0 ; pip3.7 install .)
 
 }
-change_password() {
+change_jupyter_password() {
+        ./change_jupyter_password.py $1
+}
+change_sshd_password() {
         usermod --password $(echo $1 | openssl passwd -1 -stdin) root
 }
 launch_sshd() {
@@ -115,12 +118,13 @@ launch_proot_ubuntu() {
     proot-distro install ubuntu-20.04
     proot-distro login ubuntu-20.04 --termux-home
 }
-while getopts 'wijp:sba:dtupv' opt; do
+while getopts 'wijP:p:sba:dtupv' opt; do
     case $opt in
         (w) launch_jupyter_wlan;;
         (i) install;;
         (j) launch_jupyter_local;;
-	(p) change_password $OPTARG;;
+	(P) change_jupyter_password $OPTARG;;
+	(p) change_sshd_password $OPTARG;;
         (s) launch_sshd;;
         (b) install_buildapk;;
         (a) launch_buildapk $OPTARG;;

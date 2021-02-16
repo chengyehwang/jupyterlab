@@ -157,23 +157,24 @@ def trigger_microphone(n_clicks):
 
 JupyterLab_layout = html.Div([
     dcc.Interval(id='jupyterlab-interval', interval=1000, n_intervals=0),
-    html.Div(children='extra options for jupyterlab'),
-    html.Div(dcc.Input(id='jupyterlab-options', type='text')),
+    html.Div(children='Password for jupyterlab'),
+    html.Div(dcc.Input(id='jupyterlab-password', type='text',value='1234')),
     html.Button('Run', id='jupyterlab-run', n_clicks=0),
     html.Div(id='jupyterlab-status', children='Wait for command'),
     dcc.Textarea(id='jupyterlab-output', value='', readOnly=True,
-        style={'width': '100%', 'height': 800})
+        style={'width': '100%', 'height': 1200})
 ])
 @app.callback(
     dash.dependencies.Output('jupyterlab-status', 'children'),
     [dash.dependencies.Input('jupyterlab-run', 'n_clicks')],
-    [dash.dependencies.State('jupyterlab-options', 'value')])
+    [dash.dependencies.State('jupyterlab-password', 'value')])
 def trigger_jupyterlab_output(n_clicks, value):
     if n_clicks == 0 :
         return 'Wait for command'
     print('trigger jupyterlab %d'%n_clicks)
     os.system('killall jupyter-lab')
-    os.system('./jupyter.sh -j >jupyter.log 2>&1 &')
+    os.system('./jupyter.sh -P %s >jupyter.log'%value)
+    os.system('./jupyter.sh -j >>jupyter.log 2>&1 &')
     return 'JupyterLab is running'
 
 from nonblock import nonblock_read
