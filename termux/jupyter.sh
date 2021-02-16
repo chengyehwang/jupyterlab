@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 install() {
+apt install -y git
+git pull
 install_jupyter
 install_voice
 install_tensor
