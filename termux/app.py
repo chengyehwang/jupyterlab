@@ -202,7 +202,7 @@ SSHD_layout = html.Div([
 @app.callback(
     dash.dependencies.Output('SSHD-status', 'children'),
     [dash.dependencies.Input('SSHD-trigger', 'n_clicks')],
-    [dash.dependencies.State('jupyterlab-options', 'value')])
+    [dash.dependencies.State('SSHD-password', 'value')])
 def trigger_SSHD(n_clicks, value):
     if n_clicks == 0 :
         return 'Wait for command'
