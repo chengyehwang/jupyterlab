@@ -1,10 +1,15 @@
 #!/usr/bin/bash
 install() {
+echo "=========== install/update this package    ============"
 apt install -y git
 git pull
+echo "=========== install/update jupyter package ============"
 install_jupyter
+echo "=========== install/update voice package   ============"
 install_voice
+echo "=========== install/update voice package   ============"
 install_tensor
+echo "=========== the install is complete        ============"
 }
 install_jupyter () {
 export DEBIAN_FRONTEND=noninteractive && apt update -y
@@ -28,7 +33,7 @@ if [  -n "$(cat /etc/issue | grep Ubuntu)" ]; then
 else
     apt install -y python3 python3-pip python3-numpy python3-scipy python-matplotlib
 fi
-if [ ! -f tensorflow-2.4.0-cp37-none-linux_aarch64.whl ]; then
+if [ ! -f "tensorflow-2.4.0-cp37-none-linux_aarch64.whl" ]; then
     wget https://github.com/lhelontra/tensorflow-on-arm/releases/download/v2.4.0/tensorflow-2.4.0-cp37-none-linux_aarch64.whl
 fi
 python3.7 -m pip install --upgrade pip
@@ -37,8 +42,10 @@ python3.7 -m pip install wheel tensorflow-2.4.0-cp37-none-linux_aarch64.whl vers
 #--no-binary :all: --force-reinstall
 python3.7 -m pip install termux-api pimux
 
-wget https://github.com/h5py/h5py/releases/download/2.10.0/h5py-2.10.0.tar.gz
-tar xvf h5py-2.10.0.tar.gz
+if [ ! -d "h5py-2.10.0" ]; then
+	wget https://github.com/h5py/h5py/releases/download/2.10.0/h5py-2.10.0.tar.gz
+	tar xvf h5py-2.10.0.tar.gz
+fi
 (cd h5py-2.10.0 ; pip3.7 install .)
 
 }
