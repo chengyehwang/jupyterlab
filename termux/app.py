@@ -24,6 +24,8 @@ import argparse
 # application import
 import pandas as pd
 
+import simplejson as json
+
 # JupyterLab
 #end application import
 
@@ -141,16 +143,54 @@ def trigger_microphone(n_clicks):
     wave_file = "%s/microphone.wave"%pwd
     if os.path.exists(aac_file):
         os.remove(aac_file)
-    termux.Microphone.record(aac_file,encoder='aac', limit=5)
+    termux.Microphone.record(aac_file,encoder='aac', limit=5, count=2)
     import time
     time.sleep(6)
     os.system('faad -o %s %s'%(wave_file, aac_file))
-    import speech_recognition as sr
-    r = sr.Recognizer()
-    with sr.WavFile(wave_file) as source:
-        audio = r.record(source)
-    text = r.recognize_sphinx(audio)
+    if False:
+        import speech_recognition as sr
+        r = sr.Recognizer()
+        with sr.WavFile(wave_file) as source:
+            audio = r.record(source)
+        text = r.recognize_sphinx(audio)
+    else:
+        from vosk import Model, KaldiRecognizer, SetLogLevel
+        import wave
+        import numpy as np
+        model_name = 'vosk-model-small-en-us-0.15'
+        if not os.path.exists(model_name):
+            os.system('wget http://alphacephei.com/vosk/models/%s.zip'%model_name)
+            os.system('unzip %s.zip'%model_name)
+        wf = wave.open(wave_file, "rb")
+        model = Model(model_name)
+        rec = KaldiRecognizer(model, wf.getframerate())
+        nch   = wf.getnchannels()
+        depth = wf.getsampwidth()
+        typ = { 1: np.uint8, 2: np.uint16, 4: np.uint32 }.get(depth)
+        sdata = wf.readframes(64000)
+        data = np.frombuffer(sdata, dtype=typ)
+        ch_data = data[0::nch]
+        sdata = ch_data.tobytes()
+        if True:
+            outwav = wave.open('good.wave', 'w')
+            outwav.setparams(wf.getparams())
+            outwav.setnchannels(1)
+            outwav.writeframes(ch_data.tobytes())
+            outwav.close()
+
+        if rec.AcceptWaveform(sdata):
+            result = rec.Result()
+            result = json.loads(result)
+            text = result['text']
+        else:
+            result = rec.PartialResult()
+            result = json.loads(result)
+            text = result['patrial']
+        result = rec.FinalResult()
+        result = json.loads(result)
+        text += result['text']
     print('finish microphone')
+    print('text:%s'%text)
     return text
 
 # jupyterlab APP
