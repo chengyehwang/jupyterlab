@@ -92,6 +92,7 @@ Key features:
     * 6080: xpra - X11 server
     * 9000: minio - storage
 [image](https://github.com/chengyehwang/jupyterlab/blob/master/jupyter_demo.png)
+
 15. embedded dev
     * termux
     * proot to ubuntu 20.04 (arm64)
@@ -104,3 +105,16 @@ Key features:
     * UI by dash
     * QR code scan by google lens for login
     * fdroidserver for apk build
+
+16. Step-by-Step Install
+    * install termux [apk](https://f-droid.org/repo/com.termux_106.apk)
+    * install termux-api [apk](https://f-droid.org/repo/com.termux.api_47.apk)
+    * launch termux
+    * apt install git
+    * git clone https://github.com/chengyehwang/jupyterlab
+    * cd jupyterlab/termux
+    * ./jupyter.sh -u          # proot ubuntu 20.04
+    * cd /data/data/com.termux/files/home/jupyterlab/termux
+    * ./jupyter.sh -i          # install packages
+    * ./jupyter.sh -d          # run dash
+
