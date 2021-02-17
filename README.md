@@ -107,8 +107,8 @@ Key features:
     * fdroidserver for apk build
 
 16. Step-by-Step Install
-    * install termux apk
-    * install termux-api apk
+    * install termux [apk](https://f-droid.org/repo/com.termux_106.apk)
+    * install termux-api [apk](https://f-droid.org/repo/com.termux.api_47.apk)
     * launch termux
     * apt install git
     * git clone https://github.com/chengyehwang/jupyterlab
