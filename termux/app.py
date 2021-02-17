@@ -172,7 +172,7 @@ def trigger_jupyterlab_output(n_clicks, value):
     if n_clicks == 0 :
         return 'Wait for command'
     print('trigger jupyterlab %d'%n_clicks)
-    os.system('killall jupyter-lab')
+    os.system('jupyter notebook stop 8888')
     os.system('./jupyter.sh -P %s'%value)
     os.system('./jupyter.sh -j >jupyter.log 2>&1 &')
     return 'JupyterLab is running'
