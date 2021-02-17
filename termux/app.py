@@ -24,6 +24,8 @@ import argparse
 # application import
 import pandas as pd
 
+import simplejson as json
+
 # JupyterLab
 #end application import
 
@@ -141,38 +143,78 @@ def trigger_microphone(n_clicks):
     wave_file = "%s/microphone.wave"%pwd
     if os.path.exists(aac_file):
         os.remove(aac_file)
-    termux.Microphone.record(aac_file,encoder='aac', limit=5)
+    termux.Microphone.record(aac_file,encoder='aac', limit=5, count=2)
     import time
     time.sleep(6)
     os.system('faad -o %s %s'%(wave_file, aac_file))
-    import speech_recognition as sr
-    r = sr.Recognizer()
-    with sr.WavFile(wave_file) as source:
-        audio = r.record(source)
-    text = r.recognize_sphinx(audio)
+    if False:
+        import speech_recognition as sr
+        r = sr.Recognizer()
+        with sr.WavFile(wave_file) as source:
+            audio = r.record(source)
+        text = r.recognize_sphinx(audio)
+    else:
+        from vosk import Model, KaldiRecognizer, SetLogLevel
+        import wave
+        import numpy as np
+        model_name = 'vosk-model-small-en-us-0.15'
+        if not os.path.exists(model_name):
+            os.system('wget http://alphacephei.com/vosk/models/%s.zip'%model_name)
+            os.system('unzip %s.zip'%model_name)
+        wf = wave.open(wave_file, "rb")
+        model = Model(model_name)
+        rec = KaldiRecognizer(model, wf.getframerate())
+        nch   = wf.getnchannels()
+        depth = wf.getsampwidth()
+        typ = { 1: np.uint8, 2: np.uint16, 4: np.uint32 }.get(depth)
+        sdata = wf.readframes(64000)
+        data = np.frombuffer(sdata, dtype=typ)
+        ch_data = data[0::nch]
+        sdata = ch_data.tobytes()
+        if True:
+            outwav = wave.open('good.wave', 'w')
+            outwav.setparams(wf.getparams())
+            outwav.setnchannels(1)
+            outwav.writeframes(ch_data.tobytes())
+            outwav.close()
+
+        if rec.AcceptWaveform(sdata):
+            result = rec.Result()
+            result = json.loads(result)
+            text = result['text']
+        else:
+            result = rec.PartialResult()
+            result = json.loads(result)
+            text = result['partial']
+        result = rec.FinalResult()
+        result = json.loads(result)
+        text += result['text']
     print('finish microphone')
+    print('text:%s'%text)
     return text
 
 # jupyterlab APP
 
 JupyterLab_layout = html.Div([
     dcc.Interval(id='jupyterlab-interval', interval=1000, n_intervals=0),
-    html.Div(children='extra options for jupyterlab'),
-    html.Div(dcc.Input(id='jupyterlab-options', type='text')),
+    html.Div(children='Password for jupyterlab'),
+    html.Div(dcc.Input(id='jupyterlab-password', type='text',value='1234')),
     html.Button('Run', id='jupyterlab-run', n_clicks=0),
     html.Div(id='jupyterlab-status', children='Wait for command'),
     dcc.Textarea(id='jupyterlab-output', value='', readOnly=True,
-        style={'width': '100%', 'height': 800})
+        style={'width': '100%', 'height': 1200})
 ])
 @app.callback(
     dash.dependencies.Output('jupyterlab-status', 'children'),
     [dash.dependencies.Input('jupyterlab-run', 'n_clicks')],
-    [dash.dependencies.State('jupyterlab-options', 'value')])
+    [dash.dependencies.State('jupyterlab-password', 'value')])
 def trigger_jupyterlab_output(n_clicks, value):
     if n_clicks == 0 :
         return 'Wait for command'
     print('trigger jupyterlab %d'%n_clicks)
+    os.system('jupyter notebook stop 8888')
     os.system('killall jupyter-lab')
+    os.system('./jupyter.sh -P %s'%value)
     os.system('./jupyter.sh -j >jupyter.log 2>&1 &')
     return 'JupyterLab is running'
 
@@ -191,6 +233,8 @@ def update_jupyterlab_output(n_intervals):
 # SSHD APP
 
 SSHD_layout = html.Div([
+    html.Div(children='password'),
+    html.Div(dcc.Input(id='SSHD-password', type='text', value='1234')),
     html.Button('Run', id='SSHD-trigger', n_clicks=0),
     html.Div(id='SSHD-status', children='Wait for command'),
     dcc.Interval(id='SSHD-interval', interval=1000, n_intervals=0),
@@ -199,11 +243,14 @@ SSHD_layout = html.Div([
 ])
 @app.callback(
     dash.dependencies.Output('SSHD-status', 'children'),
-    [dash.dependencies.Input('SSHD-trigger', 'n_clicks')])
-def trigger_SSHD(n_clicks):
+    [dash.dependencies.Input('SSHD-trigger', 'n_clicks')],
+    [dash.dependencies.State('SSHD-password', 'value')])
+def trigger_SSHD(n_clicks, value):
     if n_clicks == 0 :
         return 'Wait for command'
-    print('trigger update %d'%n_clicks)
+    print('password %s'%value)
+    os.system('./jupyter.sh -p %s'%value)
+    print('trigger SSHD %d'%n_clicks)
     os.system('./jupyter.sh -s >sshd.log 2>&1 &')
     return 'SSHD is running'
 

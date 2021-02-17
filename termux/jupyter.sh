@@ -1,10 +1,13 @@
 #!/usr/bin/bash
 install() {
+echo "====== install/update this package    ======"
 apt install -y git
 git pull
+echo "====== install/update jupyter package ======"
 install_jupyter
+echo "====== install/update voice package   ======"
 install_voice
-install_tensor
+echo "====== the install is complete        ======"
 }
 install_jupyter () {
 export DEBIAN_FRONTEND=noninteractive && apt update -y
@@ -17,7 +20,7 @@ apt install -y libsqlite3-dev curl llvm tk-dev libssl-dev xz-utils libncursesw5-
 
 if [  -n "$(cat /etc/issue | grep Ubuntu)" ]; then
     # fix python 3.7.6 for imageai
-    if [ ! -f /usr/local/bin/python3.7 ]; then
+    if [ ! -f "/usr/local/bin/python3.7" ]; then
         wget https://www.python.org/ftp/python/3.7.6/Python-3.7.6.tgz
         tar zxf Python-3.7.6.tgz
         ( cd Python-3.7.6 ; ./configure --with-ensurepip=install)
@@ -28,7 +31,7 @@ if [  -n "$(cat /etc/issue | grep Ubuntu)" ]; then
 else
     apt install -y python3 python3-pip python3-numpy python3-scipy python-matplotlib
 fi
-if [ ! -f tensorflow-2.4.0-cp37-none-linux_aarch64.whl ]; then
+if [ ! -f "tensorflow-2.4.0-cp37-none-linux_aarch64.whl" ]; then
     wget https://github.com/lhelontra/tensorflow-on-arm/releases/download/v2.4.0/tensorflow-2.4.0-cp37-none-linux_aarch64.whl
 fi
 python3.7 -m pip install --upgrade pip
@@ -37,19 +40,26 @@ python3.7 -m pip install wheel tensorflow-2.4.0-cp37-none-linux_aarch64.whl vers
 #--no-binary :all: --force-reinstall
 python3.7 -m pip install termux-api pimux
 
-wget https://github.com/h5py/h5py/releases/download/2.10.0/h5py-2.10.0.tar.gz
-tar xvf h5py-2.10.0.tar.gz
+if [ ! -d "h5py-2.10.0" ]; then
+	wget https://github.com/h5py/h5py/releases/download/2.10.0/h5py-2.10.0.tar.gz
+	tar xvf h5py-2.10.0.tar.gz
+fi
 (cd h5py-2.10.0 ; pip3.7 install .)
 
 }
+change_jupyter_password() {
+        ./change_jupyter_password.py $1
+}
+change_sshd_password() {
+        usermod --password $(echo $1 | openssl passwd -1 -stdin) root
+}
 launch_sshd() {
-    if [ ! -f ~/.bash_profile ]; then
+    if [ ! -f "~/.bash_profile" ]; then
 	echo "cd /data/data/com.termux/files/home/jupyterlab/termux" > ~/.bash_profile
     fi
 
     if [  -n "$(cat /etc/issue | grep Ubuntu)" ]; then
         apt install -y openssh-server
-        passwd
         echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
         echo "Port 8022" >> /etc/ssh/sshd_config
         echo "AddressFamily any" >> /etc/ssh/sshd_config
@@ -63,12 +73,23 @@ launch_sshd() {
 }
 launch_jupyter_wlan () {
     host=`ip addr show wlan0 | grep "inet\b" | awk '{print $2}' | cut -d/ -f1`
-    echo "jupyter-lab --ip $host --no-browser --allow-root"
-    cd .. ; jupyter-lab --ip $host --no-browser --allow-root
+    if [ -z $host ]; then
+        host=localhost
+    else
+        echo "====== wifi local connect ======"
+        echo "browser access URL https://$host:8888/lab"
+    fi
+    echo "====== usb local connect  ======"
+    echo "adb forward tcp:8888 tcp:8888"
+    echo "browser access URL https://localhost:8888/lab"
+    echo "jupyter-lab --ip 0.0.0.0 --no-browser --allow-root"
+    cd .. ; jupyter-lab --ip 0.0.0.0 --no-browser --allow-root
 }
 launch_jupyter_local () {
     host="127.0.0.1"
-    echo "adb forward tcp:8888 tcp:8888"   
+    echo "====== usb local connect  ======"
+    echo "adb forward tcp:8888 tcp:8888"
+    echo "browser access URL https://localhost:8888/lab"
     echo "jupyter-lab --ip $host --no-browser --allow-root"
     cd .. ; jupyter-lab --ip $host --no-browser --allow-root
 }
@@ -87,16 +108,24 @@ launch_buildapk() {
 }
 launch_dash() {
     host=`ip addr show wlan0 | grep "inet\b" | awk '{print $2}' | cut -d/ -f1`
+    if [ -z $host ]; then
+        host=localhost
+    fi
     termux-open http://localhost:8050
     python3.7 app.py -a $host
 }
 install_voice() {
-    wget https://github.com/Uberi/speech_recognition/archive/3.8.1.zip
-    unzip 3.8.1.zip
+    if [ ! -d "speech_recognition-3.8.1" ]; then
+        wget https://github.com/Uberi/speech_recognition/archive/3.8.1.zip
+        unzip 3.8.1.zip
+    fi
     cd speech_recognition-3.8.1 ; python3.7 -m pip install .
     apt install -y swig libpulse-dev libasound2-dev
     python3.7 -m pip install PocketSphinx
+    python3.7 -m pip install https://github.com/alphacep/vosk-api/releases/download/0.3.15/vosk-0.3.15-cp37-cp37m-linux_aarch64.whl
+
 }
+# rebuild tensor but fail
 install_tensor() {
     update-alternatives --install /usr/bin/python python /usr/bin/python3 10
 
@@ -113,11 +142,13 @@ launch_proot_ubuntu() {
     proot-distro install ubuntu-20.04
     proot-distro login ubuntu-20.04 --termux-home
 }
-while getopts 'wijsba:dtupv' opt; do
+while getopts 'jilP:p:sba:xdtuv' opt; do
     case $opt in
-        (w) launch_jupyter_wlan;;
+        (j) launch_jupyter_wlan;;
         (i) install;;
-        (j) launch_jupyter_local;;
+        (l) launch_jupyter_local;;
+	(P) change_jupyter_password $OPTARG;;
+	(p) change_sshd_password $OPTARG;;
         (s) launch_sshd;;
         (b) install_buildapk;;
         (a) launch_buildapk $OPTARG;;
