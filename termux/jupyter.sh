@@ -122,6 +122,8 @@ install_voice() {
     cd speech_recognition-3.8.1 ; python3.7 -m pip install .
     apt install -y swig libpulse-dev libasound2-dev
     python3.7 -m pip install PocketSphinx
+    python3.7 -m pip install https://github.com/alphacep/vosk-api/releases/download/0.3.15/vosk-0.3.15-cp37-cp37m-linux_aarch64.whl
+
 }
 # rebuild tensor but fail
 install_tensor() {
