@@ -205,7 +205,7 @@ BotAI_layout = html.Div([
 def trigger_botAI_output(n_clicks):
     if n_clicks == 0 :
         return ''
-    print('trigger camera %d'%n_clicks)
+    print('trigger BotAI %d'%n_clicks)
     pwd = os.environ['PWD']
     camera_image = '%s/camera.jpeg'%pwd
     function.camera().takephoto(saveas=camera_image)
@@ -215,14 +215,14 @@ def trigger_botAI_output(n_clicks):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     ret, thresh1 = cv2.threshold(gray, 0, 255, cv2.THRESH_OTSU | cv2.THRESH_BINARY_INV)
     rect_kernel = cv2.getStructuringElement(cv2.MORPH_RECT,(18,18))
-    dilation = cv.dilate(thresh1, rect_kernel, iterations = 1)
+    dilation = cv2.dilate(thresh1, rect_kernel, iterations = 1)
     contours, hierarchy = cv2.findContours(dilation, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
     im2 = img.copy()
     for cnt in contours:
         x, y, w, h = cv2.boundingRect(cnt)
         rect = cv2.rectangle(im2, (x,y), (x+w, y+h), (0, 255, 0), 2)
         cropped = im2[y:y+h, x:x+w]
-        text = pytesseract.image_tostring(cropped)
+        text = pytesseract.image_to_string(cropped)
         print(x, y, w, h, text)
     
 # jupyterlab APP
