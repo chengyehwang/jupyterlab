@@ -209,7 +209,7 @@ def trigger_SSHD(n_clicks, value):
         return 'Wait for command'
     print('password %s'%value)
     os.system('./jupyter.sh -p %s'%value)
-    print('trigger update %d'%n_clicks)
+    print('trigger SSHD %d'%n_clicks)
     os.system('./jupyter.sh -s >sshd.log 2>&1 &')
     return 'SSHD is running'
 
