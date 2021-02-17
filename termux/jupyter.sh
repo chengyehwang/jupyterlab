@@ -20,8 +20,7 @@ apt install -y libsqlite3-dev curl llvm tk-dev libssl-dev xz-utils libncursesw5-
 
 if [  -n "$(cat /etc/issue | grep Ubuntu)" ]; then
     # fix python 3.7.6 for imageai
-    #if [ ! -f "/usr/local/bin/python3.7" ]; then
-    if [ "1" == "1" ]; then
+    if [ ! -f "/usr/local/bin/python3.7" ]; then
         wget https://www.python.org/ftp/python/3.7.6/Python-3.7.6.tgz
         tar zxf Python-3.7.6.tgz
         ( cd Python-3.7.6 ; ./configure --with-ensurepip=install)
