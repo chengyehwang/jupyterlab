@@ -73,9 +73,17 @@ launch_sshd() {
 }
 launch_jupyter_wlan () {
     host=`ip addr show wlan0 | grep "inet\b" | awk '{print $2}' | cut -d/ -f1`
-    echo "====== wifi local connect ======"
-    echo "browser access URL https://$host:8888/lab"
-    cd .. ; jupyter-lab --ip $host --no-browser --allow-root
+    if [ -z $host ]; then
+        host=localhost
+    else
+        echo "====== wifi local connect ======"
+        echo "browser access URL https://$host:8888/lab"
+    fi
+    echo "====== usb local connect  ======"
+    echo "adb forward tcp:8888 tcp:8888"
+    echo "browser access URL https://localhost:8888/lab"
+    echo "jupyter-lab --ip 0.0.0.0 --no-browser --allow-root"
+    cd .. ; jupyter-lab --ip 0.0.0.0 --no-browser --allow-root
 }
 launch_jupyter_local () {
     host="127.0.0.1"
@@ -100,6 +108,9 @@ launch_buildapk() {
 }
 launch_dash() {
     host=`ip addr show wlan0 | grep "inet\b" | awk '{print $2}' | cut -d/ -f1`
+    if [ -z $host ]; then
+        host=localhost
+    fi
     termux-open http://localhost:8050
     python3.7 app.py -a $host
 }
@@ -129,11 +140,11 @@ launch_proot_ubuntu() {
     proot-distro install ubuntu-20.04
     proot-distro login ubuntu-20.04 --termux-home
 }
-while getopts 'wijP:p:sba:dtupv' opt; do
+while getopts 'jilP:p:sba:xdtuv' opt; do
     case $opt in
-        (w) launch_jupyter_wlan;;
+        (j) launch_jupyter_wlan;;
         (i) install;;
-        (j) launch_jupyter_local;;
+        (l) launch_jupyter_local;;
 	(P) change_jupyter_password $OPTARG;;
 	(p) change_sshd_password $OPTARG;;
         (s) launch_sshd;;
