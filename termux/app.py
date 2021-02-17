@@ -185,7 +185,7 @@ def trigger_microphone(n_clicks):
         else:
             result = rec.PartialResult()
             result = json.loads(result)
-            text = result['patrial']
+            text = result['partial']
         result = rec.FinalResult()
         result = json.loads(result)
         text += result['text']
