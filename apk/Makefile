@@ -1,3 +1,4 @@
+SHELL := /bin/bash
 all:
-	cd fdroiddata ; ../fdroidserver/fdroid build org.fdroid.fdroid:16
+	source sourceme ; cd fdroiddata ; ../fdroidserver/fdroid build org.fdroid.fdroid:16
 
