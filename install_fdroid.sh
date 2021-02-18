@@ -1,3 +1,4 @@
-apt install -y fdroidserver
-pip3 install python-vagrant clint qrcode
+export DEBIAN_FRONTEND=noninteractive && apt install -y fdroidserver
+fdroid init && fdroid update -c && fdroid update
+pip3 install clint qrcode
 adduser --disabled-password fdroid
