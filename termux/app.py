@@ -250,8 +250,6 @@ def trigger_jupyterlab_output(n_clicks, value):
     os.system('./jupyter.sh -j >jupyter.log 2>&1 &')
     return 'JupyterLab is running'
 
-from nonblock import nonblock_read
-
 @app.callback(
     dash.dependencies.Output('jupyterlab-output', 'value'),
     [dash.dependencies.Input('jupyterlab-interval', 'n_intervals')])
