@@ -1,8 +1,9 @@
 SHELL := /bin/bash
 all:
-	conda deactivate ; source sourceme ; cd fdroiddata ; ../fdroidserver/fdroid build -l com.termux.api
-	#source sourceme ; cd fdroiddata ; ../fdroidserver/fdroid build -l org.fdroid.fdroid
-	conda deactivate ; source sourceme ; cd fdroiddata ; ../fdroidserver/fdroid publish org.fdroid.fdroid:16
+	source sourceme ; cd fdroiddata ; ../fdroidserver/fdroid build -l com.termux.api
+	source sourceme ; cd fdroiddata ; ../fdroidserver/fdroid build -l com.termux
+	source sourceme ; cd fdroiddata ; ../fdroidserver/fdroid build -l org.fdroid.fdroid
+	source sourceme ; cd fdroiddata ; ../fdroidserver/fdroid publish org.fdroid.fdroid:16
 key:
 	source sourceme ; cd fdroiddata ; ../fdroidserver/fdroid update --create-key
 others:

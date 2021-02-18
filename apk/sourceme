@@ -23,8 +23,8 @@ fi
 if [ ! -d "licenses" ]; then
        ./cmdline-tools/bin/sdkmanager --sdk_root=. --licenses
 fi
+
+cmdline-tools/bin/sdkmanager --sdk_root=$PWD "ndk;22.0.7026061"
+#"platform-tools" "tools;25.0.2" "build-tools;25.0.2" "platforms;android-24"
+
 cd ..
-return
-
-cmdline-tools/bin/sdkmanager --sdk_root=$PWD "platform-tools" "tools;25.0.2" "build-tools;25.0.2" "platforms;android-24"
-
