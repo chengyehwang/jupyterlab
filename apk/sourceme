@@ -14,13 +14,17 @@ if [ ! -d "build-tools" ]; then
     android update sdk --no-ui --filter platform-tools,tools,build-tools-25.0.2,android-24 -a
 fi
 
-cd ..
 ######## new android sdk, but incompatible #################
-return
 
 if [ ! -d "cmdline-tools" ]; then
        wget https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip
        unzip commandlinetools-linux-6858069_latest.zip
+fi
+if [ ! -d "licenses" ]; then
+       ./cmdline-tools/bin/sdkmanager --sdk_root=. --licenses
+fi
+cd ..
+return
 
 cmdline-tools/bin/sdkmanager --sdk_root=$PWD "platform-tools" "tools;25.0.2" "build-tools;25.0.2" "platforms;android-24"
 
