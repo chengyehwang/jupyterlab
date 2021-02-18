@@ -3,7 +3,7 @@ if [ ! -d "fdroiddata" ]; then
 fi
 export USE_SDK_WRAPPER=yes
 export ANDROID_HOME=$PWD/android-sdk-linux
-mkdir $ANDROID_HOME
+mkdir -p $ANDROID_HOME
 cd $ANDROID_HOME
 if [ ! -d "tools" ]; then
     wget https://dl.google.com/android/repository/tools_r25.2.3-linux.zip
