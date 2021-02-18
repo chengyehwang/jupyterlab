@@ -16,7 +16,7 @@ export DEBIAN_FRONTEND=noninteractive && apt install -y pkg-config
 apt install -y openssh-server wget vim net-tools make gcc g++ iproute2 git
 apt install -y libgl1-mesa-glx libfreetype6-dev libjpeg62 lzma liblzma-dev
 apt install -y liblapack-dev libblas-dev libxml2-dev libxslt-dev build-essential libjpeg-dev libgfortran4 nodejs gfortran zlib1g-dev libhdf5-dev libexpat1-dev
-apt install -y libsqlite3-dev curl llvm tk-dev libssl-dev xz-utils libncursesw5-dev libncurses5-dev libbz2-dev libreadline-dev make libssl-dev faad
+apt install -y libsqlite3-dev curl llvm tk-dev libssl-dev xz-utils libncursesw5-dev libncurses5-dev libbz2-dev libreadline-dev make libssl-dev faad tesseract-ocr
 
 if [  -n "$(cat /etc/issue | grep Ubuntu)" ]; then
     # fix python 3.7.6 for imageai
@@ -36,9 +36,9 @@ if [ ! -f "tensorflow-2.4.0-cp37-none-linux_aarch64.whl" ]; then
 fi
 python3.7 -m pip install --upgrade pip
 python3.7 -m pip install Cython==0.29.18 numpy==1.19.3
-python3.7 -m pip install wheel tensorflow-2.4.0-cp37-none-linux_aarch64.whl versioned-hdf5 scipy==1.4.1 h5py==2.10.0 numpy==1.19.3 lxml matplotlib==3.3.2 pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 dash dash-bootstrap-components seaborn kaleido imageai==2.1.6 keras==2.4.3 scikit-learn jupyterlab-dash pillow==7.0.0 Cython==0.29.18 python-nonblock
+python3.7 -m pip install wheel tensorflow-2.4.0-cp37-none-linux_aarch64.whl versioned-hdf5 scipy==1.4.1 h5py==2.10.0 numpy==1.19.3 lxml matplotlib==3.3.2 pandas ipython future cython requests xlrd jupyterlab jupytext plotly python-pptx autopep8 dash dash-bootstrap-components seaborn kaleido imageai==2.1.6 keras==2.4.3 scikit-learn jupyterlab-dash pillow==7.0.0 Cython==0.29.18 pytesseract
 #--no-binary :all: --force-reinstall
-python3.7 -m pip install termux-api pimux
+python3.7 -m pip install termux-api pimux simplejson
 
 if [ ! -d "h5py-2.10.0" ]; then
 	wget https://github.com/h5py/h5py/releases/download/2.10.0/h5py-2.10.0.tar.gz

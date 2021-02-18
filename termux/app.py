@@ -61,6 +61,7 @@ sidebar = html.Div(
                 dbc.NavLink("Home", href="/", active="exact"),
                 dbc.NavLink("CameraAI", href="/CameraAI", active="exact"),
                 dbc.NavLink("MicrophoneAI", href="/MicrophoneAI", active="exact"),
+                dbc.NavLink("BotAI", href="/BotAI", active="exact"),
                 dbc.NavLink("Chart", href="/Chart", active="exact"),
                 dbc.NavLink("JupyterLab", href="/JupyterLab", active="exact"),
                 dbc.NavLink("SSHD", href="/SSHD", active="exact"),
@@ -193,6 +194,37 @@ def trigger_microphone(n_clicks):
     print('text:%s'%text)
     return text
 
+# botAI APP
+BotAI_layout = html.Div([
+    html.Button('Capture', id='BotAI-capture', n_clicks=0),
+    html.Img(id='BotAI-output')
+])
+@app.callback(
+    dash.dependencies.Output('BotAI-output', 'src'),
+    [dash.dependencies.Input('BotAI-capture', 'n_clicks')])
+def trigger_botAI_output(n_clicks):
+    if n_clicks == 0 :
+        return ''
+    print('trigger BotAI %d'%n_clicks)
+    pwd = os.environ['PWD']
+    camera_image = '%s/camera.jpeg'%pwd
+    function.camera().takephoto(saveas=camera_image)
+    import cv2
+    import pytesseract
+    img = cv2.imread(camera_image)
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    ret, thresh1 = cv2.threshold(gray, 0, 255, cv2.THRESH_OTSU | cv2.THRESH_BINARY_INV)
+    rect_kernel = cv2.getStructuringElement(cv2.MORPH_RECT,(18,18))
+    dilation = cv2.dilate(thresh1, rect_kernel, iterations = 1)
+    contours, hierarchy = cv2.findContours(dilation, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    im2 = img.copy()
+    for cnt in contours:
+        x, y, w, h = cv2.boundingRect(cnt)
+        rect = cv2.rectangle(im2, (x,y), (x+w, y+h), (0, 255, 0), 2)
+        cropped = im2[y:y+h, x:x+w]
+        text = pytesseract.image_to_string(cropped)
+        print(x, y, w, h, text)
+    
 # jupyterlab APP
 
 JupyterLab_layout = html.Div([
@@ -217,8 +249,6 @@ def trigger_jupyterlab_output(n_clicks, value):
     os.system('./jupyter.sh -P %s'%value)
     os.system('./jupyter.sh -j >jupyter.log 2>&1 &')
     return 'JupyterLab is running'
-
-from nonblock import nonblock_read
 
 @app.callback(
     dash.dependencies.Output('jupyterlab-output', 'value'),
@@ -301,6 +331,8 @@ def render_page_content(pathname):
         return CameraAI_layout
     elif pathname == "/MicrophoneAI":
         return MicrophoneAI_layout
+    elif pathname == "/BotAI":
+        return BotAI_layout
     elif pathname == "/Chart":
         #return html.P("Oh cool, this is page 2!")
         df=pd.DataFrame([{'a':12,'b':22},{'a':22,'b':12}])
