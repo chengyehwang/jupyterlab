@@ -1,11 +1,24 @@
+if [ ! -d "fdroiddata" ]; then
+    ./server.sh
+fi
 export USE_SDK_WRAPPER=yes
 export ANDROID_HOME=$PWD/android-sdk-linux
 mkdir $ANDROID_HOME
 cd $ANDROID_HOME
-if [ ! -d "cmdline-tools" ]; then
-	wget https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip
-	unzip commandlinetools-linux-6858069_latest.zip
+if [ ! -d "tools" ]; then
+    wget https://dl.google.com/android/repository/tools_r25.2.3-linux.zip
+    unzip tools_r25.2.3-linux.zip
 fi
 export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
-cmdline-tools/bin/sdkmanager --sdk_root=$PWD "platform-tools" "tools" "build-tools;25.0.2" "platforms;android-24"
+android update sdk --no-ui --filter platform-tools,tools,build-tools-25.0.2,android-24
+
+cd ..
+######## new android sdk, but incompatible #################
+return
+
+if [ ! -d "cmdline-tools" ]; then
+       wget https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip
+       unzip commandlinetools-linux-6858069_latest.zip
+
+cmdline-tools/bin/sdkmanager --sdk_root=$PWD "platform-tools" "tools;25.0.2" "build-tools;25.0.2" "platforms;android-24"
 

@@ -1,2 +1,3 @@
 all:
-	sudo su -c "su fdroid -c ./build.sh"
+	cd fdroiddata ; ../fdroidserver/fdroid build org.fdroid.fdroid:16
+
