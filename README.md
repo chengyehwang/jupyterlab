@@ -120,7 +120,9 @@ Key features:
 
 17. ToDo
     * Termux fork and maintain by github
+    * flow to build proot image file (apt + pip ready)
     * Termux GUI webkit -> access localhost:8050 by webkit + javascript
+    * Launch Termux -> ubuntu -> dash -> GUI (without key-in)
     * enable GPU on Termux, tensorflow + GPU
     * BotAI
     *

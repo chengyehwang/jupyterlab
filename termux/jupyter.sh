@@ -106,6 +106,12 @@ launch_buildapk() {
     echo "~/buildAPKs/build.github.bash $1"
     ~/buildAPKs/build.github.bash $1
 }
+install_dash() {
+    script=`realpath -s $0`
+    echo "if [ -f $script ]; then" >> ~/.bash_profile
+    echo "  source $script -d" >> ~/.bash_profile
+    echo "fi" >> ~/.bash_profile
+}
 launch_dash() {
     host=`ip addr show wlan0 | grep "inet\b" | awk '{print $2}' | cut -d/ -f1`
     if [ -z $host ]; then
@@ -148,7 +154,7 @@ install_proot_ubuntu() {
 launch_proot_ubuntu() {
     proot-distro login ubuntu-20.04 --termux-home
 }
-while getopts 'jilP:p:sba:xdtUuv' opt; do
+while getopts 'jilP:p:sba:xDdtUuv' opt; do
     case $opt in
         (j) launch_jupyter_wlan;;
         (i) install;;
@@ -159,6 +165,7 @@ while getopts 'jilP:p:sba:xdtUuv' opt; do
         (b) install_buildapk;;
         (a) launch_buildapk $OPTARG;;
         (x) install_x11;;
+        (D) install_dash;;
         (d) launch_dash;;
         (t) install_tensor;;
         (U) install_proot_ubuntu;;
