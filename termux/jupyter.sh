@@ -137,26 +137,33 @@ install_tensor() {
     git clone https://github.com/tensorflow/tensorflow.git
     cd tensorflow ; bazel build tensorflow/tools/pip_package:build_pip_package --local_ram_resources=2048
 }
-launch_proot_ubuntu() {
+install_proot_ubuntu() {
+    script=`realpath -s $0`
+    echo "if [ -f $script ]; then" >> ~/.bashrc
+    echo "  source $script" >> ~/.bashrc
+    echo "fi" >> ~/.bashrc
     pkg install proot-distro
     proot-distro install ubuntu-20.04
+}
+launch_proot_ubuntu() {
     proot-distro login ubuntu-20.04 --termux-home
 }
-while getopts 'jilP:p:sba:xdtuv' opt; do
+while getopts 'jilP:p:sba:xdtUuv' opt; do
     case $opt in
         (j) launch_jupyter_wlan;;
         (i) install;;
         (l) launch_jupyter_local;;
-	(P) change_jupyter_password $OPTARG;;
-	(p) change_sshd_password $OPTARG;;
+        (P) change_jupyter_password $OPTARG;;
+        (p) change_sshd_password $OPTARG;;
         (s) launch_sshd;;
         (b) install_buildapk;;
         (a) launch_buildapk $OPTARG;;
         (x) install_x11;;
         (d) launch_dash;;
         (t) install_tensor;;
+        (U) install_proot_ubuntu;;
         (u) launch_proot_ubuntu;;
-	(v) install_voice;;
+        (v) install_voice;;
     esac
 done
 
