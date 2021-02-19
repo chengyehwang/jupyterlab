@@ -118,3 +118,9 @@ Key features:
     * ./jupyter.sh -i          # install packages
     * ./jupyter.sh -d          # run dash
 
+17. ToDo
+    * Termux fork and maintain by github
+    * Termux GUI webkit -> access localhost:8050 by webkit + javascript
+    * enable GPU on Termux, tensorflow + GPU
+    * BotAI
+    *

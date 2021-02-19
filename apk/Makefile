@@ -1,8 +1,9 @@
 SHELL := /bin/bash
 all:
 	source sourceme ; cd fdroiddata ; ../fdroidserver/fdroid build -l com.termux.api
-	source sourceme ; cd fdroiddata ; ../fdroidserver/fdroid build -l com.termux
+	source sourceme ; cd fdroiddata ; ../fdroidserver/fdroid build com.termux:108
 	source sourceme ; cd fdroiddata ; ../fdroidserver/fdroid build -l org.fdroid.fdroid
+	source sourceme ; cd fdroiddata ; ../fdroidserver/fdroid publish com.termux.api
 	source sourceme ; cd fdroiddata ; ../fdroidserver/fdroid publish com.termux
 	source sourceme ; cd fdroiddata ; ../fdroidserver/fdroid publish org.fdroid.fdroid
 key:
