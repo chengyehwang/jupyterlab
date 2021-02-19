@@ -139,9 +139,9 @@ install_tensor() {
 }
 install_proot_ubuntu() {
     script=`realpath -s $0`
-    echo "if [ -f $script ]; then" >> ~/.bashrc
-    echo "  source $script -u" >> ~/.bashrc
-    echo "fi" >> ~/.bashrc
+    echo "if [ -f $script ]; then" >> ~/.bash_profile
+    echo "  source $script -u" >> ~/.bash_profile
+    echo "fi" >> ~/.bash_profile
     pkg install proot-distro
     proot-distro install ubuntu-20.04
 }
