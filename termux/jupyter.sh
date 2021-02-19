@@ -108,7 +108,8 @@ launch_buildapk() {
 }
 install_dash() {
     script=`realpath -s $0`
-    echo "if [ -f $script ]; then" >> ~/.bash_profile
+    echo "user=`whoami`" >> ~/.bash_profile
+    echo "if [ $user == root && -f $script ]; then" >> ~/.bash_profile
     echo "  source $script -d" >> ~/.bash_profile
     echo "fi" >> ~/.bash_profile
 }
@@ -145,7 +146,8 @@ install_tensor() {
 }
 install_proot_ubuntu() {
     script=`realpath -s $0`
-    echo "if [ -f $script ]; then" >> ~/.bash_profile
+    echo "user=`whoami`" >> ~/.bash_profile
+    echo "if [ user != root && -f $script ]; then" >> ~/.bash_profile
     echo "  source $script -u" >> ~/.bash_profile
     echo "fi" >> ~/.bash_profile
     pkg install proot-distro
