@@ -1,4 +1,4 @@
-export DEBIAN_FRONTEND=noninteractive && apt install -y fdroidserver disorderfs
+export DEBIAN_FRONTEND=noninteractive && apt install -y fdroidserver disorderfs curl
 fdroid init && fdroid update -c && fdroid update
 pip3 install clint qrcode androguard
 adduser --disabled-password fdroid
