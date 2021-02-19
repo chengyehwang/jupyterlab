@@ -113,16 +113,17 @@ Key features:
     * apt install git
     * git clone https://github.com/chengyehwang/jupyterlab
     * cd jupyterlab/termux
-    * ./jupyter.sh -u          # proot ubuntu 20.04
+    * ./jupyter.sh -U      # install proot ubuntu 20.04 & auto by .bash_profile
+    * ./jupyter.sh -u      # launch proot ubuntu 20.04
     * cd /data/data/com.termux/files/home/jupyterlab/termux
-    * ./jupyter.sh -i          # install packages
-    * ./jupyter.sh -d          # run dash
+    * ./jupyter.sh -i      # install packages
+    * ./jupyter.sh -D      # auto by .bash_profile
+    * ./jupyter.sh -d      # run dash
 
 17. ToDo
     * Termux fork and maintain by github
     * flow to build proot image file (apt + pip ready)
     * Termux GUI webkit -> access localhost:8050 by webkit + javascript
-    * Launch Termux -> ubuntu -> dash -> GUI (without key-in)
     * enable GPU on Termux, tensorflow + GPU
     * BotAI
     *
