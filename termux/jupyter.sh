@@ -158,8 +158,7 @@ launch_proot_ubuntu() {
     proot-distro login ubuntu-20.04 --termux-home
 }
 zip_proot_ubuntu() {
-    tar --one-file-system --create --gzip --file my_ubuntu.tar.gz ~/ubuntu-in-termux/ubuntu-fs
-
+    tar --create --gzip --file my_ubuntu.tar.gz ~/ubuntu-in-termux/ubuntu-fs
 }
 while getopts 'jilP:p:Ssba:xDdtUuzv' opt; do
     case $opt in
