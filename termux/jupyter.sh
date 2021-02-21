@@ -157,7 +157,11 @@ install_proot_ubuntu() {
 launch_proot_ubuntu() {
     proot-distro login ubuntu-20.04 --termux-home
 }
-while getopts 'jilP:p:Ssba:xDdtUuv' opt; do
+zip_proot_ubuntu() {
+    tar --one-file-system --create --gzip --file my_ubuntu.tar.gz ~/ubuntu-in-termux/ubuntu-fs
+
+}
+while getopts 'jilP:p:Ssba:xDdtUuzv' opt; do
     case $opt in
         (j) launch_jupyter_wlan;;
         (i) install;;
@@ -174,6 +178,7 @@ while getopts 'jilP:p:Ssba:xDdtUuv' opt; do
         (t) install_tensor;;
         (U) install_proot_ubuntu;;
         (u) launch_proot_ubuntu;;
+        (z) zip_proot_ubuntu;;
         (v) install_voice;;
     esac
 done
