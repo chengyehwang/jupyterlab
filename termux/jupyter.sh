@@ -3,6 +3,8 @@ install() {
 echo "====== install/update this package    ======"
 apt install -y git
 git pull
+echo "====== install/update sshd package    ======"
+install_sshd
 echo "====== install/update jupyter package ======"
 install_jupyter
 echo "====== install/update voice package   ======"
