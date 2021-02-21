@@ -53,11 +53,8 @@ change_jupyter_password() {
 change_sshd_password() {
         usermod --password $(echo $1 | openssl passwd -1 -stdin) root
 }
-launch_sshd() {
-    if [ ! -f "~/.bash_profile" ]; then
-	echo "cd /data/data/com.termux/files/home/jupyterlab/termux" > ~/.bash_profile
-    fi
-
+install_sshd() {
+	echo "cd /data/data/com.termux/files/home/jupyterlab/termux" >> ~/.bash_profile
     if [  -n "$(cat /etc/issue | grep Ubuntu)" ]; then
         apt install -y openssh-server
         echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
@@ -65,8 +62,10 @@ launch_sshd() {
         echo "AddressFamily any" >> /etc/ssh/sshd_config
         echo "ListenAddress 0.0.0.0" >> /etc/ssh/sshd_config
         echo "ListenAddress ::" >> /etc/ssh/sshd_config
-        /etc/init.d/ssh restart
     fi
+}
+launch_sshd() {
+    /etc/init.d/ssh restart
     user=`whoami`
     echo "adb forward tcp:8022 tcp:8022"
     echo "ssh $user@localhost -p 8022"
@@ -156,13 +155,14 @@ install_proot_ubuntu() {
 launch_proot_ubuntu() {
     proot-distro login ubuntu-20.04 --termux-home
 }
-while getopts 'jilP:p:sba:xDdtUuv' opt; do
+while getopts 'jilP:p:Ssba:xDdtUuv' opt; do
     case $opt in
         (j) launch_jupyter_wlan;;
         (i) install;;
         (l) launch_jupyter_local;;
         (P) change_jupyter_password $OPTARG;;
         (p) change_sshd_password $OPTARG;;
+        (S) install_sshd;;
         (s) launch_sshd;;
         (b) install_buildapk;;
         (a) launch_buildapk $OPTARG;;
