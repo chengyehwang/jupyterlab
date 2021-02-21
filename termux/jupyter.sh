@@ -158,7 +158,7 @@ launch_proot_ubuntu() {
     proot-distro login ubuntu-20.04 --termux-home
 }
 zip_proot_ubuntu() {
-    cd ~/ubuntu-in-termux/ubuntu-fs ; tar --create --gzip --file /data/data/com.termux/files/home/jupyterlab/termux/my_ubuntu.tar.gz
+    cd ~/ubuntu-in-termux/ubuntu-fs ; tar --exclude='./root/.cache' --exclude='./tmp' --create --gzip --file /data/data/com.termux/files/home/jupyterlab/termux/my_ubuntu.tar.gz
 }
 while getopts 'jilP:p:Ssba:xDdtUuzv' opt; do
     case $opt in
