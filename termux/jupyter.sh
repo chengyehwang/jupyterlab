@@ -145,6 +145,11 @@ install_tensor() {
     git clone https://github.com/tensorflow/tensorflow.git
     cd tensorflow ; bazel build tensorflow/tools/pip_package:build_pip_package --local_ram_resources=2048
 }
+install_proot_myubuntu() {
+    pkg install proot-distro
+    cp myubuntu.sh /data/data/com.termux/files/usr/etc/proot-distro/
+    proot-distro install myubuntu
+}
 install_proot_ubuntu() {
     script=`realpath -s $0`
     echo "user=\`whoami\`" >> ~/.bash_profile
