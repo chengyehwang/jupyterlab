@@ -166,8 +166,11 @@ launch_proot_ubuntu() {
     proot-distro login ubuntu-20.04 --termux-home
 }
 zip_proot_ubuntu() {
-    tar --one-file-system --ignore-failed-read --exclude='./vendor' --exclude='./system' --exclude='./apex' --exclude='./root/.cache' --exclude='./tmp' --exclude='./data' --exclude='./dev' --exclude='./sdcard' --exclude='./storage' --exclude='./root/jupyterlab' --create --gzip --file /data/data/com.termux/files/home/jupyterlab/termux/my_ubuntu.tar.gz -C /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/ubuntu-20.04 .
-    scp ~/jupyterlab/termux/my_ubuntu.tar.gz cywang@192.168.0.189:ubuntu_image/my_ubuntu.tar.gz
+    cd ~ && git clone https://github.com/chengyehwang/ubuntu_image.git
+    tar --one-file-system --ignore-failed-read --exclude='./vendor' --exclude='./system' --exclude='./apex' --exclude='./root/.cache' --exclude='./tmp' --exclude='./data' --exclude='./dev' --exclude='./sdcard' --exclude='./storage' --exclude='./root/jupyterlab' --create --gzip --file /data/data/com.termux/files/home/ubuntu_image/my_ubuntu.tar.gz -C /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/ubuntu-20.04 .
+    cd ~/ubuntu_image && git add my_ubuntu.tar.gz
+    cd ~/ubuntu_image && git commit
+    cd ~/ubuntu_image && git push
 }
 while getopts 'jilP:p:Ssba:xDdtUuMmzv' opt; do
     case $opt in
