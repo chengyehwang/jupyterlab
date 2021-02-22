@@ -150,6 +150,9 @@ install_proot_myubuntu() {
     cp myubuntu.sh /data/data/com.termux/files/usr/etc/proot-distro/
     proot-distro install myubuntu
 }
+launch_proot_ubuntu() {
+    proot-distro login myubuntu --termux-home
+}
 install_proot_ubuntu() {
     script=`realpath -s $0`
     echo "user=\`whoami\`" >> ~/.bash_profile
@@ -166,7 +169,7 @@ zip_proot_ubuntu() {
     tar --one-file-system --ignore-failed-read --exclude='./root/.cache' --exclude='./tmp' --exclude='./data' --exclude='./dev' --exclude='./sdcard' --exclude='./storage' --exclude='./host-rootfs' --exclude='./root/jupyterlab' --create --gzip --file /data/data/com.termux/files/home/jupyterlab/termux/my_ubuntu.tar.gz -C /data/data/com.termux/files/home/ubuntu-in-termux/ubuntu-fs .
     scp ~/jupyterlab/termux/my_ubuntu.tar.gz cywang@192.168.0.189:jupyterlab/termux/my_ubuntu.tar.gz
 }
-while getopts 'jilP:p:Ssba:xDdtUuzv' opt; do
+while getopts 'jilP:p:Ssba:xDdtUuMmzv' opt; do
     case $opt in
         (j) launch_jupyter_wlan;;
         (i) install;;
@@ -183,6 +186,8 @@ while getopts 'jilP:p:Ssba:xDdtUuzv' opt; do
         (t) install_tensor;;
         (U) install_proot_ubuntu;;
         (u) launch_proot_ubuntu;;
+        (M) install_proot_myubuntu;;
+        (m) launch_proot_myubuntu;;
         (z) zip_proot_ubuntu;;
         (v) install_voice;;
     esac
