@@ -171,7 +171,7 @@ zip_proot_ubuntu() {
     cd ~/ubuntu_image && git add my_ubuntu.tar.gz
     cd ~/ubuntu_image && git config --global user.email "cywang.eda@gmail.com"
     cd ~/ubuntu_image && git config --global user.name "chengyehwang"
-    cd ~/ubuntu_image && git commit
+    cd ~/ubuntu_image && git commit -m "update image"
     cd ~/ubuntu_image && git push
 }
 while getopts 'jilP:p:Ssba:xDdtUuMmzv' opt; do
