@@ -158,7 +158,7 @@ launch_proot_ubuntu() {
     proot-distro login ubuntu-20.04 --termux-home
 }
 zip_proot_ubuntu() {
-    tar --one-file-system --exclude='./root/.cache' --exclude='./tmp' --exclude='./root/jupyterlab' --create --gzip --file ~/jupyterlab/termux/my_ubuntu.tar.gz -C ~/ubuntu-in-termu/ubuntu-fs .
+    tar --one-file-system --exclude='./root/.cache' --exclude='./tmp' --exclude='./root/jupyterlab' --create --gzip --file ~/jupyterlab/termux/my_ubuntu.tar.gz -C ~/ubuntu-in-termux/ubuntu-fs .
     scp ~/jupyterlab/termux/my_ubuntu.tar.gz cywang@192.168.0.189:jupyterlab/termux/my_ubuntu.tar.gz
 }
 while getopts 'jilP:p:Ssba:xDdtUuzv' opt; do
