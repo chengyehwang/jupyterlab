@@ -24,7 +24,7 @@ get_download_url() {
 	local rootfs
 	local sha256
 
-	rootfs="https://github.com/chengyehwang/ubuntu_image/blob/main/my_ubuntu.tar.gz"
+	rootfs="https://github.com/chengyehwang/ubuntu_image/raw/main/my_ubuntu.tar.gz"
 	sha256="588688a4ba3c2d2f875c24706e3defb8a43eb522bfc9c00a2541c82f09321c77"
 
 	echo "${sha256}|${rootfs}"
