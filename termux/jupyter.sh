@@ -168,6 +168,7 @@ launch_proot_ubuntu() {
 zip_proot_ubuntu() {
     apt install make
     cd ~ && git clone https://github.com/chengyehwang/ubuntu_image.git
+    cd ~/ubuntu_image && git pull
     tar --one-file-system --ignore-failed-read --exclude='./vendor' --exclude='./system' --exclude='./apex' --exclude='./root/.cache' --exclude='./tmp' --exclude='./data' --exclude='./dev' --exclude='./sdcard' --exclude='./storage' --exclude='./root/jupyterlab' --create --gzip --file /data/data/com.termux/files/home/ubuntu_image/my_ubuntu.tar.gz -C /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/ubuntu-20.04 .
     cd ~/ubuntu_image && make split
     cd ~/ubuntu_image && make git
