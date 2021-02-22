@@ -23,8 +23,6 @@ DISTRO_NAME="myubuntu"
 get_download_url() {
 	local rootfs
 	local sha256
-    git clone https://github.com/chengyehwang/ubuntu_image
-    cd ubuntu_image
 	rootfs="file:///data/data/com.termux/files/home/ubuntu_image/myubunutu.tar.gz"
 	sha256="e266780dc8400897f2218c7a1b89e0e04cf88b94e23a73815400d6a521c11955"
 
