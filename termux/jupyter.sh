@@ -56,6 +56,7 @@ change_sshd_password() {
         usermod --password $(echo $1 | openssl passwd -1 -stdin) root
 }
 install_sshd() {
+	echo "export GIT_SSL_NO_VERIFY=true" >> ~/.bash_profile
 	echo "cd /data/data/com.termux/files/home/jupyterlab/termux" >> ~/.bash_profile
     if [  -n "$(cat /etc/issue | grep Ubuntu)" ]; then
         apt install -y openssh-server
@@ -175,7 +176,7 @@ zip_proot_ubuntu() {
     cd ~/ubuntu_image && git config --global user.email "cywang.eda@gmail.com"
     cd ~/ubuntu_image && git config --global user.name "chengyehwang"
     cd ~/ubuntu_image && make split
-    cd ~/ubuntu_image && git push
+    cd ~/ubuntu_image && export GIT_SSL_NO_VERIFY=true && git push
 }
 while getopts 'jilP:p:Ssba:xDdtUuMmzv' opt; do
     case $opt in
