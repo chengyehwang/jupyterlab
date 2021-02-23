@@ -166,6 +166,18 @@ install_proot_ubuntu() {
 launch_proot_ubuntu() {
     proot-distro login ubuntu-20.04 --termux-home
 }
+
+auto_from_zero() {
+    echo "~/jupyterlab/termux/jupyter.sh -a" > ~/.bash_profile
+    broot-distro remove ubuntu-20.04
+    install_proot_ubuntu
+    launch_proot_ubuntu
+}
+auto_install_zip() {
+    echo "" > ~/.bash_profile
+    install
+    zip_proot_ubuntu
+}
 zip_proot_ubuntu() {
     apt install make
     cd ~ && git clone https://github.com/chengyehwang/ubuntu_image.git
@@ -177,7 +189,7 @@ zip_proot_ubuntu() {
     cd ~/ubuntu_image && make split
     cd ~/ubuntu_image && export GIT_SSL_NO_VERIFY=true && git push
 }
-while getopts 'jilP:p:Ssba:xDdtUuMmzv' opt; do
+while getopts 'jilP:p:Ssba:xDdtUuMmAazv' opt; do
     case $opt in
         (j) launch_jupyter_wlan;;
         (i) install;;
@@ -196,6 +208,8 @@ while getopts 'jilP:p:Ssba:xDdtUuMmzv' opt; do
         (u) launch_proot_ubuntu;;
         (M) install_proot_myubuntu;;
         (m) launch_proot_myubuntu;;
+        (A) auto_from_zero;;
+        (a) auto_install_zip;;
         (z) zip_proot_ubuntu;;
         (v) install_voice;;
     esac
