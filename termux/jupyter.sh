@@ -1,6 +1,9 @@
 #!/usr/bin/bash
 install() {
 echo "====== install/update this package    ======"
+export DEBIAN_FRONTEND=noninteractive && apt update -y
+export DEBIAN_FRONTEND=noninteractive && apt upgrade -y
+export DEBIAN_FRONTEND=noninteractive && apt install -y pkg-config
 apt install -y git
 git pull
 echo "====== install/update sshd package    ======"
@@ -12,9 +15,6 @@ install_voice
 echo "====== the install is complete        ======"
 }
 install_jupyter () {
-export DEBIAN_FRONTEND=noninteractive && apt update -y
-export DEBIAN_FRONTEND=noninteractive && apt upgrade -y
-export DEBIAN_FRONTEND=noninteractive && apt install -y pkg-config
 apt install -y openssh-server wget vim net-tools make gcc g++ iproute2 git git-lfs
 apt install -y libgl1-mesa-glx libfreetype6-dev libjpeg62 lzma liblzma-dev
 apt install -y liblapack-dev libblas-dev libxml2-dev libxslt-dev build-essential libjpeg-dev libgfortran4 nodejs gfortran zlib1g-dev libhdf5-dev libexpat1-dev
