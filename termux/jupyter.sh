@@ -148,27 +148,12 @@ install_tensor() {
 }
 install_proot_myubuntu() {
     pkg install proot-distro
-    #cp myubuntu.sh /data/data/com.termux/files/usr/etc/proot-distro/
     proot-distro restore ~/ubuntu_image/myubuntu.tar.gz
-    #proot-distro remove myubuntu
-    #proot-distro install myubuntu
     script=`realpath -s $0`
     echo "user=\`whoami\`" >> ~/.bash_profile
     echo "if [[ \"\$user\" != \"root\" ]] && [ -f $script ]; then" >> ~/.bash_profile
     echo "  source $script -m" >> ~/.bash_profile
     echo "fi" >> ~/.bash_profile
-    #proot -r
-}
-fix() {
-	rm /var/lib/dpkg/.l2s.status0001
-	rm /var/lib/dpkg/status-old
-	touch /var/lib/dpkg/status-old
-	touch /var/lib/dpkg/status
-	dpkg --configure -a
-	apt --fix-broken install
-}
-launch_proot_myubuntu() {
-    proot-distro login myubuntu --termux-home
 }
 install_proot_ubuntu() {
     pkg install proot-distro
@@ -201,7 +186,7 @@ zip_proot_ubuntu() {
     cd ~/ubuntu_image && make split
     cd ~/ubuntu_image && export GIT_SSL_NO_VERIFY=true && git push
 }
-while getopts 'fjilP:p:SsxDdtUuMmAazv' opt; do
+while getopts 'fjilP:p:SsxDdtUuMAazv' opt; do
     case $opt in
         (f) fix;;
         (j) launch_jupyter_wlan;;
@@ -218,7 +203,6 @@ while getopts 'fjilP:p:SsxDdtUuMmAazv' opt; do
         (U) install_proot_ubuntu;;
         (u) launch_proot_ubuntu;;
         (M) install_proot_myubuntu;;
-        (m) launch_proot_myubuntu;;
         (A) auto_from_zero;;
         (a) auto_install_zip;;
         (z) zip_proot_ubuntu;;
