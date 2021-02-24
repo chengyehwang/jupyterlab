@@ -175,7 +175,7 @@ launch_proot_ubuntu() {
 auto_from_zero() {
     echo "~/jupyterlab/termux/jupyter.sh -a" > ~/.bash_profile
     echo "exit" >> ~/.bash_profile
-    broot-distro remove ubuntu-20.04
+    proot-distro remove ubuntu-20.04
     install_proot_ubuntu
     launch_proot_ubuntu
     zip_proot_ubuntu
