@@ -156,11 +156,15 @@ install_proot_myubuntu() {
     echo "if [[ \"\$user\" != \"root\" ]] && [ -f $script ]; then" >> ~/.bash_profile
     echo "  source $script -m" >> ~/.bash_profile
     echo "fi" >> ~/.bash_profile
+    #proot -r
 }
 fix() {
 	rm /var/lib/dpkg/.l2s.status0001
 	rm /var/lib/dpkg/status-old
+	touch /var/lib/dpkg/status-old
+	touch /var/lib/dpkg/status
 	dpkg --configure -a
+	apt --fix-broken install
 }
 launch_proot_myubuntu() {
     proot-distro login myubuntu --termux-home
