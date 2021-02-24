@@ -149,7 +149,7 @@ install_tensor() {
 install_proot_myubuntu() {
     pkg install proot-distro
     #cp myubuntu.sh /data/data/com.termux/files/usr/etc/proot-distro/
-    proot-distro restore ~/ubuntu-image/myubuntu.tar.gz
+    proot-distro restore ~/ubuntu_image/myubuntu.tar.gz
     #proot-distro remove myubuntu
     #proot-distro install myubuntu
     script=`realpath -s $0`
