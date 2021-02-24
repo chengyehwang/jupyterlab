@@ -151,6 +151,11 @@ install_proot_myubuntu() {
     cp myubuntu.sh /data/data/com.termux/files/usr/etc/proot-distro/
     proot-distro reset myubuntu
 }
+fix() {
+	rm /var/lib/dpkg/.l2s.status0001
+	rm /var/lib/dpkg/status-old
+	dpkg --configure -a
+}
 launch_proot_myubuntu() {
     proot-distro login myubuntu --termux-home
 }
@@ -189,8 +194,9 @@ zip_proot_ubuntu() {
     cd ~/ubuntu_image && make split
     cd ~/ubuntu_image && export GIT_SSL_NO_VERIFY=true && git push
 }
-while getopts 'jilP:p:Ssba:xDdtUuMmAazv' opt; do
+while getopts 'fjilP:p:Ssba:xDdtUuMmAazv' opt; do
     case $opt in
+	(f) fix;;
         (j) launch_jupyter_wlan;;
         (i) install;;
         (l) launch_jupyter_local;;
