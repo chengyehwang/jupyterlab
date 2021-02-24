@@ -1,5 +1,6 @@
 #!/usr/bin/bash
 install() {
+echo "cd /data/data/com.termux/files/home/jupyterlab/termux" > ~/.bash_profile
 echo "====== install/update this package    ======"
 export DEBIAN_FRONTEND=noninteractive && apt update -y
 export DEBIAN_FRONTEND=noninteractive && apt upgrade -y
@@ -57,7 +58,6 @@ change_sshd_password() {
 }
 install_sshd() {
 	echo "export GIT_SSL_NO_VERIFY=true" >> ~/.bash_profile
-	echo "cd /data/data/com.termux/files/home/jupyterlab/termux" >> ~/.bash_profile
     if [  -n "$(cat /etc/issue | grep Ubuntu)" ]; then
         apt install -y openssh-server
         echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
@@ -173,7 +173,8 @@ launch_proot_ubuntu() {
 }
 
 auto_from_zero() {
-    echo "~/jupyterlab/termux/jupyter.sh -a" > ~/.bash_profile
+    echo "cd /data/data/com.termux/files/home/jupyterlab/termux" > ~/.bash_profile
+    echo "~/jupyterlab/termux/jupyter.sh -a" >> ~/.bash_profile
     echo "exit" >> ~/.bash_profile
     proot-distro remove ubuntu-20.04
     install_proot_ubuntu
@@ -181,7 +182,6 @@ auto_from_zero() {
     zip_proot_ubuntu
 }
 auto_install_zip() {
-    echo "" > ~/.bash_profile
     install
 }
 zip_proot_ubuntu() {
