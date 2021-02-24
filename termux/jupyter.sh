@@ -195,9 +195,9 @@ zip_proot_ubuntu() {
     cd ~/ubuntu_image && make split
     cd ~/ubuntu_image && export GIT_SSL_NO_VERIFY=true && git push
 }
-while getopts 'fjilP:p:Ssba:xDdtUuMmAazv' opt; do
+while getopts 'fjilP:p:SsxDdtUuMmAazv' opt; do
     case $opt in
-	(f) fix;;
+        (f) fix;;
         (j) launch_jupyter_wlan;;
         (i) install;;
         (l) launch_jupyter_local;;
@@ -205,8 +205,6 @@ while getopts 'fjilP:p:Ssba:xDdtUuMmAazv' opt; do
         (p) change_sshd_password $OPTARG;;
         (S) install_sshd;;
         (s) launch_sshd;;
-        (b) install_buildapk;;
-        (a) launch_buildapk $OPTARG;;
         (x) install_x11;;
         (D) install_dash;;
         (d) launch_dash;;
