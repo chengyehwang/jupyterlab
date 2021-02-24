@@ -11,8 +11,16 @@ echo "====== install/update sshd package    ======"
 install_sshd
 echo "====== install/update jupyter package ======"
 install_jupyter
+echo "====== install/update dash package    ======"
+install_dash
 echo "====== install/update voice package   ======"
 install_voice
+echo "====== install/update auto proot      ======"
+    script="~/jupyterlab/termux/jupyter.sh"
+    echo "user=\`whoami\`" >> ~/.bash_profile
+    echo "if [[ \"\$user\" != \"root\" ]] && [ -f $script ]; then" >> ~/.bash_profile
+    echo "  source $script -u" >> ~/.bash_profile
+    echo "fi" >> ~/.bash_profile
 echo "====== the install is complete        ======"
 }
 install_jupyter () {
@@ -109,7 +117,7 @@ launch_buildapk() {
     ~/buildAPKs/build.github.bash $1
 }
 install_dash() {
-    script=`realpath -s $0`
+    script="~/jupyterlab/termux/jupyter.sh"
     echo "user=\`whoami\`" >> ~/.bash_profile
     echo "if [[ \"\$user\" == \"root\" ]] && [ -f $script ]; then" >> ~/.bash_profile
     echo "  source $script -d" >> ~/.bash_profile
@@ -149,11 +157,6 @@ install_tensor() {
 install_proot_myubuntu() {
     pkg install proot-distro
     proot-distro restore ~/ubuntu_image/myubuntu.tar.gz
-    script=`realpath -s $0`
-    echo "user=\`whoami\`" >> ~/.bash_profile
-    echo "if [[ \"\$user\" != \"root\" ]] && [ -f $script ]; then" >> ~/.bash_profile
-    echo "  source $script -m" >> ~/.bash_profile
-    echo "fi" >> ~/.bash_profile
 }
 install_proot_ubuntu() {
     pkg install proot-distro
