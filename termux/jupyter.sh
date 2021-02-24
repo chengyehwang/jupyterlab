@@ -156,6 +156,7 @@ install_tensor() {
 }
 install_proot_myubuntu() {
     pkg install proot-distro
+    proot-distro remove ubuntu-20.04
     proot-distro restore ~/ubuntu_image/myubuntu.tar.gz
 }
 install_proot_ubuntu() {
