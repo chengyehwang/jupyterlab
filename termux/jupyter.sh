@@ -119,7 +119,7 @@ launch_buildapk() {
 install_dash() {
     script="~/jupyterlab/termux/jupyter.sh"
     echo "user=\`whoami\`" >> ~/.bash_profile
-    echo "if [[ \"\$user\" == \"root\" ]] && [ -f $script ]; then" >> ~/.bash_profile
+    echo "if [[ \"\$user\" == \"root\" ]] && [ -f $script ] && [ ! -v SSH_TTY ]; then" >> ~/.bash_profile
     echo "  source $script -d" >> ~/.bash_profile
     echo "fi" >> ~/.bash_profile
 }
