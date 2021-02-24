@@ -149,7 +149,13 @@ install_tensor() {
 install_proot_myubuntu() {
     pkg install proot-distro
     cp myubuntu.sh /data/data/com.termux/files/usr/etc/proot-distro/
-    proot-distro reset myubuntu
+    proot-distro remove myubuntu
+    proot-distro install myubuntu
+    script=`realpath -s $0`
+    echo "user=\`whoami\`" >> ~/.bash_profile
+    echo "if [[ \"\$user\" != \"root\" ]] && [ -f $script ]; then" >> ~/.bash_profile
+    echo "  source $script -m" >> ~/.bash_profile
+    echo "fi" >> ~/.bash_profile
 }
 fix() {
 	rm /var/lib/dpkg/.l2s.status0001
@@ -160,13 +166,8 @@ launch_proot_myubuntu() {
     proot-distro login myubuntu --termux-home
 }
 install_proot_ubuntu() {
-    script=`realpath -s $0`
-    echo "user=\`whoami\`" >> ~/.bash_profile
-    echo "if [[ \"\$user\" != \"root\" ]] && [ -f $script ]; then" >> ~/.bash_profile
-    echo "  source $script -u" >> ~/.bash_profile
-    echo "fi" >> ~/.bash_profile
     pkg install proot-distro
-    proot-distro reset ubuntu-20.04
+    proot-distro install ubuntu-20.04
 }
 launch_proot_ubuntu() {
     proot-distro login ubuntu-20.04 --termux-home
