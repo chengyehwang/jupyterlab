@@ -148,9 +148,10 @@ install_tensor() {
 }
 install_proot_myubuntu() {
     pkg install proot-distro
-    cp myubuntu.sh /data/data/com.termux/files/usr/etc/proot-distro/
-    proot-distro remove myubuntu
-    proot-distro install myubuntu
+    #cp myubuntu.sh /data/data/com.termux/files/usr/etc/proot-distro/
+    proot-distro restore ~/ubuntu-image/myubuntu.tar.gz
+    #proot-distro remove myubuntu
+    #proot-distro install myubuntu
     script=`realpath -s $0`
     echo "user=\`whoami\`" >> ~/.bash_profile
     echo "if [[ \"\$user\" != \"root\" ]] && [ -f $script ]; then" >> ~/.bash_profile
