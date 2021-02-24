@@ -174,21 +174,22 @@ launch_proot_ubuntu() {
 
 auto_from_zero() {
     echo "~/jupyterlab/termux/jupyter.sh -a" > ~/.bash_profile
+    echo "exit" >> ~/.bash_profile
     broot-distro remove ubuntu-20.04
     install_proot_ubuntu
     launch_proot_ubuntu
+    zip_proot_ubuntu
 }
 auto_install_zip() {
     echo "" > ~/.bash_profile
     install
-    zip_proot_ubuntu
 }
 zip_proot_ubuntu() {
     apt install make
     cd ~ && git clone https://github.com/chengyehwang/ubuntu_image.git
     cd ~/ubuntu_image && git pull
-    tar --one-file-system --ignore-failed-read --exclude='/root/.cache' --exclude='/data' --exclude='/root/jupyterlab' --exclude='/root/ubuntu_image' --create --gzip --file /data/data/com.termux/files/home/ubuntu_image/myubuntu.tar.gz /
-    #tar --one-file-system --ignore-failed-read --exclude='./vendor' --exclude='./system' --exclude='./apex' --exclude='./root/.cache' --exclude='./tmp' --exclude='./data' --exclude='./dev' --exclude='./sdcard' --exclude='./storage' --exclude='./root/jupyterlab' --create --gzip --file /data/data/com.termux/files/home/ubuntu_image/myubuntu.tar.gz -C /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/ubuntu-20.04 .
+    cd ~/ubuntu_image && rm myubuntu.tar.gz
+    cd ~/ubuntu_image && proot-distro backup ubuntu-20.04 --output myubuntu.tar.gz
     cd ~/ubuntu_image && git config --global user.email "cywang.eda@gmail.com"
     cd ~/ubuntu_image && git config --global user.name "chengyehwang"
     cd ~/ubuntu_image && make split
