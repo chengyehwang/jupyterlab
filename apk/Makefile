@@ -10,7 +10,7 @@ key:
 	source sourceme ; cd fdroiddata ; ../fdroidserver/fdroid update --create-key
 boot:
 	cd termux-packages/scripts ; ./generate-bootstraps.sh --architectures aarch64
-	cp termux-packages/scripts/bootstrap-aarch64.zip ./termux-bootstrap/
+	cp termux-packages/scripts/bootstrap-aarch64.zip ./termux_bootstrap/
 
 others:
 	source sourceme ; cd fdroiddata ; ../fdroidserver/fdroid rewritemeta org.fdroid.fdroid
