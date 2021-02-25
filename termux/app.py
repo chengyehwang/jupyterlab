@@ -317,6 +317,7 @@ def trigger_update(n_clicks):
     dash.dependencies.Output('Update-output', 'value'),
     [dash.dependencies.Input('Update-interval', 'n_intervals')])
 def update_update_output(n_intervals):
+    update_output = ''
     if os.path.exists('update.log'):
         with open('update.log') as fd:
             update_output = ''.join(fd.readlines())
