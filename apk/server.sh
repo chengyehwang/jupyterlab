@@ -5,3 +5,5 @@ echo "PATH=\$PATH:$PWD/fdroidserver" >> ~/.bashrc
 git clone https://gitlab.com/fdroid/fdroiddata.git
 ln -s ../keystore.p12 fdroiddata
 ln -s ../config.yml fdroiddata
+git clone https://github.com/termux/termux-packages.git
+git clone https://github.com/chengyehwang/termux_bootstrap.git
