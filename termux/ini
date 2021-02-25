@@ -1,0 +1,9 @@
+# init commands
+apt update
+apt install -y git openssh
+git clone http://github.com/chengyehwang/jupyterlab
+cd ~/jupyterlab/termux && ./jupyter.sh -M
+echo "cd ~/jupyterlab/termux" > ~/.bash_profile
+echo "~/jupyterlab/termux/jupyter.sh -i" >> ~/.bash_profile
+proot-distro install ubuntu-20.04
+cd ~/jupyterlab/termux && ./jupyter.sh -u
