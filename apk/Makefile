@@ -14,3 +14,6 @@ boot:
 
 others:
 	source sourceme ; cd fdroiddata ; ../fdroidserver/fdroid rewritemeta org.fdroid.fdroid
+apk:
+	source sourceme ; cd termux-app ; ./gradlew assemble
+	cp termux-app/app/build/outputs/apk/debug/app-debug.apk termux_bootstrap/termux.apk
