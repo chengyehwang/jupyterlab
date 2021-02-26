@@ -158,6 +158,7 @@ install_proot_myubuntu() {
     apt install -y git make proot-distro
     cd ~ && git clone https://github.com/chengyehwang/ubuntu_image.git
     cd ~/ubuntu_image && make myubuntu.tar.gz
+    proot-distro install ubuntu-20.04
     proot-distro remove ubuntu-20.04
     proot-distro restore ~/ubuntu_image/myubuntu.tar.gz
 }
