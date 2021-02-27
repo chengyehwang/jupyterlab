@@ -55,13 +55,13 @@ CONTENT_STYLE = {
 
 import base64
 
-#snake_jpg = base64.b64encode(open('./snake_jpg', 'rb').read())
+snake_jpg = base64.b64encode(open('./snake.jpg', 'rb').read()).decode()
+snake_jpg = 'data:image/jpeg;base64,%s'%snake_jpg
 
 
 sidebar = html.Div(
     [
-        html.H3("PYTHON", className="display-4"),
-        #html.Img(src="./snake.jpg"),
+        html.Img(src=snake_jpg, style={'width':'100%'}),
         html.Hr(),
         dbc.Nav(
             [
