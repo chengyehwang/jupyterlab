@@ -46,15 +46,22 @@ SIDEBAR_STYLE = {
 # the styles for the main content position it to the right of the sidebar and
 # add some padding.
 CONTENT_STYLE = {
-    "margin-left": "18rem",
+    "width": "40rem",
+    "margin-left": "12rem",
     "margin-right": "2rem",
     "padding": "2rem 1rem",
     "font-size": "20px",
 }
 
+import base64
+
+#snake_jpg = base64.b64encode(open('./snake_jpg', 'rb').read())
+
+
 sidebar = html.Div(
     [
-        html.H3("Termux", className="display-4"),
+        html.H3("PYTHON", className="display-4"),
+        #html.Img(src="./snake.jpg"),
         html.Hr(),
         dbc.Nav(
             [
@@ -128,7 +135,7 @@ def trigger_camera(n_clicks):
 MicrophoneAI_layout = html.Div([
     html.Button('Record', id='MicrophoneAI-record', n_clicks=0),
     dcc.Textarea(id='MicrophoneAI-output', value='',
-        style={'width': '600', 'height': 600})
+        style={'width': '100%', 'height': 600})
 ])
 @app.callback(
     dash.dependencies.Output('MicrophoneAI-output', 'value'),
@@ -234,7 +241,7 @@ JupyterLab_layout = html.Div([
     html.Button('Run', id='jupyterlab-run', n_clicks=0),
     html.Div(id='jupyterlab-status', children='Wait for command'),
     dcc.Textarea(id='jupyterlab-output', value='', readOnly=True,
-        style={'width': '600', 'height': 1200})
+        style={'width': '100%', 'height': 1200})
 ])
 @app.callback(
     dash.dependencies.Output('jupyterlab-status', 'children'),
@@ -269,7 +276,7 @@ SSHD_layout = html.Div([
     html.Div(id='SSHD-status', children='Wait for command'),
     dcc.Interval(id='SSHD-interval', interval=1000, n_intervals=0),
     dcc.Textarea(id='SSHD-output', value='', readOnly=True,
-        style={'width': '600', 'height': 1200})
+        style={'width': '100%', 'height': 1200})
 ])
 @app.callback(
     dash.dependencies.Output('SSHD-status', 'children'),
@@ -301,7 +308,7 @@ Update_layout = html.Div([
     html.Button('Update', id='Update-trigger', n_clicks=0),
     html.Div(id='Update-status', children='Wait for command'),
     dcc.Textarea(id='Update-output', value='', readOnly=True,
-        style={'width': '600', 'height': 1200})
+        style={'width': '100%', 'height': 1200})
 ])
 @app.callback(
     dash.dependencies.Output('Update-status', 'children'),
