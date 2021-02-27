@@ -40,7 +40,7 @@ SIDEBAR_STYLE = {
     "width": "16rem",
     "padding": "2rem 1rem",
     "background-color": "#f8f9fa",
-    #"font-size": "30px",
+    "font-size": "30px",
 }
 
 # the styles for the main content position it to the right of the sidebar and
@@ -49,7 +49,7 @@ CONTENT_STYLE = {
     "margin-left": "18rem",
     "margin-right": "2rem",
     "padding": "2rem 1rem",
-    #"font-size": "30px",
+    "font-size": "30px",
 }
 
 sidebar = html.Div(
@@ -128,7 +128,7 @@ def trigger_camera(n_clicks):
 MicrophoneAI_layout = html.Div([
     html.Button('Record', id='MicrophoneAI-record', n_clicks=0),
     dcc.Textarea(id='MicrophoneAI-output', value='',
-        style={'width': '100%', 'height': 300})
+        style={'width': '300', 'height': 300})
 ])
 @app.callback(
     dash.dependencies.Output('MicrophoneAI-output', 'value'),
@@ -234,7 +234,7 @@ JupyterLab_layout = html.Div([
     html.Button('Run', id='jupyterlab-run', n_clicks=0),
     html.Div(id='jupyterlab-status', children='Wait for command'),
     dcc.Textarea(id='jupyterlab-output', value='', readOnly=True,
-        style={'width': '100%', 'height': 1200})
+        style={'width': '300', 'height': 1200})
 ])
 @app.callback(
     dash.dependencies.Output('jupyterlab-status', 'children'),
@@ -269,7 +269,7 @@ SSHD_layout = html.Div([
     html.Div(id='SSHD-status', children='Wait for command'),
     dcc.Interval(id='SSHD-interval', interval=1000, n_intervals=0),
     dcc.Textarea(id='SSHD-output', value='', readOnly=True,
-        style={'width': '100%', 'height': 1200})
+        style={'width': '300', 'height': 1200})
 ])
 @app.callback(
     dash.dependencies.Output('SSHD-status', 'children'),
@@ -301,7 +301,7 @@ Update_layout = html.Div([
     html.Button('Update', id='Update-trigger', n_clicks=0),
     html.Div(id='Update-status', children='Wait for command'),
     dcc.Textarea(id='Update-output', value='', readOnly=True,
-        style={'width': '100%', 'height': 1200})
+        style={'width': '300', 'height': 1200})
 ])
 @app.callback(
     dash.dependencies.Output('Update-status', 'children'),
