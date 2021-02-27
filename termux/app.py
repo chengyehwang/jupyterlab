@@ -40,7 +40,7 @@ SIDEBAR_STYLE = {
     "width": "16rem",
     "padding": "2rem 1rem",
     "background-color": "#f8f9fa",
-    "font-size": "30px",
+    "font-size": "20px",
 }
 
 # the styles for the main content position it to the right of the sidebar and
@@ -49,7 +49,7 @@ CONTENT_STYLE = {
     "margin-left": "18rem",
     "margin-right": "2rem",
     "padding": "2rem 1rem",
-    "font-size": "30px",
+    "font-size": "20px",
 }
 
 sidebar = html.Div(
