@@ -151,12 +151,12 @@ install_tensor() {
         chmod 755 bazel-4.0.0-linux-arm64
 	cp bazel-4.0.0-linux-arm64 /usr/bin/bazel
     fi
-    git clone https://github.com/tensorflow/tensorflow.git
+    git clone https://github.com/tensorflow/tensorflow.git --depth 1
     cd tensorflow ; bazel build tensorflow/tools/pip_package:build_pip_package --local_ram_resources=2048
 }
 install_proot_myubuntu() {
     apt install -y git make proot-distro
-    cd ~ && git clone https://github.com/chengyehwang/ubuntu_image.git
+    cd ~ && git clone https://github.com/chengyehwang/ubuntu_image.git --depth 1
     cd ~/ubuntu_image && make myubuntu.tar.gz
     proot-distro install ubuntu-20.04
     proot-distro remove ubuntu-20.04
@@ -184,7 +184,7 @@ auto_install_zip() {
 }
 zip_proot_ubuntu() {
     apt install make
-    cd ~ && git clone https://github.com/chengyehwang/ubuntu_image.git
+    cd ~ && git clone https://github.com/chengyehwang/ubuntu_image.git --depth 1
     cd ~/ubuntu_image && git pull
     cd ~/ubuntu_image && rm myubuntu.tar.gz
     cd ~/ubuntu_image && proot-distro backup ubuntu-20.04 --output myubuntu.tar.gz
