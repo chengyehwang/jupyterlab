@@ -17,3 +17,6 @@ others:
 apk:
 	source sourceme ; cd termux-app ; ./gradlew assemble
 	cp termux-app/app/build/outputs/apk/debug/app-debug.apk termux_bootstrap/termux.apk
+	cd termux_bootstrap ; git add termux.apk
+	cd termux_bootstrap ; git commit -m "update"
+	cd termux_bootstrap ; git push
