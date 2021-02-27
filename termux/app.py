@@ -54,7 +54,7 @@ CONTENT_STYLE = {
 
 sidebar = html.Div(
     [
-        html.H2("Termux", className="display-4"),
+        html.H3("Termux", className="display-4"),
         html.Hr(),
         dbc.Nav(
             [
