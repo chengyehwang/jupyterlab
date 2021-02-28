@@ -155,7 +155,7 @@ install_tensor() {
     cd tensorflow ; bazel build tensorflow/tools/pip_package:build_pip_package --local_ram_resources=2048
 }
 install_proot_myubuntu() {
-    apt install -y git make proot-distro
+    apt install -y git make proot-distro termux-api
     cd ~ && git clone https://github.com/chengyehwang/ubuntu_image.git --depth 1
     cd ~/ubuntu_image && make myubuntu.tar.gz
     proot-distro install ubuntu-20.04
