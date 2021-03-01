@@ -15,8 +15,13 @@ boot:
 others:
 	source sourceme ; cd fdroiddata ; ../fdroidserver/fdroid rewritemeta org.fdroid.fdroid
 apk:
+	-rm termux-app/app/build/outputs/apk/release/app-release-unsigned.apk
 	source sourceme ; cd termux-app ; ./gradlew assemble
-	cp termux-app/app/build/outputs/apk/debug/app-debug.apk termux_bootstrap/termux.apk
+	cp termux-app/app/build/outputs/apk/release/app-release-unsigned.apk termux_bootstrap/termux.apk
+	apksigner sign -ks keystore.jks termux_bootstrap/termux.apk
 	cd termux_bootstrap ; git add termux.apk
 	cd termux_bootstrap ; git commit -m "update"
 	cd termux_bootstrap ; git push
+key:
+	keytool -genkey -alias cywang -keyalg RSA -keypass 123456 -storepass 123456 -keystore keystore.jks
+
