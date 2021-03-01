@@ -194,7 +194,7 @@ zip_proot_ubuntu() {
     cd ~/ubuntu_image && export GIT_SSL_NO_VERIFY=true && git push
 }
 install_build() {
-    git clone https://github.com/termux/termux-packages
+    git clone https://github.com/chengyehwang/termux-packages
     cd termux-packages ; ./scripts/setup-termux.sh
 }
 launch_build() {
