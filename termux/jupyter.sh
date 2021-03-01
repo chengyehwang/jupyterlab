@@ -198,7 +198,7 @@ install_build() {
     cd termux-packages ; ./scripts/setup-termux.sh
 }
 launch_build() {
-    cd termux-packages ; ./build-package.sh -I termux-api
+    cd termux-packages ; ./build-package.sh termux-api
 }
 while getopts 'fjilP:p:SsxDdtUuMAazvBb' opt; do
     case $opt in
