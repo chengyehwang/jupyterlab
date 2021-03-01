@@ -193,7 +193,14 @@ zip_proot_ubuntu() {
     cd ~/ubuntu_image && make split
     cd ~/ubuntu_image && export GIT_SSL_NO_VERIFY=true && git push
 }
-while getopts 'fjilP:p:SsxDdtUuMAazv' opt; do
+install_build() {
+    git clone https://github.com/termux/termux-packages
+    cd termux-packages ; ./scripts/setup-termux.sh
+}
+launch_build() {
+    cd termux-packages ; ./build-package.sh -I termux-api
+}
+while getopts 'fjilP:p:SsxDdtUuMAazvBb' opt; do
     case $opt in
         (f) fix;;
         (j) launch_jupyter_wlan;;
@@ -214,6 +221,8 @@ while getopts 'fjilP:p:SsxDdtUuMAazv' opt; do
         (a) auto_install_zip;;
         (z) zip_proot_ubuntu;;
         (v) install_voice;;
+	(B) install_build;;
+	(b) launch_build;;
     esac
 done
 
