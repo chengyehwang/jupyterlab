@@ -27,4 +27,4 @@ key:
 
 tensor:
 	./build_libtflite_r2.4_aarch64.sh
-	cp tensorflow_r2.4/bazel-bin/tensorflow/lite/delegates/gpu/libtensorflowlite_gpu_delegate.so ./
+	cp tensorflow_r2.4/bazel-bin/tensorflow/lite/delegates/gpu/libtensorflowlite_gpu_delegate.so termux_bootstrap
