@@ -25,3 +25,14 @@ apk:
 key:
 	keytool -genkey -alias cywang -keyalg RSA -keypass 123456 -storepass 123456 -keystore keystore.jks
 
+tensor_download:
+	wget https://github.com/tensorflow/tensorflow/archive/v2.4.0.zip
+	unzip v2.4.0.zip
+tensor_tool:
+	cd tensorflow-2.4.0 ; ./tensorflow/lite/tools/make/download_dependencies.sh
+	cd tensorflow-2.4.0 ; wget https://github.com/bazelbuild/bazel/releases/download/4.0.0/bazel-4.0.0-linux-x86_64
+	cd tensorflow-2.4.0 ; mv bazel-4.0.0-linux-x86_64 bazel
+	cd tensorflow-2.4.0 ; chmod 755 bazel
+tensor_build:
+	cd tensorflow-2.4.0 ; ./bazel build -c opt --config android_arm64 tensorflow/lite/delegates/gpu:libtensorflowlite_gpu_delegate.so  # for dynamic library
+

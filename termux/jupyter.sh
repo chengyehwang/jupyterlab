@@ -221,8 +221,8 @@ while getopts 'fjilP:p:SsxDdtUuMAazvBb' opt; do
         (a) auto_install_zip;;
         (z) zip_proot_ubuntu;;
         (v) install_voice;;
-	(B) install_build;;
-	(b) launch_build;;
+        (B) install_build;;
+        (b) launch_build;;
     esac
 done
 
