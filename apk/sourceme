@@ -24,8 +24,12 @@ if [ ! -d "licenses" ]; then
        ./cmdline-tools/bin/sdkmanager --sdk_root=. --licenses
 fi
 if [ ! -d "ndk" ]; then
-	./cmdline-tools/bin/sdkmanager --sdk_root=$PWD "ndk;22.0.7026061"
+	./cmdline-tools/bin/sdkmanager --sdk_root=$PWD "ndk;18.1.5063045"
 fi
 #"platform-tools" "tools;25.0.2" "build-tools;25.0.2" "platforms;android-24"
+
+if [ ! -f "log" ]; then
+    ./cmdline-tools/bin/sdkmanager  --sdk_root=. --list > log
+fi
 
 cd ..

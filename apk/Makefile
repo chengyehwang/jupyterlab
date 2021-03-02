@@ -34,5 +34,5 @@ tensor_tool:
 	cd tensorflow-2.4.0 ; mv bazel-4.0.0-linux-x86_64 bazel
 	cd tensorflow-2.4.0 ; chmod 755 bazel
 tensor_build:
-	cd tensorflow-2.4.0 ; ./bazel build -c opt --config android_arm64 tensorflow/lite/delegates/gpu:libtensorflowlite_gpu_delegate.so  # for dynamic library
+	cd tensorflow-2.4.0 ; ./bazel build -c opt --fat_apk_cpu=arm64-v8a --host_crosstool_top=@bazel_tools//tools/cpp:toolchain tensorflow/lite/delegates/gpu:libtensorflowlite_gpu_delegate.so  # for dynamic library
 
