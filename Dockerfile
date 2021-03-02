@@ -57,7 +57,8 @@ RUN pip3 install websockify
 COPY install_fdroid.sh /root/install_fdroid.sh
 RUN chmod 755 /root/install_fdroid.sh
 RUN source /opt/miniforge3/etc/profile.d/conda.sh && conda activate && /root/install_fdroid.sh
-RUN  npm install -g @bazel/bazelisk
+RUN export DEBIAN_FRONTEND=noninteractive && apt install -y npm
+RUN npm install -g @bazel/bazelisk
 
 # clean to reduce image size
 RUN apt clean
