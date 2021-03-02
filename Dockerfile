@@ -50,7 +50,7 @@ COPY install_test.sh /root/install_test.sh
 RUN chmod 755 /root/install_test.sh
 RUN source /opt/miniforge3/etc/profile.d/conda.sh && conda activate && /root/install_test.sh
 
-RUN export DEBIAN_FRONTEND=noninteractive && apt-get install -y python3-pip vim-gtk3
+RUN export DEBIAN_FRONTEND=noninteractive && apt-get install -y python3-pip vim-gtk3 libgles2-mesa-dev
 RUN pip3 install websockify
 
 # fdroid
