@@ -1,0 +1,2 @@
+all:
+	pwa-starter

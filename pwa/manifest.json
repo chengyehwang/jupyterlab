@@ -1,0 +1,5 @@
+{
+    "name":"PWA test",
+    "display":"standalone",
+    "start_url":"./index.html",
+}
